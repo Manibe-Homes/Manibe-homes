@@ -1,0 +1,7 @@
+name = "manibe-homes"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "./dist"
+
+# Secrets (RESEND_API_KEY) se configuran en:
+# - Local:      .dev.vars  (nunca subir al repositorio)
+# - Producción: Cloudflare Pages Dashboard > Settings > Environment Variables

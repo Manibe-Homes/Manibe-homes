@@ -1,0 +1,292 @@
+---
+import type { Translations } from '../i18n/translations';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const m = t.models;
+
+const isEN = t.lang === 'en';
+const specsPerModel = [
+  [
+    { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~1,850 sq ft / 172 m²' },
+    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Modern contemporary' : 'Moderno contemporáneo' },
+    { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Double'  : 'Doble' },
+    { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+  ],
+  [
+    { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~2,300 sq ft / 214 m²' },
+    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Modern horizontal' : 'Horizontal moderno' },
+    { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Triple'  : 'Triple' },
+    { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+  ],
+  [
+    { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~1,450 sq ft / 135 m²' },
+    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Cozy modern' : 'Moderno acogedor' },
+    { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Included' : 'Incluido' },
+    { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+  ],
+];
+---
+
+<section id="modelos" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal-fade">
+      <span class="inline-block text-earth-500 text-sm font-semibold tracking-widest uppercase mb-4">
+        {m.tag}
+      </span>
+      <h2 class="section-title text-earth-900 mb-6">
+        {m.title1} <span class="text-earth-600">{m.title2}</span>
+      </h2>
+      <p class="text-earth-500 text-lg max-w-2xl mx-auto font-body leading-relaxed">
+        {m.intro}
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {m.items.map((model, i) => (
+        <div class={`reveal delay-${(i + 1) * 100} card group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 flex flex-col`}
+             data-model-index={i}>
+          <div class="relative overflow-hidden bg-earth-50 aspect-[4/3]">
+            <img
+              src={model.image}
+              alt={model.name}
+              class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            {model.tag && (
+              <div class="absolute top-3 left-3">
+                <span class="bg-gold-400 text-earth-900 text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                  {model.tag}
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-heading text-xl font-bold text-earth-900 mb-4">{model.name}</h3>
+
+            <div class="flex items-center gap-4 mb-4 pb-4 border-b border-earth-100">
+              <div class="flex items-center gap-1.5 text-earth-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="text-sm font-semibold">{model.beds} {m.bedsLabel}</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-earth-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                </svg>
+                <span class="text-sm font-semibold">{model.baths} {m.bathsLabel}</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+              {model.extras.map((extra) => (
+                <span class="bg-earth-50 border border-earth-200 text-earth-600 text-xs font-medium px-3 py-1 rounded-full">
+                  {extra}
+                </span>
+              ))}
+            </div>
+
+            <p class="text-earth-500 text-sm leading-relaxed mb-6 flex-1">{model.description}</p>
+
+            <div class="mt-auto flex gap-2">
+              <button
+                class="model-detail-btn flex-1 flex items-center justify-center gap-2
+                       bg-earth-900 hover:bg-earth-800 text-white text-sm font-semibold
+                       px-4 py-3 rounded-xl transition-all duration-200
+                       group-hover:bg-gold-400 group-hover:text-earth-900"
+                data-index={i}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                {m.detailBtn}
+              </button>
+              <a href="#contacto"
+                class="flex items-center justify-center border-2 border-earth-200
+                       hover:border-earth-400 text-earth-600 hover:text-earth-900
+                       px-4 py-3 rounded-xl transition-all duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-earth-400 text-xs mt-10 reveal">{m.disclaimer}</p>
+  </div>
+</section>
+
+<!-- Modal backdrop -->
+<div id="model-modal-backdrop"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-earth-900/80 backdrop-blur-sm">
+
+  <div id="model-modal"
+    class="relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto
+           animate-modal-in">
+
+    <!-- Close button -->
+    <button id="modal-close-btn"
+      class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-earth-100 hover:bg-earth-200
+             flex items-center justify-center transition-colors"
+      aria-label={m.modalClose}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="grid md:grid-cols-2">
+      <!-- Image column -->
+      <div class="bg-earth-50 rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none flex items-center justify-center p-8 min-h-[240px]">
+        <img id="modal-img" src="" alt="" class="w-full max-h-72 object-contain" />
+      </div>
+
+      <!-- Info column -->
+      <div class="p-7 flex flex-col">
+        <div class="mb-1">
+          <span id="modal-tag"
+            class="inline-block bg-gold-400 text-earth-900 text-xs font-bold px-3 py-1 rounded-full mb-3 hidden"></span>
+        </div>
+        <h3 id="modal-name" class="font-heading text-2xl font-bold text-earth-900 mb-4"></h3>
+
+        <!-- Beds / baths -->
+        <div class="flex items-center gap-5 mb-5 pb-5 border-b border-earth-100">
+          <div class="flex items-center gap-2 text-earth-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span id="modal-beds" class="font-semibold text-sm"></span>
+          </div>
+          <div class="flex items-center gap-2 text-earth-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+            </svg>
+            <span id="modal-baths" class="font-semibold text-sm"></span>
+          </div>
+        </div>
+
+        <!-- Specs -->
+        <p class="text-earth-500 text-xs font-semibold uppercase tracking-wider mb-3">{m.specsLabel}</p>
+        <div id="modal-specs" class="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-5">
+          <!-- filled by JS -->
+        </div>
+
+        <!-- Extras -->
+        <p class="text-earth-500 text-xs font-semibold uppercase tracking-wider mb-3">{m.extrasLabel}</p>
+        <div id="modal-extras" class="flex flex-wrap gap-2 mb-5">
+          <!-- filled by JS -->
+        </div>
+
+        <!-- Description -->
+        <p id="modal-desc" class="text-earth-500 text-sm leading-relaxed mb-6 flex-1"></p>
+
+        <!-- CTA -->
+        <a href="#contacto" id="modal-cta"
+          class="flex items-center justify-center gap-2 bg-earth-900 hover:bg-gold-400
+                 hover:text-earth-900 text-white font-semibold text-sm px-6 py-3.5
+                 rounded-xl transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          {m.modalCta}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes modal-in {
+    from { opacity: 0; transform: scale(0.95) translateY(16px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .animate-modal-in { animation: modal-in 0.25s ease-out forwards; }
+  #model-modal-backdrop.open { display: flex; }
+</style>
+
+<script define:vars={{
+  modelsData: m.items.map((item) => ({
+    name: item.name,
+    image: item.image,
+    beds: item.beds,
+    baths: item.baths,
+    extras: item.extras,
+    description: item.description,
+    tag: item.tag,
+  })),
+  specsPerModel,
+  bedsLabel: m.bedsLabel,
+  bathsLabel: m.bathsLabel,
+}}>
+  const backdrop  = document.getElementById('model-modal-backdrop');
+  const closeBtn  = document.getElementById('modal-close-btn');
+
+  function openModal(index) {
+    const model = modelsData[index];
+    const specs = specsPerModel[index];
+
+    document.getElementById('modal-img').src  = model.image;
+    document.getElementById('modal-img').alt  = model.name;
+    document.getElementById('modal-name').textContent = model.name;
+    document.getElementById('modal-beds').textContent = `${model.beds} ${bedsLabel}`;
+    document.getElementById('modal-baths').textContent = `${model.baths} ${bathsLabel}`;
+    document.getElementById('modal-desc').textContent = model.description;
+
+    // Tag
+    const tagEl = document.getElementById('modal-tag');
+    if (model.tag) {
+      tagEl.textContent = model.tag;
+      tagEl.classList.remove('hidden');
+    } else {
+      tagEl.classList.add('hidden');
+    }
+
+    // Specs
+    const specsEl = document.getElementById('modal-specs');
+    specsEl.innerHTML = specs.map(s =>
+      `<div>
+        <p class="text-earth-400 text-xs mb-0.5">${s.label}</p>
+        <p class="text-earth-800 text-sm font-semibold">${s.value}</p>
+      </div>`
+    ).join('');
+
+    // Extras
+    const extrasEl = document.getElementById('modal-extras');
+    extrasEl.innerHTML = model.extras.map(e =>
+      `<span class="bg-earth-50 border border-earth-200 text-earth-600 text-xs font-medium px-3 py-1 rounded-full">${e}</span>`
+    ).join('');
+
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.model-detail-btn').forEach(btn => {
+    btn.addEventListener('click', () => openModal(parseInt(btn.dataset.index)));
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  // Close modal when CTA is clicked (user goes to contact)
+  document.getElementById('modal-cta')?.addEventListener('click', closeModal);
+</script>

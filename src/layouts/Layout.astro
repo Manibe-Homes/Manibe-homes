@@ -1,0 +1,146 @@
+---
+import '../styles/global.css';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Manibe LLC — Construimos tu futuro en Florida',
+  description = 'Desarrollo inmobiliario de alto valor en Florida con transparencia, experiencia y rentabilidad comprobada. Single Family Homes con ROI de 12% a 20% anual.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0c1524" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo-manibe-blanco.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>{title}</title>
+
+    <style>
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #0c1524;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.5s ease-out;
+      }
+      #preloader-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        animation: preloader-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      #preloader-logo {
+        height: 60px;
+        width: auto;
+        object-fit: contain;
+        /* fade-in first, then breathe indefinitely until preloader is removed */
+        animation:
+          preloader-in   0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+          preloader-breathe 1.4s ease-in-out 0.6s infinite;
+      }
+      #preloader-bar {
+        width: 120px;
+        height: 2px;
+        background: rgba(219, 192, 106, 0.2);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      #preloader-fill {
+        height: 100%;
+        background: #dbc06a;
+        border-radius: 2px;
+        animation: preloader-progress 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+      @keyframes preloader-in {
+        from { opacity: 0; transform: scale(0.82) translateY(12px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      @keyframes preloader-breathe {
+        0%, 100% { transform: scale(1); }
+        50%       { transform: scale(1.12); }
+      }
+      @keyframes preloader-progress {
+        from { width: 0%; }
+        to   { width: 100%; }
+      }
+    </style>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white">
+
+    <!-- Preloader -->
+    <div id="preloader" aria-hidden="true">
+      <div id="preloader-inner">
+        <img src="/logo-manibe-blanco.png" id="preloader-logo" alt="Manibe LLC" />
+        <div id="preloader-bar"><div id="preloader-fill"></div></div>
+      </div>
+    </div>
+
+    <slot />
+    <FloatingWhatsApp />
+
+    <!-- Scroll reveal -->
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+      document
+        .querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-fade, .reveal-scale')
+        .forEach((el) => revealObserver.observe(el));
+    </script>
+
+    <!-- Preloader logic -->
+    <script>
+      const preloader = document.getElementById('preloader') as HTMLElement | null;
+      if (preloader) {
+        // Fade out after 1.6s
+        setTimeout(() => {
+          preloader.style.opacity = '0';
+          preloader.style.pointerEvents = 'none';
+          setTimeout(() => {
+            preloader.remove();
+            document.body.style.overflow = '';
+          }, 500);
+        }, 1600);
+      }
+    </script>
+  </body>
+</html>

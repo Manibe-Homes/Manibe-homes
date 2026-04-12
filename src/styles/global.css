@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --earth-50:  #f0f1f5;
+    --earth-100: #dce0ea;
+    --earth-200: #b8c0d4;
+    --earth-300: #8894b0;
+    --earth-400: #5e6d8c;
+    --earth-500: #3d4f72;
+    --earth-600: #2c3a5c;
+    --earth-700: #1e2a45;
+    --earth-800: #141d34;
+    --earth-900: #0c1524;
+    --gold-400: #dbc06a;
+    --gold-500: #c4a95a;
+    --gold-600: #ad944c;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body text-earth-900 antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-gold-400 text-earth-900 font-body font-semibold
+           px-6 py-3 rounded-lg transition-all duration-200 hover:bg-gold-500 active:bg-gold-600
+           shadow-md hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-white text-white font-body font-semibold
+           px-6 py-3 rounded-lg transition-all duration-200 hover:bg-white/10;
+  }
+
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-gold-400 text-gold-400 font-body font-semibold
+           px-6 py-3 rounded-lg transition-all duration-200 hover:bg-gold-400 hover:text-earth-900;
+  }
+
+  .section-title {
+    @apply font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden border border-earth-100;
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #dbc06a 0%, #c4a95a 100%);
+  }
+}
+
+/* Scroll reveal animations */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-fade,
+.reveal-scale {
+  opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal        { transform: translateY(48px); }
+.reveal-left   { transform: translateX(-56px); }
+.reveal-right  { transform: translateX(56px); }
+.reveal-fade   { transform: none; transition-duration: 0.9s; }
+.reveal-scale  { transform: scale(0.92); }
+
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-fade.visible,
+.reveal-scale.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }

@@ -1,0 +1,101 @@
+---
+import type { Translations } from '../i18n/translations';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const w = t.why;
+
+const icons = [
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />`,
+];
+---
+
+<section id="nosotros" class="py-24 bg-earth-900 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-30">
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-earth-700/30 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+      <div class="reveal-left">
+        <span class="inline-block text-gold-400 text-sm font-semibold tracking-widest uppercase mb-4">
+          {w.tag}
+        </span>
+        <h2 class="section-title text-white mb-6">
+          {w.title1}<br />
+          <span class="text-gold-400">{w.title2}</span>
+        </h2>
+        <p class="text-earth-300 text-lg font-body leading-relaxed">{w.intro}</p>
+      </div>
+
+      <div class="reveal-right delay-200 grid grid-cols-2 gap-4">
+        {w.stats.map((s) => (
+          <div class="bg-earth-800 rounded-2xl p-5 text-center border border-earth-700 hover:border-gold-400/30 transition-colors">
+            <p class="font-heading text-2xl font-bold text-gold-400 mb-1">{s.value}</p>
+            <p class="text-earth-400 text-xs leading-tight">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {w.items.map((item, i) => (
+        <div class={`reveal delay-${(i + 1) * 100} group p-6 rounded-2xl border border-earth-700
+                    hover:border-gold-400/50 hover:bg-earth-800 transition-all duration-300`}>
+          <div class="w-12 h-12 rounded-xl bg-gold-400/10 flex items-center justify-center mb-5 group-hover:bg-gold-400/20 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <Fragment set:html={icons[i]} />
+            </svg>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-white mb-3">{item.title}</h3>
+          <p class="text-earth-400 text-sm leading-relaxed group-hover:text-earth-300 transition-colors">
+            {item.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- LLC Legal badge -->
+    <div class="mt-12 flex justify-center reveal-fade">
+      <div class="inline-flex items-center gap-3 border border-gold-400/30 bg-earth-800/80 rounded-full px-5 py-3 shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+        <span class="font-body text-sm text-earth-300">
+          <span class="text-white font-semibold">MANIBE LLC</span>
+          &nbsp;·&nbsp;{w.legalBadge}
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gold-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="mt-6 reveal-scale bg-gradient-to-r from-earth-800 to-earth-700 border border-earth-600
+                rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-6">
+      <div class="w-16 h-16 rounded-2xl bg-gold-400/15 flex items-center justify-center flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <div class="text-center sm:text-left flex-1">
+        <h4 class="font-heading text-xl font-bold text-white mb-1">{w.portalTitle}</h4>
+        <p class="text-earth-300 text-sm">{w.portalDesc}</p>
+      </div>
+      <a href="/portal"
+        class="flex-shrink-0 inline-flex items-center gap-2 bg-gold-400 hover:bg-gold-500 text-earth-900
+               font-semibold text-sm px-6 py-3 rounded-full transition-colors whitespace-nowrap">
+        {w.portalCta}
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

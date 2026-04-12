@@ -1,0 +1,335 @@
+---
+import type { Translations } from '../i18n/translations';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const f = t.florida;
+
+function parseStatValue(val: string) {
+  const m = val.match(/^([^0-9]*)(\d+)(.*)$/);
+  if (!m) return { prefix: '', target: 0, suffix: val };
+  return { prefix: m[1], target: parseInt(m[2], 10), suffix: m[3] };
+}
+
+const icons = [
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />`,
+  `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />`,
+];
+---
+
+<section id="florida" class="py-24 bg-earth-800 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-gold-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-gold-400/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal-fade">
+      <span class="inline-block text-gold-400 text-sm font-semibold tracking-widest uppercase mb-4">
+        {f.tag}
+      </span>
+      <h2 class="section-title text-white mb-6">
+        {f.title1}<br />
+        <span class="text-gold-400">{f.title2}</span>
+      </h2>
+      <p class="text-earth-200 text-lg max-w-2xl mx-auto font-body leading-relaxed">
+        {f.intro}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {f.stats.map((stat, i) => {
+        const parsed = parseStatValue(stat.value);
+        return (
+          <div class={`reveal delay-${(i + 1) * 100} bg-earth-700/60 backdrop-blur-sm border border-earth-600
+                      rounded-2xl p-6 text-center group hover:border-gold-400/50 hover:bg-earth-700 transition-all duration-300`}>
+            <div class="flex justify-center mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gold-400/10 flex items-center justify-center group-hover:bg-gold-400/20 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <Fragment set:html={icons[i]} />
+                </svg>
+              </div>
+            </div>
+            <p
+              class="stat-counter font-heading text-3xl md:text-4xl font-bold text-gold-400 mb-1"
+              data-prefix={parsed.prefix}
+              data-target={parsed.target}
+              data-suffix={parsed.suffix}
+            >
+              {stat.value}
+            </p>
+            <p class="text-white font-semibold text-sm mb-1">{stat.label}</p>
+            <p class="text-earth-300 text-xs font-body">{stat.description}</p>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal-left">
+        <h3 class="font-heading text-2xl md:text-3xl font-bold text-white mb-6">
+          {f.narrativeTitle1}<br />
+          <span class="text-gold-400">{f.narrativeTitle2}</span>
+        </h3>
+        <div class="space-y-4 text-earth-200 font-body leading-relaxed">
+          <p>{f.narrativeP1}</p>
+          <p>{f.narrativeP2}</p>
+        </div>
+        <ul class="mt-6 space-y-3">
+          {f.benefits.map((item) => (
+            <li class="flex items-center gap-3 text-earth-200">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full bg-gold-400/20 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span class="text-sm">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="reveal-right relative rounded-2xl overflow-hidden aspect-[4/3]" id="florida-img-wrapper">
+        <img
+          src="/Florida single.jpg"
+          alt="Houses in Florida"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute bottom-4 left-4 right-4 bg-earth-900/90 backdrop-blur-sm rounded-xl px-4 py-3 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold-400 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-white font-semibold text-sm">{f.imageCaption}</p>
+            <p class="text-earth-300 text-xs">{f.imageCaptionSub}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="mt-20 reveal-fade">
+      <div class="text-center mb-8">
+        <span class="text-earth-400 text-xs font-semibold uppercase tracking-widest">{f.mapTag}</span>
+        <h3 class="font-heading text-2xl font-bold text-white mt-2">{f.mapTitle}</h3>
+      </div>
+      <div class="relative w-full rounded-2xl overflow-hidden border border-earth-700 shadow-xl" style="height: 420px;">
+        <div id="florida-map" class="absolute inset-0"></div>
+
+        <!-- Zones table overlay -->
+        <div id="zones-table-wrap"
+          class="absolute bottom-3 left-3 z-[1000] w-full max-w-[340px] sm:max-w-[400px]
+                 bg-earth-900/90 backdrop-blur-sm border border-earth-700 rounded-xl overflow-hidden
+                 shadow-2xl text-xs">
+          <table class="w-full border-collapse">
+            <thead>
+              <tr class="border-b border-earth-700">
+                <th class="text-left text-earth-400 font-semibold uppercase tracking-wider px-3 py-2 w-[36%]">Ciudad</th>
+                <th class="text-left text-earth-400 font-semibold uppercase tracking-wider px-3 py-2 w-[30%]">Rol</th>
+                <th class="text-left text-earth-400 font-semibold uppercase tracking-wider px-3 py-2 hidden sm:table-cell">Descripción</th>
+              </tr>
+            </thead>
+            <tbody id="zones-tbody">
+              {f.mapMarkers.map((m, i) => (
+                <tr
+                  data-zone-index={i}
+                  class="border-b border-earth-700/50 last:border-0 cursor-pointer
+                         hover:bg-earth-700/60 transition-colors duration-150 group"
+                >
+                  <td class="px-3 py-2 text-white font-semibold group-hover:text-gold-400 transition-colors">
+                    {m.label}
+                  </td>
+                  <td class="px-3 py-2">
+                    <span class="inline-block bg-gold-400 text-earth-900 font-bold rounded-full px-2 py-0.5 text-[10px] leading-tight whitespace-nowrap">
+                      {m.detail}
+                    </span>
+                  </td>
+                  <td class="px-3 py-2 text-earth-300 hidden sm:table-cell">{m.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Zoom controls */
+  #florida-map :global(.leaflet-control-zoom a) {
+    background: #141d34;
+    color: #dbc06a;
+    border-color: #2c3a5c;
+  }
+  #florida-map :global(.leaflet-control-zoom a:hover) {
+    background: #2c3a5c;
+    color: #dbc06a;
+  }
+  /* Attribution */
+  #florida-map :global(.leaflet-control-attribution) {
+    background: rgba(12,21,36,0.8);
+    color: #5e6d8c;
+    font-size: 10px;
+  }
+  #florida-map :global(.leaflet-control-attribution a) {
+    color: #8894b0;
+  }
+  /* Popup */
+  #florida-map :global(.leaflet-popup-content-wrapper) {
+    background: #141d34;
+    border: 1px solid #dbc06a40;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    padding: 0;
+  }
+  #florida-map :global(.leaflet-popup-content) {
+    margin: 0;
+    padding: 12px 16px;
+  }
+  #florida-map :global(.leaflet-popup-tip) {
+    background: #141d34;
+  }
+  #florida-map :global(.leaflet-popup-close-button) {
+    color: #5e6d8c !important;
+    top: 6px !important;
+    right: 8px !important;
+  }
+  #florida-map :global(.leaflet-popup-close-button:hover) {
+    color: #dbc06a !important;
+  }
+</style>
+
+<script define:vars={{ mapMarkers: f.mapMarkers }}>
+  // Dynamically load Leaflet
+  function loadLeaflet(cb) {
+    if (window.L) { cb(); return; }
+
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+
+    const js = document.createElement('script');
+    js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    js.onload = cb;
+    document.head.appendChild(js);
+  }
+
+  function goldPin() {
+    return window.L.divIcon({
+      className: '',
+      iconSize:   [28, 36],
+      iconAnchor: [14, 36],
+      popupAnchor: [0, -38],
+      html: `<svg viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg"
+               style="width:28px;height:36px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6))">
+               <path d="M14 0C6.268 0 0 6.268 0 14c0 7.732 14 22 14 22S28 21.732 28 14C28 6.268 21.732 0 14 0z"
+                     fill="#dbc06a"/>
+               <circle cx="14" cy="14" r="5" fill="#141d34"/>
+             </svg>`,
+    });
+  }
+
+  function initMap() {
+    const L = window.L;
+    const map = L.map('florida-map', {
+      center: [26.44, -81.82],
+      zoom: 10,
+      scrollWheelZoom: false,
+      zoomControl: true,
+    });
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const markerRefs = mapMarkers.map(({ lat, lng, label, detail }) =>
+      L.marker([lat, lng], { icon: goldPin() })
+        .bindPopup(
+          `<p style="margin:0 0 2px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#dbc06a;">${label}</p>
+           <p style="margin:0;font-family:'DM Sans',sans-serif;font-size:11px;color:#b8c0d4;letter-spacing:0.03em;">${detail}</p>`,
+          { maxWidth: 160 }
+        )
+        .addTo(map)
+    );
+
+    // Wire table rows → open popup centered in the map
+    document.querySelectorAll('#zones-tbody tr[data-zone-index]').forEach((row) => {
+      row.addEventListener('click', () => {
+        const idx = parseInt(row.dataset.zoneIndex, 10);
+        const marker = markerRefs[idx];
+        if (!marker) return;
+        const { lat, lng } = mapMarkers[idx];
+        // Snap to marker instantly, then smoothly pan up so the popup
+        // (which opens ~70px above the pin) ends up centered in the viewport
+        map.setView([lat, lng], 12, { animate: false });
+        marker.openPopup();
+        map.panBy([0, -70], { animate: true, duration: 0.4 });
+      });
+    });
+  }
+
+  // Init when section enters viewport
+  const mapEl = document.getElementById('florida-map');
+  const mapObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      loadLeaflet(initMap);
+      mapObserver.disconnect();
+    }
+  }, { threshold: 0.1 });
+  if (mapEl) mapObserver.observe(mapEl);
+</script>
+
+<script>
+  function easeOutCubic(t: number) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateCounter(el: HTMLElement) {
+    const target = parseInt(el.dataset.target ?? '0', 10);
+    const prefix = el.dataset.prefix ?? '';
+    const suffix = el.dataset.suffix ?? '';
+
+    if (target === 0) return; // valor ya es 0, no hay nada que animar
+
+    const duration = 2000;
+    const start = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.round(easeOutCubic(progress) * target);
+      el.textContent = prefix + value + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const counters = document.querySelectorAll<HTMLElement>('.stat-counter');
+  let triggered = false;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (triggered) return;
+      const visible = entries.some((e) => e.isIntersecting);
+      if (visible) {
+        triggered = true;
+        counters.forEach((el, i) => {
+          setTimeout(() => animateCounter(el), i * 120);
+        });
+        observer.disconnect();
+      }
+    },
+    { threshold: 0.3 }
+  );
+
+  const section = document.getElementById('florida');
+  if (section) observer.observe(section);
+</script>

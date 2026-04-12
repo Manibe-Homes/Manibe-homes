@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Read(//home/juan0/.nvm/versions/**)",
+      "Read(//home/juan0/.volta/tools/image/**)",
+      "Bash(nvm list:*)",
+      "Bash(curl -fsSL https://fnm.vercel.app/install)",
+      "Bash(bash)",
+      "Bash(sudo apt-get:*)",
+      "Bash(curl -fsSL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource_setup.sh)",
+      "Bash(cp -r ossified-equinox/. .)",
+      "Bash(rm -rf ossified-equinox)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+---
+import type { Translations } from '../i18n/translations';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const c = t.contact;
+
+const infoItems = [
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />`,
+    label: c.infoLabels.location,
+    value: c.infoLabels.locationValue,
+    href: null,
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />`,
+    label: c.infoLabels.email,
+    value: 'info@manibehomes.com',
+    href: 'mailto:info@manibehomes.com',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />`,
+    label: c.infoLabels.phone,
+    value: '+1 (239) 299-6978',
+    href: `https://wa.me/12392996978`,
+  },
+];
+
+const waMessage = encodeURIComponent(c.waMessage);
+---
+
+<section id="contacto" class="py-24 bg-earth-900 relative overflow-hidden">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-400/30 to-transparent"></div>
+  <div class="absolute -top-24 right-0 w-96 h-96 bg-gold-400/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 left-0 w-64 h-64 bg-earth-700/30 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-gold-400 text-sm font-semibold tracking-widest uppercase mb-4">
+        {c.tag}
+      </span>
+      <h2 class="section-title text-white mb-6">
+        {c.title1}<br />
+        <span class="text-gold-400">{c.title2}</span>
+      </h2>
+      <p class="text-earth-300 text-lg max-w-xl mx-auto font-body leading-relaxed">{c.intro}</p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-12 items-start">
+
+      <!-- Form -->
+      <div class="lg:col-span-3 reveal">
+        <div class="bg-earth-800/60 backdrop-blur-sm border border-earth-700 rounded-2xl p-8">
+          <h3 class="font-heading text-xl font-bold text-white mb-6">{c.formTitle}</h3>
+
+          <form id="contact-form" class="space-y-5" onsubmit="handleContactSubmit(event)">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="name" class="block text-earth-300 text-sm font-medium mb-2">
+                  {c.fields.name} <span class="text-gold-400">*</span>
+                </label>
+                <input type="text" id="name" name="name" required
+                  placeholder={c.fields.namePlaceholder}
+                  class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
+                         rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
+                         focus:ring-gold-400 transition-colors" />
+              </div>
+              <div>
+                <label for="email" class="block text-earth-300 text-sm font-medium mb-2">
+                  {c.fields.email} <span class="text-gold-400">*</span>
+                </label>
+                <input type="email" id="email" name="email" required
+                  placeholder={c.fields.emailPlaceholder}
+                  class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
+                         rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
+                         focus:ring-gold-400 transition-colors" />
+              </div>
+            </div>
+
+            <div>
+              <label for="phone" class="block text-earth-300 text-sm font-medium mb-2">
+                {c.fields.phone} <span class="text-gold-400">*</span>
+              </label>
+              <input type="tel" id="phone" name="phone" required
+                placeholder={c.fields.phonePlaceholder}
+                class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
+                       rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
+                       focus:ring-gold-400 transition-colors" />
+            </div>
+
+            <div>
+              <label for="product" class="block text-earth-300 text-sm font-medium mb-2">
+                {c.fields.product} <span class="text-gold-400">*</span>
+              </label>
+              <div class="relative">
+                <select id="product" name="product" required
+                  class="w-full bg-earth-700/50 border border-earth-600 text-white rounded-xl px-4 py-3
+                         text-sm focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400
+                         transition-colors appearance-none cursor-pointer">
+                  <option value="" class="bg-earth-800">{c.fields.productPlaceholder}</option>
+                  {c.products.map((prod) => (
+                    <option value={prod} class="bg-earth-800">{prod}</option>
+                  ))}
+                </select>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="message" class="block text-earth-300 text-sm font-medium mb-2">
+                {c.fields.message}
+              </label>
+              <textarea id="message" name="message" rows="4"
+                placeholder={c.fields.messagePlaceholder}
+                class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
+                       rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
+                       focus:ring-gold-400 transition-colors resize-none"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn"
+              class="w-full bg-gold-400 hover:bg-gold-500 active:bg-gold-600 text-earth-900 font-semibold
+                     text-sm px-6 py-4 rounded-xl transition-all duration-200 flex items-center justify-center
+                     gap-2 shadow-lg hover:shadow-gold-400/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+              {c.fields.submit}
+            </button>
+
+            <div id="form-success" class="hidden text-center py-4">
+              <div class="flex items-center justify-center gap-2 text-gold-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="font-semibold">{c.fields.success}</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="lg:col-span-2 space-y-6 reveal delay-200">
+        {infoItems.map((info) => (
+          <div class="bg-earth-800/60 border border-earth-700 rounded-2xl p-5 flex items-center gap-4 hover:border-gold-400/30 transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-gold-400/10 flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <Fragment set:html={info.icon} />
+              </svg>
+            </div>
+            <div>
+              <p class="text-earth-400 text-xs mb-1">{info.label}</p>
+              {info.href ? (
+                <a href={info.href} class="text-white text-sm font-medium hover:text-gold-400 transition-colors">
+                  {info.value}
+                </a>
+              ) : (
+                <p class="text-white text-sm font-medium">{info.value}</p>
+              )}
+            </div>
+          </div>
+        ))}
+
+        <a href={`https://wa.me/12392996978?text=${waMessage}`}
+          target="_blank" rel="noopener noreferrer"
+          class="flex items-center justify-center gap-3 w-full bg-[#25D366] hover:bg-[#1da851]
+                 text-white font-semibold text-sm px-6 py-4 rounded-2xl transition-all duration-200
+                 shadow-lg hover:shadow-green-500/25">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.849L.057 23.625a.75.75 0 00.918.918l5.776-1.475A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.738 9.738 0 01-5.003-1.38l-.358-.213-3.712.949.964-3.625-.234-.374A9.738 9.738 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+          </svg>
+          {c.whatsappCta}
+        </a>
+
+        <p class="text-earth-500 text-xs text-center">
+          {c.hours}<br />{c.hoursLine2}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  async function handleContactSubmit(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const success = document.getElementById('form-success');
+
+    const name    = (form.querySelector('#name')    as HTMLInputElement).value.trim();
+    const email   = (form.querySelector('#email')   as HTMLInputElement).value.trim();
+    const phone   = (form.querySelector('#phone')   as HTMLInputElement).value.trim();
+    const product = (form.querySelector('#product') as HTMLSelectElement).value;
+    const message = (form.querySelector('#message') as HTMLTextAreaElement).value.trim();
+
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px"><svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/></svg>Enviando…</span>';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, product, message: message || undefined }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const errMsg = (data as any).error ?? 'Error al enviar. Por favor intenta de nuevo.';
+        alert(errMsg);
+        return;
+      }
+
+      btn.classList.add('hidden');
+      success?.classList.remove('hidden');
+      form.reset();
+
+      setTimeout(() => {
+        btn.classList.remove('hidden');
+        success?.classList.add('hidden');
+      }, 6000);
+
+    } catch {
+      alert('Error de conexión. Por favor intenta de nuevo.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+    }
+  }
+
+  (window as any).handleContactSubmit = handleContactSubmit;
+</script>

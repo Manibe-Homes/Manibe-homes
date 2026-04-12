@@ -1,0 +1,65 @@
+---
+import type { Translations } from '../i18n/translations';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+const tm = t.testimonials;
+---
+
+<section class="py-24 bg-earth-50 relative overflow-hidden">
+  <div class="absolute top-12 left-8 text-earth-100 font-heading text-[12rem] leading-none select-none pointer-events-none">
+    "
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-earth-500 text-sm font-semibold tracking-widest uppercase mb-4">
+        {tm.tag}
+      </span>
+      <h2 class="section-title text-earth-900 mb-6">
+        {tm.title1}<br />
+        <span class="text-earth-600">{tm.title2}</span>
+      </h2>
+      <p class="text-earth-500 text-lg max-w-xl mx-auto font-body leading-relaxed">{tm.intro}</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {tm.items.map((testimonial, i) => (
+        <div class={`reveal delay-${(i + 1) * 100} bg-white rounded-2xl p-8 shadow-lg border border-earth-100
+                    hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col`}>
+          <div class="flex gap-1 mb-4">
+            {Array.from({ length: testimonial.stars }).map(() => (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold-400 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            ))}
+          </div>
+          <p class="text-earth-600 text-sm leading-relaxed italic flex-1 mb-6">"{testimonial.quote}"</p>
+          <div class="mb-5">
+            <span class="inline-block bg-earth-50 border border-earth-200 text-earth-500 text-xs font-medium px-3 py-1 rounded-full">
+              {testimonial.product}
+            </span>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-earth-100">
+            <div class="w-10 h-10 rounded-full bg-earth-900 flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-xs font-bold">{testimonial.initials}</span>
+            </div>
+            <div>
+              <p class="font-semibold text-earth-900 text-sm">{testimonial.flag} {testimonial.name}</p>
+              <p class="text-earth-500 text-xs">{testimonial.role} — {testimonial.country}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 reveal flex flex-col sm:flex-row items-center justify-center gap-8 text-center">
+      {tm.trustItems.map((item) => (
+        <div class="flex items-center gap-2 text-earth-600">
+          <span class="text-xl">{item.icon}</span>
+          <span class="text-sm font-medium">{item.text}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
