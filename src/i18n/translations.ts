@@ -234,8 +234,8 @@ export const translations = {
           tag: 'Más solicitado',
         },
         {
-          name: 'Modelo Matos',
-          image: '/modelo-matos.png',
+          name: 'Modelo Albany',
+          image: '/Albany/webp/Albany.webp',
           beds: 3,
           baths: 2,
           extras: ['Oficina', 'Lanai Amplio', 'Triple Garaje'],
@@ -640,8 +640,8 @@ export const translations = {
           tag: 'Most requested',
         },
         {
-          name: 'Matos Model',
-          image: '/modelo-matos.png',
+          name: 'Albany Model',
+          image: '/Albany/webp/Albany.webp',
           beds: 3,
           baths: 2,
           extras: ['Office', 'Spacious Lanai', 'Triple Garage'],

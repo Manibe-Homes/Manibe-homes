@@ -14,7 +14,7 @@ const specsPerModel = [
   ],
   [
     { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~2,300 sq ft / 214 m²' },
-    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Modern horizontal' : 'Horizontal moderno' },
+    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Modern contemporary' : 'Moderno contemporáneo' },
     { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Triple'  : 'Triple' },
     { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
   ],
@@ -23,6 +23,100 @@ const specsPerModel = [
     { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Cozy modern' : 'Moderno acogedor' },
     { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Included' : 'Incluido' },
     { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+  ],
+];
+
+// Foto de portada real para la card (sobreescribe la imagen de plano en translations)
+const cardImages: (string | null)[] = [
+  '/Manibe/webp/Manibe.webp',   // Modelo Manibe — foto real (WebP)
+  '/Albany/webp/Albany.webp',   // Modelo Albany — foto real (WebP)
+  '/Canac/Canac.jpeg',          // Modelo Canac — foto real
+];
+
+// Galería de fotos adicionales (todas en WebP para carga rápida)
+const galleryPerModel: string[][] = [
+  [
+    '/Manibe/webp/DSC00082_1.webp',
+    '/Manibe/webp/DSC00087.webp',
+    '/Manibe/webp/DSC00097.webp',
+    '/Manibe/webp/DSC00112.webp',
+    '/Manibe/webp/DSC00122.webp',
+    '/Manibe/webp/DSC00127.webp',
+    '/Manibe/webp/DSC00132.webp',
+    '/Manibe/webp/DSC00137.webp',
+    '/Manibe/webp/DSC00142.webp',
+    '/Manibe/webp/DSC00147.webp',
+    '/Manibe/webp/DSC00152.webp',
+    '/Manibe/webp/DSC00157.webp',
+    '/Manibe/webp/DSC00162.webp',
+    '/Manibe/webp/DSC00167.webp',
+    '/Manibe/webp/DSC00172.webp',
+    '/Manibe/webp/DSC00177.webp',
+    '/Manibe/webp/DSC00182.webp',
+    '/Manibe/webp/DSC00187.webp',
+    '/Manibe/webp/DSC00192.webp',
+    '/Manibe/webp/DSC00197.webp',
+    '/Manibe/webp/DSC00202.webp',
+    '/Manibe/webp/DSC00207.webp',
+    '/Manibe/webp/DSC00212.webp',
+    '/Manibe/webp/DSC00217.webp',
+    '/Manibe/webp/DSC00222.webp',
+    '/Manibe/webp/DSC00227.webp',
+    '/Manibe/webp/DSC00232.webp',
+    '/Manibe/webp/DSC00237.webp',
+    '/Manibe/webp/DSC00242.webp',
+    '/Manibe/webp/DSC00247.webp',
+    '/Manibe/webp/DSC00252.webp',
+    '/Manibe/webp/DSC00257.webp',
+    '/Manibe/webp/DSC00262.webp',
+    '/Manibe/webp/DSC00267.webp',
+    '/Manibe/webp/DSC00272.webp',
+    '/Manibe/webp/DSC00277.webp',
+    '/Manibe/webp/DSC00282.webp',
+    '/Manibe/webp/Interior 1721.webp',
+    '/Manibe/webp/Outside 1721 4 - 2.webp',
+    '/Manibe/webp/Photo Apr 26 2025, 3 06 53 PM.webp',
+    '/Manibe/webp/Photo Apr 26 2025, 3 07 18 PM.webp',
+    '/Manibe/webp/Photo Apr 26 2025, 3 07 34 PM_1.webp',
+    '/Manibe/webp/Photo Apr 26 2025, 3 07 49 PM.webp',
+    '/Manibe/webp/Photo Apr 26 2025, 3 08 05 PM.webp',
+  ],
+  [
+    '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
+    '/Albany/webp/A7400011.ARW.webp',
+    '/Albany/webp/A7400014.ARW.webp',
+    '/Albany/webp/A7400017.ARW.webp',
+    '/Albany/webp/A7400022.ARW.webp',
+    '/Albany/webp/A7400028.ARW.webp',
+    '/Albany/webp/A7400030.ARW.webp',
+    '/Albany/webp/A7400032.ARW.webp',
+    '/Albany/webp/A7400033.ARW.webp',
+    '/Albany/webp/A7400044.ARW.webp',
+    '/Albany/webp/A7400048.ARW.webp',
+    '/Albany/webp/A7400066.ARW.webp',
+    '/Albany/webp/DJI_20250524150853_0300_D.DNG.webp',
+    '/Albany/webp/DJI_20250524150957_0303_D.DNG.webp',
+    '/Albany/webp/DJI_20250524151337_0313_D.DNG.webp',
+  ], // Modelo Albany
+  [
+    '/Canac/Exterior 342 1.jpeg',
+    '/Canac/Exterior 342 2.jpeg',
+    '/Canac/Exterior 342 4.jpeg',
+    '/Canac/Exterior 342 5.jpeg',
+    '/Canac/Exterior 342 6.jpeg',
+    '/Canac/Exterior 342 7.jpeg',
+    '/Canac/Exterior 342 8.jpeg',
+    '/Canac/Interior 342 1.jpeg',
+    '/Canac/Interior 342 2.jpeg',
+    '/Canac/Interior 342 3.jpeg',
+    '/Canac/Interior 342 4.jpeg',
+    '/Canac/Interior 342 5.jpeg',
+    '/Canac/Interior 342 6.jpeg',
+    '/Canac/Interior 342 7.jpeg',
+    '/Canac/Interior 342 8.jpeg',
+    '/Canac/Interior 342 9.jpeg',
+    '/Canac/Interior 342 10.jpeg',
+    '/Canac/Interior 342 11.jpeg',
   ],
 ];
 ---
@@ -43,84 +137,88 @@ const specsPerModel = [
     </div>
 
     <div class="grid md:grid-cols-3 gap-8">
-      {m.items.map((model, i) => (
-        <div class={`reveal delay-${(i + 1) * 100} card group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 flex flex-col`}
-             data-model-index={i}>
-          <div class="relative overflow-hidden bg-earth-50 aspect-[4/3]">
-            <img
-              src={model.image}
-              alt={model.name}
-              class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            {model.tag && (
-              <div class="absolute top-3 left-3">
-                <span class="bg-gold-400 text-earth-900 text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                  {model.tag}
-                </span>
+      {m.items.map((model, i) => {
+        const coverSrc = cardImages[i] ?? model.image;
+        const isPhoto  = cardImages[i] !== null;
+        return (
+          <div class={`reveal delay-${(i + 1) * 100} card group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 flex flex-col`}
+               data-model-index={i}>
+            <div class="relative overflow-hidden bg-earth-50 aspect-[4/3]">
+              <img
+                src={coverSrc}
+                alt={model.name}
+                class={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${isPhoto ? 'object-cover' : 'object-contain p-4'}`}
+                loading="lazy"
+              />
+              {model.tag && (
+                <div class="absolute top-3 left-3">
+                  <span class="bg-gold-400 text-earth-900 text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                    {model.tag}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-heading text-xl font-bold text-earth-900 mb-4">{model.name}</h3>
+
+              <div class="flex items-center gap-4 mb-4 pb-4 border-b border-earth-100">
+                <div class="flex items-center gap-1.5 text-earth-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  <span class="text-sm font-semibold">{model.beds} {m.bedsLabel}</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-earth-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                  </svg>
+                  <span class="text-sm font-semibold">{model.baths} {m.bathsLabel}</span>
+                </div>
               </div>
-            )}
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                {model.extras.map((extra) => (
+                  <span class="bg-earth-50 border border-earth-200 text-earth-600 text-xs font-medium px-3 py-1 rounded-full">
+                    {extra}
+                  </span>
+                ))}
+              </div>
+
+              <p class="text-earth-500 text-sm leading-relaxed mb-6 flex-1">{model.description}</p>
+
+              <div class="mt-auto flex gap-2">
+                <button
+                  class="model-detail-btn flex-1 flex items-center justify-center gap-2
+                         bg-earth-900 hover:bg-earth-800 text-white text-sm font-semibold
+                         px-4 py-3 rounded-xl transition-all duration-200
+                         group-hover:bg-gold-400 group-hover:text-earth-900"
+                  data-index={i}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  {m.detailBtn}
+                </button>
+                <a href="#contacto"
+                  class="flex items-center justify-center border-2 border-earth-200
+                         hover:border-earth-400 text-earth-600 hover:text-earth-900
+                         px-4 py-3 rounded-xl transition-all duration-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
-
-          <div class="p-6 flex flex-col flex-1">
-            <h3 class="font-heading text-xl font-bold text-earth-900 mb-4">{model.name}</h3>
-
-            <div class="flex items-center gap-4 mb-4 pb-4 border-b border-earth-100">
-              <div class="flex items-center gap-1.5 text-earth-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                <span class="text-sm font-semibold">{model.beds} {m.bedsLabel}</span>
-              </div>
-              <div class="flex items-center gap-1.5 text-earth-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-                </svg>
-                <span class="text-sm font-semibold">{model.baths} {m.bathsLabel}</span>
-              </div>
-            </div>
-
-            <div class="flex flex-wrap gap-2 mb-4">
-              {model.extras.map((extra) => (
-                <span class="bg-earth-50 border border-earth-200 text-earth-600 text-xs font-medium px-3 py-1 rounded-full">
-                  {extra}
-                </span>
-              ))}
-            </div>
-
-            <p class="text-earth-500 text-sm leading-relaxed mb-6 flex-1">{model.description}</p>
-
-            <div class="mt-auto flex gap-2">
-              <button
-                class="model-detail-btn flex-1 flex items-center justify-center gap-2
-                       bg-earth-900 hover:bg-earth-800 text-white text-sm font-semibold
-                       px-4 py-3 rounded-xl transition-all duration-200
-                       group-hover:bg-gold-400 group-hover:text-earth-900"
-                data-index={i}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                {m.detailBtn}
-              </button>
-              <a href="#contacto"
-                class="flex items-center justify-center border-2 border-earth-200
-                       hover:border-earth-400 text-earth-600 hover:text-earth-900
-                       px-4 py-3 rounded-xl transition-all duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
 
     <p class="text-center text-earth-400 text-xs mt-10 reveal">{m.disclaimer}</p>
@@ -132,78 +230,128 @@ const specsPerModel = [
   class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-earth-900/80 backdrop-blur-sm">
 
   <div id="model-modal"
-    class="relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto
-           animate-modal-in">
+    class="relative bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[90vh]
+           overflow-hidden flex flex-col animate-modal-in">
 
     <!-- Close button -->
     <button id="modal-close-btn"
-      class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-earth-100 hover:bg-earth-200
-             flex items-center justify-center transition-colors"
+      class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60
+             flex items-center justify-center transition-colors backdrop-blur-sm"
       aria-label={m.modalClose}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-earth-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
 
-    <div class="grid md:grid-cols-2">
-      <!-- Image column -->
-      <div class="bg-earth-50 rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none flex items-center justify-center p-8 min-h-[240px]">
-        <img id="modal-img" src="" alt="" class="w-full max-h-72 object-contain" />
-      </div>
+    <!-- Scrollable body -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="flex flex-col md:flex-row">
 
-      <!-- Info column -->
-      <div class="p-7 flex flex-col">
-        <div class="mb-1">
-          <span id="modal-tag"
-            class="inline-block bg-gold-400 text-earth-900 text-xs font-bold px-3 py-1 rounded-full mb-3 hidden"></span>
-        </div>
-        <h3 id="modal-name" class="font-heading text-2xl font-bold text-earth-900 mb-4"></h3>
+        <!-- Left: Imagen principal + galería de thumbnails -->
+        <div class="md:w-[55%] flex-shrink-0 bg-earth-900 flex flex-col">
 
-        <!-- Beds / baths -->
-        <div class="flex items-center gap-5 mb-5 pb-5 border-b border-earth-100">
-          <div class="flex items-center gap-2 text-earth-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <span id="modal-beds" class="font-semibold text-sm"></span>
+          <!-- Imagen principal -->
+          <div class="relative aspect-[4/3] overflow-hidden bg-earth-900 group/img">
+            <img id="modal-main-img" src="" alt=""
+              width="1920" height="1280"
+              class="w-full h-full object-cover transition-opacity duration-300" />
+
+            <!-- Botón anterior -->
+            <button id="modal-prev-btn"
+              class="absolute left-3 top-1/2 -translate-y-1/2 z-10
+                     w-10 h-10 rounded-full bg-black/50 hover:bg-black/75
+                     flex items-center justify-center transition-all duration-200
+                     opacity-0 group-hover/img:opacity-100 disabled:opacity-20 disabled:cursor-not-allowed
+                     backdrop-blur-sm"
+              aria-label="Foto anterior">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <!-- Botón siguiente -->
+            <button id="modal-next-btn"
+              class="absolute right-3 top-1/2 -translate-y-1/2 z-10
+                     w-10 h-10 rounded-full bg-black/50 hover:bg-black/75
+                     flex items-center justify-center transition-all duration-200
+                     opacity-0 group-hover/img:opacity-100 disabled:opacity-20 disabled:cursor-not-allowed
+                     backdrop-blur-sm"
+              aria-label="Foto siguiente">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            <!-- Contador de fotos -->
+            <div id="modal-photo-counter"
+              class="absolute bottom-3 right-3 bg-black/50 text-white text-xs font-semibold
+                     px-2.5 py-1 rounded-full backdrop-blur-sm hidden">
+            </div>
           </div>
-          <div class="flex items-center gap-2 text-earth-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-            </svg>
-            <span id="modal-baths" class="font-semibold text-sm"></span>
+
+          <!-- Thumbnails (solo si hay galería) -->
+          <div id="modal-gallery-strip"
+            class="hidden gap-2 p-3 overflow-x-auto bg-earth-950 scrollbar-thin">
+            <!-- thumbnails insertados por JS -->
           </div>
         </div>
 
-        <!-- Specs -->
-        <p class="text-earth-500 text-xs font-semibold uppercase tracking-wider mb-3">{m.specsLabel}</p>
-        <div id="modal-specs" class="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-5">
-          <!-- filled by JS -->
+        <!-- Right: Info -->
+        <div class="md:w-[45%] p-7 flex flex-col overflow-y-auto">
+
+          <div class="mb-1">
+            <span id="modal-tag"
+              class="inline-block bg-gold-400 text-earth-900 text-xs font-bold px-3 py-1 rounded-full mb-3 hidden"></span>
+          </div>
+          <h3 id="modal-name" class="font-heading text-2xl font-bold text-earth-900 mb-4"></h3>
+
+          <!-- Beds / baths -->
+          <div class="flex items-center gap-5 mb-5 pb-5 border-b border-earth-100">
+            <div class="flex items-center gap-2 text-earth-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span id="modal-beds" class="font-semibold text-sm"></span>
+            </div>
+            <div class="flex items-center gap-2 text-earth-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-earth-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+              </svg>
+              <span id="modal-baths" class="font-semibold text-sm"></span>
+            </div>
+          </div>
+
+          <!-- Specs -->
+          <p class="text-earth-500 text-xs font-semibold uppercase tracking-wider mb-3">{m.specsLabel}</p>
+          <div id="modal-specs" class="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-5">
+            <!-- filled by JS -->
+          </div>
+
+          <!-- Extras -->
+          <p class="text-earth-500 text-xs font-semibold uppercase tracking-wider mb-3">{m.extrasLabel}</p>
+          <div id="modal-extras" class="flex flex-wrap gap-2 mb-5">
+            <!-- filled by JS -->
+          </div>
+
+          <!-- Description -->
+          <p id="modal-desc" class="text-earth-500 text-sm leading-relaxed mb-6 flex-1"></p>
+
+          <!-- CTA -->
+          <a href="#contacto" id="modal-cta"
+            class="flex items-center justify-center gap-2 bg-earth-900 hover:bg-gold-400
+                   hover:text-earth-900 text-white font-semibold text-sm px-6 py-3.5
+                   rounded-xl transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            {m.modalCta}
+          </a>
         </div>
 
-        <!-- Extras -->
-        <p class="text-earth-500 text-xs font-semibold uppercase tracking-wider mb-3">{m.extrasLabel}</p>
-        <div id="modal-extras" class="flex flex-wrap gap-2 mb-5">
-          <!-- filled by JS -->
-        </div>
-
-        <!-- Description -->
-        <p id="modal-desc" class="text-earth-500 text-sm leading-relaxed mb-6 flex-1"></p>
-
-        <!-- CTA -->
-        <a href="#contacto" id="modal-cta"
-          class="flex items-center justify-center gap-2 bg-earth-900 hover:bg-gold-400
-                 hover:text-earth-900 text-white font-semibold text-sm px-6 py-3.5
-                 rounded-xl transition-all duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-          {m.modalCta}
-        </a>
       </div>
     </div>
   </div>
@@ -216,6 +364,35 @@ const specsPerModel = [
   }
   .animate-modal-in { animation: modal-in 0.25s ease-out forwards; }
   #model-modal-backdrop.open { display: flex; }
+
+  /* Galería de thumbnails — :global porque los crea JavaScript dinámicamente */
+  #modal-gallery-strip {
+    scrollbar-width: thin;
+    scrollbar-color: #2c3a5c transparent;
+  }
+  #modal-gallery-strip::-webkit-scrollbar { height: 4px; }
+  #modal-gallery-strip::-webkit-scrollbar-track { background: transparent; }
+  #modal-gallery-strip::-webkit-scrollbar-thumb { background: #2c3a5c; border-radius: 4px; }
+
+  :global(.gallery-thumb) {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.65;
+    transition: opacity 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  :global(.gallery-thumb:hover) {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+  :global(.gallery-thumb.active) {
+    border-color: #dbc06a;
+    opacity: 1;
+  }
 </style>
 
 <script define:vars={{
@@ -228,36 +405,88 @@ const specsPerModel = [
     description: item.description,
     tag: item.tag,
   })),
+  cardImages,
+  galleryPerModel,
   specsPerModel,
   bedsLabel: m.bedsLabel,
   bathsLabel: m.bathsLabel,
 }}>
   const backdrop  = document.getElementById('model-modal-backdrop');
   const closeBtn  = document.getElementById('modal-close-btn');
+  const mainImg   = document.getElementById('modal-main-img');
+  const gallery   = document.getElementById('modal-gallery-strip');
+  const counter   = document.getElementById('modal-photo-counter');
+  const prevBtn   = document.getElementById('modal-prev-btn');
+  const nextBtn   = document.getElementById('modal-next-btn');
 
-  function openModal(index) {
-    const model = modelsData[index];
-    const specs = specsPerModel[index];
+  // Array plano de todas las fotos del modelo activo: [cover, ...gallery]
+  let allPhotos = [];
+  let activeIndex = 0;
 
-    document.getElementById('modal-img').src  = model.image;
-    document.getElementById('modal-img').alt  = model.name;
-    document.getElementById('modal-name').textContent = model.name;
-    document.getElementById('modal-beds').textContent = `${model.beds} ${bedsLabel}`;
-    document.getElementById('modal-baths').textContent = `${model.baths} ${bathsLabel}`;
-    document.getElementById('modal-desc').textContent = model.description;
+  function goTo(index) {
+    if (index < 0 || index >= allPhotos.length) return;
+    activeIndex = index;
 
-    // Tag
-    const tagEl = document.getElementById('modal-tag');
-    if (model.tag) {
-      tagEl.textContent = model.tag;
-      tagEl.classList.remove('hidden');
+    mainImg.style.opacity = '0';
+    setTimeout(() => {
+      mainImg.src = allPhotos[index];
+      mainImg.style.opacity = '1';
+    }, 150);
+
+    // Contador
+    counter.textContent = `${index + 1} / ${allPhotos.length}`;
+
+    // Estado botones
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === allPhotos.length - 1;
+
+    // Resaltar thumbnail activo
+    document.querySelectorAll('.gallery-thumb').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+
+    // Scroll del thumbnail activo al centro del strip
+    const activeThumb = gallery.querySelectorAll('.gallery-thumb')[index];
+    activeThumb?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  function openModal(modelIndex) {
+    const model  = modelsData[modelIndex];
+    const specs  = specsPerModel[modelIndex];
+    const cover  = cardImages[modelIndex] ?? model.image;
+    const photos = galleryPerModel[modelIndex] ?? [];
+
+    // Array plano: portada primero, luego el resto
+    allPhotos  = [cover, ...photos];
+    activeIndex = 0;
+
+    // Imagen principal
+    mainImg.src = cover;
+    mainImg.alt = model.name;
+    mainImg.style.opacity = '1';
+
+    // Contador y botones
+    if (allPhotos.length > 1) {
+      counter.textContent = `1 / ${allPhotos.length}`;
+      counter.classList.remove('hidden');
     } else {
-      tagEl.classList.add('hidden');
+      counter.classList.add('hidden');
     }
+    prevBtn.disabled = true;
+    nextBtn.disabled = allPhotos.length <= 1;
+
+    // Nombre y tag
+    document.getElementById('modal-name').textContent = model.name;
+    const tagEl = document.getElementById('modal-tag');
+    if (model.tag) { tagEl.textContent = model.tag; tagEl.classList.remove('hidden'); }
+    else { tagEl.classList.add('hidden'); }
+
+    // Habitaciones / baños
+    document.getElementById('modal-beds').textContent  = `${model.beds} ${bedsLabel}`;
+    document.getElementById('modal-baths').textContent = `${model.baths} ${bathsLabel}`;
 
     // Specs
-    const specsEl = document.getElementById('modal-specs');
-    specsEl.innerHTML = specs.map(s =>
+    document.getElementById('modal-specs').innerHTML = specs.map(s =>
       `<div>
         <p class="text-earth-400 text-xs mb-0.5">${s.label}</p>
         <p class="text-earth-800 text-sm font-semibold">${s.value}</p>
@@ -265,10 +494,33 @@ const specsPerModel = [
     ).join('');
 
     // Extras
-    const extrasEl = document.getElementById('modal-extras');
-    extrasEl.innerHTML = model.extras.map(e =>
+    document.getElementById('modal-extras').innerHTML = model.extras.map(e =>
       `<span class="bg-earth-50 border border-earth-200 text-earth-600 text-xs font-medium px-3 py-1 rounded-full">${e}</span>`
     ).join('');
+
+    // Descripción
+    document.getElementById('modal-desc').textContent = model.description;
+
+    // Thumbnails
+    gallery.innerHTML = '';
+    if (allPhotos.length > 1) {
+      allPhotos.forEach((src, i) => {
+        const thumb = document.createElement('img');
+        thumb.src     = src;
+        thumb.alt     = `${model.name} ${i + 1}`;
+        thumb.width   = 72;
+        thumb.height  = 72;
+        thumb.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
+        thumb.loading = i === 0 ? 'eager' : 'lazy';
+        thumb.addEventListener('click', () => goTo(i));
+        gallery.appendChild(thumb);
+      });
+      gallery.classList.remove('hidden');
+      gallery.classList.add('flex');
+    } else {
+      gallery.classList.add('hidden');
+      gallery.classList.remove('flex');
+    }
 
     backdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -279,14 +531,20 @@ const specsPerModel = [
     document.body.style.overflow = '';
   }
 
+  prevBtn?.addEventListener('click', () => goTo(activeIndex - 1));
+  nextBtn?.addEventListener('click', () => goTo(activeIndex + 1));
+
   document.querySelectorAll('.model-detail-btn').forEach(btn => {
     btn.addEventListener('click', () => openModal(parseInt(btn.dataset.index)));
   });
 
   closeBtn?.addEventListener('click', closeModal);
   backdrop?.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape')       { closeModal(); return; }
+    if (e.key === 'ArrowRight')   goTo(activeIndex + 1);
+    if (e.key === 'ArrowLeft')    goTo(activeIndex - 1);
+  });
 
-  // Close modal when CTA is clicked (user goes to contact)
   document.getElementById('modal-cta')?.addEventListener('click', closeModal);
 </script>
