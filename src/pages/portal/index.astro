@@ -1,0 +1,1307 @@
+---
+// Demo portal — client-side only, no Layout to keep it self-contained
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Portal del Inversionista — MANIBE LLC</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-900: #0c1524;
+      --navy-800: #141d34;
+      --navy-700: #1e2a45;
+      --navy-600: #2c3a5c;
+      --navy-400: #5e6d8c;
+      --navy-300: #8894b0;
+      --gold: #dbc06a;
+      --gold-hover: #c4a95a;
+      --surface: #f0f1f5;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--surface);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .font-heading { font-family: 'Playfair Display', serif; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--navy-800);
+      color: var(--white);
+      padding: 0.7rem 1.5rem;
+      border-radius: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      z-index: 999;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      pointer-events: none;
+      border: 1px solid var(--navy-600);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ── Login screen ── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy-900);
+      padding: 1.5rem;
+    }
+
+    .login-card {
+      background: var(--navy-800);
+      border: 1px solid var(--navy-600);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .login-card img { height: 48px; margin: 0 auto 1.25rem; display: block; }
+
+    .login-subtitle {
+      text-align: center;
+      color: var(--surface);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    .login-card label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--navy-300);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-card input[type="email"],
+    .login-card input[type="password"] {
+      width: 100%;
+      background: rgba(44,58,92,0.4);
+      border: 1.5px solid var(--navy-600);
+      border-radius: 0.75rem;
+      padding: 0.85rem 1rem;
+      color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .login-card input[type="email"]:focus,
+    .login-card input[type="password"]:focus { border-color: var(--gold); }
+    .login-card input[type="email"]::placeholder,
+    .login-card input[type="password"]::placeholder { color: var(--navy-300); }
+
+    .login-extras {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .remember-me span {
+      font-size: 0.8rem;
+      color: var(--navy-300);
+    }
+
+    .forgot-link {
+      font-size: 0.8rem;
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover { color: var(--gold-hover); text-decoration: underline; }
+
+    .login-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--navy-900);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover { background: var(--gold-hover); }
+
+    .login-error {
+      background: rgba(220,50,50,0.15);
+      border: 1px solid rgba(220,50,50,0.3);
+      color: #f87171;
+      font-size: 0.8rem;
+      padding: 0.65rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .login-back {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--surface);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .login-back:hover { color: var(--gold); }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--navy-600);
+      font-size: 0.7rem;
+      color: var(--navy-400);
+      line-height: 1.6;
+    }
+
+    .login-footer a {
+      color: var(--navy-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .login-footer a:hover { color: var(--gold); }
+
+    /* ── Dashboard ── */
+    #dashboard { display: none; }
+
+    .portal-header {
+      background: var(--navy-900);
+      border-bottom: 1px solid var(--navy-600);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .portal-header-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 1.5rem;
+    }
+
+    .portal-header img { height: 36px; }
+
+    .portal-header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .portal-header .user-name {
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .portal-header .user-role {
+      color: var(--navy-300);
+      font-size: 0.7rem;
+    }
+
+    .logout-btn {
+      background: rgba(44,58,92,0.5);
+      border: 1px solid var(--navy-600);
+      color: var(--navy-300);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover { color: var(--white); border-color: var(--gold); }
+
+    /* Nav tabs */
+    .portal-nav {
+      background: var(--navy-800);
+      border-top: 1px solid var(--navy-700);
+    }
+
+    .portal-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      padding: 0 1.5rem;
+    }
+
+    .portal-nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy-300);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .portal-nav a:hover { color: var(--white); }
+
+    .portal-nav a.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .portal-nav a svg { width: 16px; height: 16px; }
+
+    .portal-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 2rem;
+    }
+
+    .welcome-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .welcome-sub { color: var(--navy-400); font-size: 0.85rem; margin-bottom: 1.5rem; }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid #dce0ea;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--navy-400);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .stat-value.gold { color: var(--gold-hover); }
+
+    .stat-sub { font-size: 0.75rem; color: var(--navy-300); margin-top: 0.25rem; }
+
+    .stat-trend {
+      font-size: 0.7rem;
+      color: #22c55e;
+      font-weight: 600;
+      margin-top: 0.35rem;
+    }
+
+    .stat-trend.neutral { color: var(--navy-300); }
+
+    /* Section cards */
+    .section-card {
+      background: var(--white);
+      border: 1px solid #dce0ea;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-card-header {
+      padding: 1.25rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy-900);
+      border-bottom: 1px solid #dce0ea;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-card-header .icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(219,192,106,0.12);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-card-header .icon svg { width: 16px; height: 16px; color: var(--gold-hover); }
+
+    /* Stage legend */
+    .stage-legend {
+      display: flex;
+      gap: 1.25rem;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid #eef0f4;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--navy-400);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.complete { background: #22c55e; }
+    .legend-dot.progress { background: var(--gold); }
+    .legend-dot.pending  { background: #dce0ea; }
+
+    /* Accordion stages */
+    .stage {
+      border-bottom: 1px solid #eef0f4;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .stage:last-child { border-bottom: none; }
+
+    .stage.is-progress {
+      border-left: 4px solid var(--gold);
+      background: #fffdf5;
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.15s, border-left-color 0.2s;
+      user-select: none;
+    }
+
+    .stage-header:hover { background: #f8f9fb; }
+    .stage.is-progress .stage-header:hover { background: #fefbee; }
+    .stage:not(.is-progress) .stage-header:hover { border-left: 4px solid var(--gold); margin-left: -4px; padding-left: calc(1.5rem + 4px); }
+
+    .progress-ring {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .progress-ring svg {
+      width: 48px;
+      height: 48px;
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring .bg { stroke: #e8eaf0; fill: none; stroke-width: 4; }
+
+    .progress-ring .fill { fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
+
+    .fill-complete { stroke: #22c55e; }
+    .fill-progress { stroke: var(--gold); }
+    .fill-pending  { stroke: #dce0ea; }
+
+    .progress-ring .pct {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .stage-info { flex: 1; }
+    .stage-title { font-weight: 600; font-size: 0.9rem; color: var(--navy-900); }
+    .stage-sub { font-size: 0.75rem; color: var(--navy-300); margin-top: 0.15rem; }
+
+    .stage-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .badge-complete { background: #dcfce7; color: #15803d; }
+    .badge-progress { background: #fef9c3; color: #a16207; }
+    .badge-pending  { background: #f3f4f6; color: #6b7280; }
+
+    .stage-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--navy-300);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .stage.open .stage-chevron { transform: rotate(180deg); }
+
+    .stage-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .stage-body-inner {
+      padding: 0 1.5rem 1.25rem;
+    }
+
+    .stage.open .stage-body {
+      max-height: 800px;
+    }
+
+    .stage-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .stage-photos img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      border: 1px solid #e8eaf0;
+    }
+
+    .stage-desc {
+      font-size: 0.85rem;
+      color: var(--navy-400);
+      line-height: 1.6;
+    }
+
+    /* Documents */
+    .doc-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #eef0f4;
+      transition: background 0.15s;
+    }
+
+    .doc-row:last-child { border-bottom: none; }
+    .doc-row:hover { background: #f8f9fb; }
+
+    .doc-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .doc-icon.available { background: rgba(34,197,94,0.1); }
+    .doc-icon.pending   { background: #f3f4f6; }
+
+    .doc-icon svg { width: 18px; height: 18px; }
+
+    .doc-info { flex: 1; min-width: 0; }
+    .doc-name { font-size: 0.85rem; font-weight: 600; color: var(--navy-900); }
+    .doc-meta { font-size: 0.7rem; color: var(--navy-300); margin-top: 0.15rem; }
+
+    .doc-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .doc-badge.ready   { background: #dcfce7; color: #15803d; }
+    .doc-badge.pending { background: #f3f4f6; color: #6b7280; }
+
+    .doc-download {
+      width: 18px;
+      height: 18px;
+      color: var(--navy-300);
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .doc-row:hover .doc-download { color: var(--gold); }
+
+    /* Camera section */
+    .cam-card {
+      padding: 1.5rem;
+    }
+
+    .cam-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      .cam-info { grid-template-columns: 1fr; }
+    }
+
+    .cam-field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--navy-400);
+      margin-bottom: 0.35rem;
+    }
+
+    .cam-field .value {
+      background: var(--surface);
+      border: 1px solid #dce0ea;
+      border-radius: 0.5rem;
+      padding: 0.6rem 0.75rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--navy-900);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cam-field .value span { flex: 1; }
+
+    .toggle-btn, .copy-btn {
+      background: none;
+      border: none;
+      color: var(--navy-300);
+      cursor: pointer;
+      padding: 0.2rem;
+      border-radius: 0.25rem;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle-btn:hover, .copy-btn:hover { color: var(--gold); }
+    .toggle-btn svg, .copy-btn svg { width: 16px; height: 16px; }
+
+    /* DMSS stepper */
+    .dmss-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .dmss-steps { grid-template-columns: 1fr 1fr; }
+    }
+
+    .dmss-step {
+      text-align: center;
+      padding: 1rem 0.5rem;
+      background: var(--surface);
+      border-radius: 0.75rem;
+      border: 1px solid #dce0ea;
+    }
+
+    .dmss-step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--gold);
+      color: var(--navy-900);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dmss-step-text {
+      font-size: 0.75rem;
+      color: var(--navy-400);
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .cam-apps {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .app-badge-link {
+      display: block;
+      height: 44px;
+      transition: opacity 0.2s;
+    }
+
+    .app-badge-link:hover { opacity: 0.85; }
+    .app-badge-link img { height: 44px; border-radius: 8px; }
+    .app-badge-link.gplay { height: 64px; margin: -10px 0; }
+    .app-badge-link.gplay img { height: 64px; }
+
+    .cam-note {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--navy-300);
+      line-height: 1.5;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--navy-300);
+      font-size: 0.8rem;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--gold); }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* Portal footer */
+    .portal-footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--navy-400);
+      border-top: 1px solid #dce0ea;
+    }
+
+    .portal-footer a {
+      color: var(--navy-300);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .portal-footer a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<!-- Toast notification -->
+<div id="toast" class="toast"></div>
+
+<!-- ════════════════════════════════════════════════════
+     LOGIN
+     ════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <img src="/logo-manibe-blanco.png" alt="MANIBE LLC" />
+    <p class="login-subtitle">Portal del Inversionista</p>
+
+    <div id="login-error" class="login-error">Credenciales incorrectas. Verifica tu email y contraseña.</div>
+
+    <form id="login-form" autocomplete="off">
+      <label for="login-email">Email</label>
+      <input id="login-email" type="email" placeholder="tu@email.com" required autocomplete="username" />
+
+      <label for="login-pass">Contraseña</label>
+      <input id="login-pass" type="password" placeholder="Ingresa tu contraseña" required autocomplete="current-password" />
+
+      <div class="login-extras">
+        <label class="remember-me">
+          <input type="checkbox" id="remember-me" />
+          <span>Recordarme</span>
+        </label>
+        <a href="#" class="forgot-link" onclick="event.preventDefault(); alert('Contacta a info@manibehomes.com para restablecer tu contraseña.');">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="login-btn">Ingresar</button>
+    </form>
+
+    <a href="/" class="login-back">← Volver al sitio principal</a>
+
+    <div class="login-footer">
+      © 2026 MANIBE LLC · <a href="#">Términos</a> · <a href="#">Privacidad</a> · <a href="mailto:info@manibehomes.com">Contacto</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     DASHBOARD
+     ════════════════════════════════════════════════════ -->
+<div id="dashboard">
+
+  <!-- Header -->
+  <header class="portal-header">
+    <div class="portal-header-top">
+      <img src="/logo-manibe-blanco.png" alt="MANIBE LLC" />
+      <div class="user-info">
+        <div style="text-align:right">
+          <div class="user-name">Juan García</div>
+          <div class="user-role">Inversionista</div>
+        </div>
+        <button id="logout-btn" class="logout-btn">Salir</button>
+      </div>
+    </div>
+    <nav class="portal-nav">
+      <div class="portal-nav-inner">
+        <a href="#section-dashboard" class="active" data-nav="dashboard">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" /></svg>
+          Dashboard
+        </a>
+        <a href="#section-documents" data-nav="documents">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          Documentos
+        </a>
+        <a href="#section-camera" data-nav="camera">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Cámara
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Body -->
+  <div class="portal-body">
+
+    <a href="/" class="back-link">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Volver al sitio principal
+    </a>
+
+    <h1 class="welcome-text font-heading">Bienvenido, Juan</h1>
+    <p class="welcome-sub">Aquí puedes ver el estado de tu proyecto en tiempo real.</p>
+
+    <!-- ── Stats ── -->
+    <div id="section-dashboard" class="stats-grid">
+      <div class="stat-card">
+        <p class="stat-label">Avance General</p>
+        <p class="stat-value gold">58%</p>
+        <p class="stat-sub">3 de 5 etapas activas</p>
+        <p class="stat-trend">+13% desde el mes pasado</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Tu Inversión</p>
+        <p class="stat-value">$185,000</p>
+        <p class="stat-sub">Producto: Colectiva Premium</p>
+        <p class="stat-trend neutral">Próximo reporte: 1 mayo 2026</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Entrega Estimada</p>
+        <p class="stat-value">Sep 2026</p>
+        <p class="stat-sub">En plazo según cronograma</p>
+        <p class="stat-trend">Adelantado 1 semana</p>
+      </div>
+    </div>
+
+    <!-- ── Construction Stages (Accordion) ── -->
+    <div class="section-card">
+      <div class="section-card-header">
+        <span class="icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        </span>
+        Etapas de Construcción
+      </div>
+
+      <!-- Legend -->
+      <div class="stage-legend">
+        <span class="legend-item"><span class="legend-dot complete"></span> Completado</span>
+        <span class="legend-item"><span class="legend-dot progress"></span> En progreso</span>
+        <span class="legend-item"><span class="legend-dot pending"></span> Pendiente</span>
+      </div>
+
+      <!-- Stage 1 -->
+      <div class="stage open" data-stage>
+        <div class="stage-header" data-stage-toggle>
+          <div class="progress-ring">
+            <svg viewBox="0 0 48 48">
+              <circle class="bg" cx="24" cy="24" r="20" />
+              <circle class="fill fill-complete" cx="24" cy="24" r="20"
+                      stroke-dasharray="125.66" stroke-dashoffset="0" />
+            </svg>
+            <span class="pct">100%</span>
+          </div>
+          <div class="stage-info">
+            <div class="stage-title">Arquitectura, ingeniería y permisos</div>
+            <div class="stage-sub">Planos aprobados y permisos obtenidos</div>
+          </div>
+          <span class="stage-badge badge-complete">Completado</span>
+          <svg class="stage-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Diseño arquitectónico aprobado, planos estructurales completados. Permiso de construcción otorgado por Lee County. Todo listo para iniciar obra.</p>
+            <div class="stage-photos">
+              <img src="/Portal/Etapa1.1.webp" alt="Fase de permisos 1" loading="lazy" />
+              <img src="/Portal/Etapa1.2.webp" alt="Fase de permisos 2" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="stage" data-stage>
+        <div class="stage-header" data-stage-toggle>
+          <div class="progress-ring">
+            <svg viewBox="0 0 48 48">
+              <circle class="bg" cx="24" cy="24" r="20" />
+              <circle class="fill fill-complete" cx="24" cy="24" r="20"
+                      stroke-dasharray="125.66" stroke-dashoffset="0" />
+            </svg>
+            <span class="pct">100%</span>
+          </div>
+          <div class="stage-info">
+            <div class="stage-title">Fundición y estructura (shell)</div>
+            <div class="stage-sub">Cimentación, paredes y techo completados</div>
+          </div>
+          <span class="stage-badge badge-complete">Completado</span>
+          <svg class="stage-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Cimentación de losa de concreto terminada, paredes de bloque levantadas, estructura de techo instalada. Inspecciones de Lee County aprobadas en cada fase.</p>
+            <div class="stage-photos">
+              <img src="/Portal/Etapa2.1.webp" alt="Fundición 1" loading="lazy" />
+              <img src="/Portal/Etapa2.2.webp" alt="Estructura 2" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 3 — In Progress -->
+      <div class="stage is-progress" data-stage>
+        <div class="stage-header" data-stage-toggle>
+          <div class="progress-ring">
+            <svg viewBox="0 0 48 48">
+              <circle class="bg" cx="24" cy="24" r="20" />
+              <circle class="fill fill-progress" cx="24" cy="24" r="20"
+                      stroke-dasharray="125.66" stroke-dashoffset="43.98" />
+            </svg>
+            <span class="pct">65%</span>
+          </div>
+          <div class="stage-info">
+            <div class="stage-title">Construcción de la vivienda</div>
+            <div class="stage-sub">Instalaciones eléctricas, plomería, drywall</div>
+          </div>
+          <span class="stage-badge badge-progress">En progreso</span>
+          <svg class="stage-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Instalación eléctrica y plomería en fase final. Drywall completado al 80%. Ventanas y puertas exteriores instaladas. Próxima inspección programada.</p>
+            <div class="stage-photos">
+              <img src="/Portal/Etapa3.1.webp" alt="Construcción 1" loading="lazy" />
+              <img src="/Portal/Etapa3.2.webp" alt="Construcción 2" loading="lazy" />
+              <img src="/Portal/Etapa3.3.webp" alt="Construcción 3" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 4 -->
+      <div class="stage" data-stage>
+        <div class="stage-header" data-stage-toggle>
+          <div class="progress-ring">
+            <svg viewBox="0 0 48 48">
+              <circle class="bg" cx="24" cy="24" r="20" />
+              <circle class="fill fill-pending" cx="24" cy="24" r="20"
+                      stroke-dasharray="125.66" stroke-dashoffset="125.66" />
+            </svg>
+            <span class="pct">0%</span>
+          </div>
+          <div class="stage-info">
+            <div class="stage-title">Acabados</div>
+            <div class="stage-sub">Pisos, pintura, cocina, baños</div>
+          </div>
+          <span class="stage-badge badge-pending">Pendiente</span>
+          <svg class="stage-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Etapa pendiente. Incluye instalación de pisos, pintura interior y exterior, gabinetes de cocina, encimeras, fixtures de baños y accesorios.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 5 -->
+      <div class="stage" data-stage>
+        <div class="stage-header" data-stage-toggle>
+          <div class="progress-ring">
+            <svg viewBox="0 0 48 48">
+              <circle class="bg" cx="24" cy="24" r="20" />
+              <circle class="fill fill-pending" cx="24" cy="24" r="20"
+                      stroke-dasharray="125.66" stroke-dashoffset="125.66" />
+            </svg>
+            <span class="pct">0%</span>
+          </div>
+          <div class="stage-info">
+            <div class="stage-title">Exterior y CO</div>
+            <div class="stage-sub">Paisajismo, driveway, certificado de ocupación</div>
+          </div>
+          <span class="stage-badge badge-pending">Pendiente</span>
+          <svg class="stage-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Etapa final. Incluye paisajismo, driveway de concreto, limpieza general e inspección final para obtener el Certificate of Occupancy (CO).</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Documents ── -->
+    <div id="section-documents" class="section-card">
+      <div class="section-card-header">
+        <span class="icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </span>
+        Documentos del Proyecto
+      </div>
+
+      <a class="doc-row" href="/Portal/Ejemplo Full Set.pdf" target="_blank" rel="noopener" style="text-decoration:none; color:inherit;">
+        <div class="doc-icon available">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#22c55e" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Planos arquitectónicos</div>
+          <div class="doc-meta">PDF · 2.4 MB · Emitido: 15 ene 2026</div>
+        </div>
+        <span class="doc-badge ready">Disponible</span>
+        <svg class="doc-download" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </a>
+
+      <a class="doc-row" href="/Portal/Ejemplo Permiso Construccion.pdf" target="_blank" rel="noopener" style="text-decoration:none; color:inherit;">
+        <div class="doc-icon available">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#22c55e" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Permiso de construcción</div>
+          <div class="doc-meta">PDF · 1.1 MB · Emitido: 28 feb 2026</div>
+        </div>
+        <span class="doc-badge ready">Disponible</span>
+        <svg class="doc-download" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </a>
+
+      <div class="doc-row" style="opacity:0.6; cursor:default;">
+        <div class="doc-icon pending">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#9ca3af" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Certificado de ocupación (CO)</div>
+          <div class="doc-meta">Disponible al completar la etapa final</div>
+        </div>
+        <span class="doc-badge pending">Pendiente</span>
+      </div>
+
+    </div>
+
+    <!-- ── DMSS Camera ── -->
+    <div id="section-camera" class="section-card">
+      <div class="section-card-header">
+        <span class="icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </span>
+        Cámara en Vivo — DMSS
+      </div>
+
+      <div class="cam-card">
+
+        <!-- Stepper -->
+        <div class="dmss-steps">
+          <div class="dmss-step">
+            <div class="dmss-step-num">1</div>
+            <p class="dmss-step-text">Descarga la app DMSS</p>
+          </div>
+          <div class="dmss-step">
+            <div class="dmss-step-num">2</div>
+            <p class="dmss-step-text">Abre la app y toca "Agregar dispositivo"</p>
+          </div>
+          <div class="dmss-step">
+            <div class="dmss-step-num">3</div>
+            <p class="dmss-step-text">Ingresa usuario y contraseña</p>
+          </div>
+          <div class="dmss-step">
+            <div class="dmss-step-num">4</div>
+            <p class="dmss-step-text">Selecciona la cámara "Obra Principal"</p>
+          </div>
+        </div>
+
+        <div class="cam-info">
+          <div class="cam-field">
+            <label>Usuario</label>
+            <div class="value">
+              <span id="cam-user">MANIBE_JG_001</span>
+              <button class="copy-btn" data-copy="MANIBE_JG_001" title="Copiar">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="cam-field">
+            <label>Contraseña</label>
+            <div class="value">
+              <span id="cam-pass" data-real="MNB@2025#Juan">••••••••••••</span>
+              <button class="toggle-btn" id="toggle-pass" title="Mostrar">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+              <button class="copy-btn" data-copy="MNB@2025#Juan" title="Copiar">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cam-apps">
+          <a href="https://apps.apple.com/app/dmss/id1493268178" target="_blank" rel="noopener" class="app-badge-link">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.mm.android.DMSS" target="_blank" rel="noopener" class="app-badge-link gplay">
+            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" />
+          </a>
+        </div>
+
+        <p class="cam-note">
+          Si tienes problemas para conectarte, contáctanos por <a href="https://wa.me/12392996978" target="_blank" rel="noopener" style="color: var(--gold); text-decoration: none;">WhatsApp</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Dashboard footer -->
+    <footer class="portal-footer">
+      © 2026 MANIBE LLC · <a href="#">Términos</a> · <a href="#">Privacidad</a> · <a href="mailto:info@manibehomes.com">info@manibehomes.com</a>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SCRIPTS
+     ════════════════════════════════════════════════════ -->
+<script>
+  const VALID_EMAIL = 'juan@manibehomes.com';
+  const VALID_PASS  = 'Manibe2025';
+
+  const loginScreen = document.getElementById('login-screen')!;
+  const dashboard   = document.getElementById('dashboard')!;
+  const loginForm   = document.getElementById('login-form')!;
+  const loginError  = document.getElementById('login-error')!;
+  const logoutBtn   = document.getElementById('logout-btn')!;
+  const toast       = document.getElementById('toast')!;
+
+  // ── Toast helper ──
+  let toastTimer: ReturnType<typeof setTimeout>;
+  function showToast(msg: string) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+
+  // ── Session check ──
+  if (sessionStorage.getItem('portal-auth') === '1') {
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+  }
+
+  // ── Login ──
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = (document.getElementById('login-email') as HTMLInputElement).value.trim();
+    const pass  = (document.getElementById('login-pass') as HTMLInputElement).value;
+
+    if (email === VALID_EMAIL && pass === VALID_PASS) {
+      sessionStorage.setItem('portal-auth', '1');
+      loginScreen.style.display = 'none';
+      dashboard.style.display = 'block';
+      loginError.style.display = 'none';
+    } else {
+      loginError.style.display = 'block';
+    }
+  });
+
+  // ── Logout ──
+  logoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem('portal-auth');
+    loginScreen.style.display = 'flex';
+    dashboard.style.display = 'none';
+    (document.getElementById('login-email') as HTMLInputElement).value = '';
+    (document.getElementById('login-pass') as HTMLInputElement).value = '';
+  });
+
+  // ── Accordion with smooth height ──
+  document.querySelectorAll('[data-stage-toggle]').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const stage = toggle.closest('[data-stage]')!;
+      const body = stage.querySelector('.stage-body') as HTMLElement;
+
+      if (stage.classList.contains('open')) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(() => { body.style.maxHeight = '0'; });
+        stage.classList.remove('open');
+      } else {
+        stage.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.addEventListener('transitionend', () => {
+          if (stage.classList.contains('open')) body.style.maxHeight = '800px';
+        }, { once: true });
+      }
+    });
+  });
+
+  // Init open stage height
+  document.querySelectorAll('.stage.open .stage-body').forEach((b) => {
+    (b as HTMLElement).style.maxHeight = '800px';
+  });
+
+  // ── Copy buttons with toast ──
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const text = (btn as HTMLElement).dataset.copy!;
+      navigator.clipboard.writeText(text).then(() => showToast('Copiado \u2713'));
+    });
+  });
+
+  // ── Password toggle ──
+  const camPass   = document.getElementById('cam-pass')!;
+  const toggleBtn = document.getElementById('toggle-pass')!;
+  let passVisible = false;
+
+  toggleBtn.addEventListener('click', () => {
+    passVisible = !passVisible;
+    camPass.textContent = passVisible ? camPass.dataset.real! : '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022';
+    toggleBtn.title = passVisible ? 'Ocultar' : 'Mostrar';
+    const svg = toggleBtn.querySelector('svg')!;
+    if (passVisible) {
+      svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.59 6.59m7.532 7.532l3.29 3.29M3 3l18 18" />';
+    } else {
+      svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />';
+    }
+  });
+
+  // ── Nav tabs smooth scroll ──
+  document.querySelectorAll('.portal-nav a[data-nav]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = (link as HTMLAnchorElement).getAttribute('href')!;
+      const el = document.querySelector(target);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('.portal-nav a').forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

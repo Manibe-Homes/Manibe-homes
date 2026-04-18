@@ -6,23 +6,26 @@ const m = t.models;
 
 const isEN = t.lang === 'en';
 const specsPerModel = [
+  // Modelo Manibe
   [
-    { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~1,850 sq ft / 172 m²' },
-    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Modern contemporary' : 'Moderno contemporáneo' },
-    { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Double'  : 'Doble' },
-    { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+    { label: isEN ? 'Covered area'  : 'Área bajo techo', value: '2,372 ft² / 220 m²' },
+    { label: isEN ? 'A/C area'      : 'Área bajo aire',  value: '1,666 ft² / 155 m²' },
+    { label: isEN ? 'Style'         : 'Estilo',           value: isEN ? 'Modern contemporary' : 'Moderno contemporáneo' },
+    { label: isEN ? 'Garage'        : 'Garaje',           value: isEN ? 'Double' : 'Doble' },
   ],
+  // Modelo Albany
   [
-    { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~2,300 sq ft / 214 m²' },
-    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Modern contemporary' : 'Moderno contemporáneo' },
-    { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Triple'  : 'Triple' },
-    { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+    { label: isEN ? 'Covered area'  : 'Área bajo techo', value: '2,381 ft² / 221 m²' },
+    { label: isEN ? 'A/C area'      : 'Área bajo aire',  value: '1,731 ft² / 161 m²' },
+    { label: isEN ? 'Style'         : 'Estilo',           value: isEN ? 'Modern contemporary' : 'Moderno contemporáneo' },
+    { label: isEN ? 'Garage'        : 'Garaje',           value: isEN ? 'Triple' : 'Triple' },
   ],
+  // Modelo Canac
   [
-    { label: isEN ? 'Approx. area' : 'Área aprox.',    value: '~1,450 sq ft / 135 m²' },
-    { label: isEN ? 'Style'        : 'Estilo',          value: isEN ? 'Cozy modern' : 'Moderno acogedor' },
-    { label: isEN ? 'Garage'       : 'Garaje',          value: isEN ? 'Included' : 'Incluido' },
-    { label: isEN ? 'Construction' : 'Construcción',    value: isEN ? 'Concrete block' : 'Bloque de hormigón' },
+    { label: isEN ? 'Covered area'  : 'Área bajo techo', value: '1,491 ft² / 139 m²' },
+    { label: isEN ? 'A/C area'      : 'Área bajo aire',  value: '1,207 ft² / 112 m²' },
+    { label: isEN ? 'Style'         : 'Estilo',           value: isEN ? 'Cozy modern' : 'Moderno acogedor' },
+    { label: isEN ? 'Garage'        : 'Garaje',           value: isEN ? 'Included' : 'Incluido' },
   ],
 ];
 

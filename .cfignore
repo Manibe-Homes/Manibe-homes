@@ -1,0 +1,13 @@
+# Cloudflare Pages — archivos excluidos del deploy manual (wrangler pages deploy)
+# Mirrors de las entradas relevantes de .gitignore
+
+# Fotos originales pesadas (el sitio usa los WebP en */webp/)
+Manibe/*.jpg
+Manibe/*.jpeg
+Manibe/*.png
+Albany/*.jpg
+Albany/*.jpeg
+Albany/*.png
+
+# Zips de exportación
+*.zip
