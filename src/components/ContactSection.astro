@@ -57,27 +57,31 @@ const waMessage = encodeURIComponent(c.waMessage);
         <div class="bg-earth-800/60 backdrop-blur-sm border border-earth-700 rounded-2xl p-8">
           <h3 class="font-heading text-xl font-bold text-white mb-6">{c.formTitle}</h3>
 
-          <form id="contact-form" class="space-y-5" onsubmit="handleContactSubmit(event)">
+          <form id="contact-form" class="space-y-5" onsubmit="handleContactSubmit(event)" novalidate>
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label for="name" class="block text-earth-300 text-sm font-medium mb-2">
                   {c.fields.name} <span class="text-gold-400">*</span>
                 </label>
-                <input type="text" id="name" name="name" required
+                <input type="text" id="name" name="name"
+                  aria-describedby="name-error"
                   placeholder={c.fields.namePlaceholder}
                   class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
                          rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
                          focus:ring-gold-400 transition-colors" />
+                <span id="name-error" class="field-error-msg" role="alert"></span>
               </div>
               <div>
                 <label for="email" class="block text-earth-300 text-sm font-medium mb-2">
                   {c.fields.email} <span class="text-gold-400">*</span>
                 </label>
-                <input type="email" id="email" name="email" required
+                <input type="email" id="email" name="email"
+                  aria-describedby="email-error"
                   placeholder={c.fields.emailPlaceholder}
                   class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
                          rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
                          focus:ring-gold-400 transition-colors" />
+                <span id="email-error" class="field-error-msg" role="alert"></span>
               </div>
             </div>
 
@@ -85,11 +89,13 @@ const waMessage = encodeURIComponent(c.waMessage);
               <label for="phone" class="block text-earth-300 text-sm font-medium mb-2">
                 {c.fields.phone} <span class="text-gold-400">*</span>
               </label>
-              <input type="tel" id="phone" name="phone" required
+              <input type="tel" id="phone" name="phone"
+                aria-describedby="phone-error"
                 placeholder={c.fields.phonePlaceholder}
                 class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
                        rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
                        focus:ring-gold-400 transition-colors" />
+              <span id="phone-error" class="field-error-msg" role="alert"></span>
             </div>
 
             <div>
@@ -97,7 +103,8 @@ const waMessage = encodeURIComponent(c.waMessage);
                 {c.fields.product} <span class="text-gold-400">*</span>
               </label>
               <div class="relative">
-                <select id="product" name="product" required
+                <select id="product" name="product"
+                  aria-describedby="product-error"
                   class="w-full bg-earth-700/50 border border-earth-600 text-white rounded-xl px-4 py-3
                          text-sm focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400
                          transition-colors appearance-none cursor-pointer">
@@ -112,6 +119,7 @@ const waMessage = encodeURIComponent(c.waMessage);
                   </svg>
                 </div>
               </div>
+              <span id="product-error" class="field-error-msg" role="alert"></span>
             </div>
 
             <div>
@@ -119,10 +127,12 @@ const waMessage = encodeURIComponent(c.waMessage);
                 {c.fields.message}
               </label>
               <textarea id="message" name="message" rows="4"
+                aria-describedby="message-error"
                 placeholder={c.fields.messagePlaceholder}
                 class="w-full bg-earth-700/50 border border-earth-600 text-white placeholder-earth-500
                        rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-400 focus:ring-1
                        focus:ring-gold-400 transition-colors resize-none"></textarea>
+              <span id="message-error" class="field-error-msg" role="alert"></span>
             </div>
 
             <button type="submit" id="submit-btn"
@@ -189,9 +199,98 @@ const waMessage = encodeURIComponent(c.waMessage);
   </div>
 </section>
 
+<style is:global>
+  .field-error-msg {
+    display: none;
+    color: #c53030;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    line-height: 1.4;
+  }
+  .field-error-msg.visible {
+    display: block;
+  }
+  .input-error {
+    border-color: #c53030 !important;
+  }
+</style>
+
 <script>
+  type FieldId = 'name' | 'email' | 'phone' | 'product' | 'message';
+
+  function getField(id: FieldId) {
+    return document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+  }
+
+  function showError(id: FieldId, msg: string) {
+    const field = getField(id);
+    const span = document.getElementById(`${id}-error`) as HTMLSpanElement;
+    field.classList.add('input-error');
+    field.setAttribute('aria-invalid', 'true');
+    span.textContent = msg;
+    span.classList.add('visible');
+  }
+
+  function clearError(id: FieldId) {
+    const field = getField(id);
+    const span = document.getElementById(`${id}-error`) as HTMLSpanElement;
+    field.classList.remove('input-error');
+    field.setAttribute('aria-invalid', 'false');
+    span.textContent = '';
+    span.classList.remove('visible');
+  }
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const PHONE_RE = /^[\d\s\+\-\(\)]{7,}$/;
+
+  function validateField(id: FieldId): boolean {
+    const field = getField(id);
+    const value = field.value.trim();
+
+    switch (id) {
+      case 'name':
+        if (!value) { showError(id, 'Este campo es obligatorio'); return false; }
+        break;
+      case 'email':
+        if (!value) { showError(id, 'Este campo es obligatorio'); return false; }
+        if (!EMAIL_RE.test(value)) { showError(id, 'Ingresa un correo electrónico válido'); return false; }
+        break;
+      case 'phone':
+        if (!value) { showError(id, 'Este campo es obligatorio'); return false; }
+        if (!PHONE_RE.test(value)) { showError(id, 'Ingresa un número de teléfono válido'); return false; }
+        break;
+      case 'product':
+        if (!value) { showError(id, 'Este campo es obligatorio'); return false; }
+        break;
+      case 'message':
+        if (value && value.length < 10) {
+          showError(id, 'Tu mensaje debe tener al menos 10 caracteres');
+          return false;
+        }
+        break;
+    }
+
+    clearError(id);
+    return true;
+  }
+
+  const FIELDS: FieldId[] = ['name', 'email', 'phone', 'product', 'message'];
+
+  function attachListeners() {
+    FIELDS.forEach((id) => {
+      const field = getField(id);
+      if (!field) return;
+      field.addEventListener('blur', () => validateField(id));
+      field.addEventListener('input', () => clearError(id));
+    });
+  }
+
   async function handleContactSubmit(event: Event) {
     event.preventDefault();
+
+    const valid = FIELDS.map((id) => validateField(id)).every(Boolean);
+    if (!valid) return;
+
     const form = event.target as HTMLFormElement;
     const btn = document.getElementById('submit-btn') as HTMLButtonElement;
     const success = document.getElementById('form-success');
@@ -223,6 +322,7 @@ const waMessage = encodeURIComponent(c.waMessage);
       btn.classList.add('hidden');
       success?.classList.remove('hidden');
       form.reset();
+      FIELDS.forEach((id) => clearError(id));
 
       setTimeout(() => {
         btn.classList.remove('hidden');
@@ -238,4 +338,6 @@ const waMessage = encodeURIComponent(c.waMessage);
   }
 
   (window as any).handleContactSubmit = handleContactSubmit;
+
+  document.addEventListener('DOMContentLoaded', attachListeners);
 </script>
