@@ -238,6 +238,7 @@ const defaultModels = [
       font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
       color: var(--white); line-height: 1.2;
     }
+    .prod-tagline { font-size: 0.82rem; color: var(--gold); font-style: italic; margin-top: -0.5rem; }
     .prod-desc { font-size: 0.9rem; color: var(--navy-7); line-height: 1.7; }
 
     .prod-roi-wrap { padding: 1.25rem 1rem; background: rgba(219,192,106,0.06); border: 1px solid rgba(219,192,106,0.18); border-radius: 1rem; }
@@ -718,18 +719,85 @@ const defaultModels = [
     <div class="v-inner">
       <p class="v-section-label">Cómo invertir</p>
       <h2 class="v-section-title">Elige tu <span style="color:var(--gold)">modelo de inversión</span></h2>
-      <p class="v-section-sub">Dos estructuras diseñadas para distintos perfiles. Ambas con respaldo real, transparencia total y el equipo de Manibe trabajando con tu capital.</p>
+      <p class="v-section-sub">Tres estructuras diseñadas para distintos perfiles. Todas con respaldo real, transparencia total y el equipo de Manibe trabajando con tu capital.</p>
 
       <div class="prod-stack">
 
-        <!-- ── PRODUCTO 1 — Colectiva Premium ── -->
+        <!-- ── PRODUCTO 01 — Rentabilidad Fija Garantizada ── -->
+        <div class="prod-block">
+          <div class="prod-block-inner">
+
+            <!-- LEFT -->
+            <div class="prod-block-left">
+              <p class="prod-number">Producto 01</p>
+              <p class="prod-name">Rentabilidad Fija Garantizada</p>
+              <p class="prod-tagline">Para quienes buscan estabilidad y previsibilidad.</p>
+              <p class="prod-desc">
+                Esquema de rentabilidad fija respaldado por múltiples proyectos desarrollándose al mismo tiempo,
+                los 365 días del año. A diferencia de la Inversión Colectiva, este modelo no depende de la
+                finalización o venta de un proyecto específico para generar retorno.
+              </p>
+
+              <div class="prod-roi-wrap">
+                <p class="prod-roi">12% – 14%</p>
+                <p class="prod-roi-label">anual sobre el capital invertido *</p>
+                <span class="prod-plazo">📅 12 meses · plazo fijo</span>
+                <p style="font-size:0.68rem;color:var(--navy-6);margin-top:0.4rem;">* Dependiendo condiciones al momento de la inversión</p>
+              </div>
+
+              <button class="btn-outline-full" onclick="openLeadModal('Rentabilidad Fija Garantizada')">Quiero rentabilidad fija →</button>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="prod-block-right">
+              <div>
+                <p class="prod-section-label">Cómo funciona</p>
+                <div class="prod-steps-h">
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">1</span>
+                    <span class="prod-step-h-text">Defines el monto y plazo de inversión (12 meses)</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">2</span>
+                    <span class="prod-step-h-text">Firma del contrato de inversión</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">3</span>
+                    <span class="prod-step-h-text">Manibe opera múltiples proyectos en paralelo los 365 días</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">4</span>
+                    <span class="prod-step-h-text">Al vencimiento: retorno de capital + rentabilidad fija</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="prod-section-label">Por qué este producto</p>
+                <div class="prod-benefits-grid">
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Rentabilidad fija anual, ideal para quien busca estabilidad y previsibilidad</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Respaldado por múltiples proyectos en ejecución simultánea durante todo el año</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>El retorno no depende de la venta o finalización de un proyecto puntual</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Plazo claro y definido de 12 meses</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Mayor seguridad y claridad en los flujos de inversión</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── PRODUCTO 02 — Colectiva Premium ── -->
         <div class="prod-block featured">
           <div class="prod-rec-strip">★ &nbsp; Recomendado &nbsp; ★</div>
           <div class="prod-block-inner">
 
             <!-- LEFT -->
             <div class="prod-block-left">
-              <p class="prod-number">Producto 01</p>
+              <p class="prod-number">Producto 02</p>
               <p class="prod-name">Inversión Colectiva Premium</p>
               <p class="prod-desc">
                 Capital conjunto de un grupo pequeño y limitado de inversionistas — incluyendo a Manibe —
@@ -788,13 +856,13 @@ const defaultModels = [
           </div>
         </div>
 
-        <!-- ── PRODUCTO 2 — Construye tu Casa ── -->
+        <!-- ── PRODUCTO 03 — Construye tu Casa ── -->
         <div class="prod-block">
           <div class="prod-block-inner">
 
             <!-- LEFT -->
             <div class="prod-block-left">
-              <p class="prod-number">Producto 02</p>
+              <p class="prod-number">Producto 03</p>
               <p class="prod-name">Construye tu Casa</p>
               <p class="prod-desc">
                 Para un único cliente que desea desarrollar su propia propiedad en Florida.
@@ -881,7 +949,7 @@ const defaultModels = [
             </button>
             <button class="product-tab" data-product="2">
               <span class="tab-name">Rentabilidad Fija</span>
-              <span class="tab-detail">14% anual garantizado</span>
+              <span class="tab-detail">12–14% anual · referencia 14%</span>
             </button>
           </div>
         </div>
@@ -933,6 +1001,7 @@ const defaultModels = [
           </button>
         </div>
         <p class="calc-disclaimer">Proyección estimada basada en rendimientos históricos. No constituye garantía de retorno. Los resultados reales pueden variar según condiciones del mercado.</p>
+        <p class="calc-disclaimer" id="calc-fija-note" style="display:none;color:rgba(219,192,106,0.7);">Para Rentabilidad Fija, el simulador usa 14% como tasa de referencia. La tasa final puede ser 12–14% dependiendo de las condiciones al momento de la inversión.</p>
       </div>
     </div>
   </section>
@@ -1213,6 +1282,7 @@ const defaultModels = [
             <label class="form-label" for="lead-interes">¿Qué te interesa?</label>
             <select class="form-input" id="lead-interes" name="interes">
               <option value="">Selecciona una opción</option>
+              <option value="Rentabilidad Fija Garantizada">Rentabilidad Fija Garantizada</option>
               <option value="Colectiva Premium">Inversión Colectiva Premium</option>
               <option value="Construye tu Casa">Construye tu Casa</option>
               <option value="No estoy seguro">No estoy seguro aún</option>
@@ -1309,6 +1379,11 @@ const defaultModels = [
     document.getElementById('v-amount').value = rawAmount.toLocaleString('en-US');
     updateSliderTrack(); calculate();
   });
+  function toggleFijaNoteVisibility() {
+    var note = document.getElementById('calc-fija-note');
+    if (note) note.style.display = activeProduct === 2 ? 'block' : 'none';
+  }
+
   document.querySelectorAll('.product-tab').forEach(function(btn) {
     btn.addEventListener('click', function() {
       activeProduct = parseInt(this.dataset.product);
@@ -1319,6 +1394,7 @@ const defaultModels = [
         document.querySelectorAll('.plazo-tab').forEach(function(b) { b.classList.remove('active'); });
         document.querySelector('.plazo-tab[data-months="12"]').classList.add('active');
       }
+      toggleFijaNoteVisibility();
       calculate();
     });
   });
