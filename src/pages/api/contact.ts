@@ -30,12 +30,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ error: 'Email inválido.' }, 422);
   }
 
-  // 3. Read API key from Cloudflare runtime env
-  const env = (locals as any).runtime?.env ?? {};
-  const RESEND_API_KEY: string | undefined = env.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY;
+  // 3. Read API key — try Cloudflare runtime env first, then import.meta.env
+  const runtimeEnv = (locals as any).runtime?.env ?? {};
+  const RESEND_API_KEY: string | undefined =
+    runtimeEnv.RESEND_API_KEY ?? import.meta.env.RESEND_API_KEY ?? undefined;
 
   if (!RESEND_API_KEY) {
-    console.error('[contact] RESEND_API_KEY no está configurado.');
+    console.error('[contact] RESEND_API_KEY no encontrado. runtime.env keys:', Object.keys(runtimeEnv));
     return json({ error: 'Error de configuración del servidor.' }, 500);
   }
 

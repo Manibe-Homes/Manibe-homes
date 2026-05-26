@@ -59,7 +59,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         },
         body: JSON.stringify({
           from: 'Manibe Homes <noreply@manibehomes.com>',
-          to: ['juanpablo0614jp@gmail.com'],
+          to: ['info@manibehomes.com'],
           subject,
           html: buildEmail({ nombre, contacto, interes, monto_simulado, plazo_simulado, mensaje }),
         }),
