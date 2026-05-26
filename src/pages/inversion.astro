@@ -1590,6 +1590,18 @@ const defaultModels = [
     document.head.appendChild(sc);
   }
 
+  function loadLogoDataUrl(cb) {
+    var img = new Image();
+    img.onload = function() {
+      var canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0);
+      cb(canvas.toDataURL('image/png'), img.naturalWidth, img.naturalHeight);
+    };
+    img.onerror = function() { cb(null, 0, 0); };
+    img.src = '/logo-manibe-blanco.png';
+  }
+
   function generatePDF() {
     var s = window._calcState;
     if (!s) return;
@@ -1597,7 +1609,15 @@ const defaultModels = [
     var origHTML = btn.innerHTML;
     btn.disabled = true; btn.textContent = 'Generando PDF…';
 
-    loadJsPDF(function(JsPDF) {
+    var _logoData = null, _logoW = 0, _logoH = 0, _JsPDF = null, _pending = 2;
+    function onReady() {
+      _pending--; if (_pending > 0) return;
+      buildPDF(_JsPDF, _logoData, _logoW, _logoH);
+    }
+    loadLogoDataUrl(function(dataUrl, w, h) { _logoData = dataUrl; _logoW = w; _logoH = h; onReady(); });
+    loadJsPDF(function(Ctor) { _JsPDF = Ctor; onReady(); });
+
+    function buildPDF(JsPDF, logoData, logoNW, logoNH) {
       try {
         var doc  = new JsPDF({ unit: 'pt', format: 'letter' });
         var pw   = 612;
@@ -1621,11 +1641,17 @@ const defaultModels = [
         fc(NAVY); doc.rect(0, 0, pw, 72, 'F');
         fc(GOLD); doc.rect(0, 72, pw, 3, 'F');
 
-        doc.setFont('times','bold'); doc.setFontSize(20);
-        tc([255,255,255]); doc.text('MANIBE LLC', ml, 32);
-
-        doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
-        tc(GOLD); doc.text('PROJECT MANAGEMENT  ·  Southwest Florida', ml, 46);
+        if (logoData && logoNW && logoNH) {
+          var lh = 38;
+          var lw = lh * (logoNW / logoNH);
+          if (lw > 220) { lw = 220; lh = lw * (logoNH / logoNW); }
+          doc.addImage(logoData, 'PNG', ml, (72 - lh) / 2, lw, lh);
+        } else {
+          doc.setFont('times','bold'); doc.setFontSize(20);
+          tc([255,255,255]); doc.text('MANIBE LLC', ml, 32);
+          doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
+          tc(GOLD); doc.text('PROJECT MANAGEMENT  ·  Southwest Florida', ml, 46);
+        }
 
         tc([170,170,180]); doc.setFontSize(7);
         doc.text('manibehomes.com', pw-ml, 34, { align: 'right' });
@@ -1774,7 +1800,7 @@ const defaultModels = [
 
       btn.disabled = false;
       btn.innerHTML = origHTML;
-    });
+    }
   }
 
   document.getElementById('v-gen-summary').addEventListener('click', generatePDF);
