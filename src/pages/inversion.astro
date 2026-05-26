@@ -1178,9 +1178,9 @@ const defaultModels = [
         <div class="calc-actions">
           <button class="btn-gold-calc" id="v-gen-summary">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            Generar resumen
+            Descargar resumen PDF
           </button>
           <button class="btn-outline-calc" onclick="openLeadModal('Colectiva Premium')">
             Quiero invertir con este simulador →
@@ -1579,32 +1579,205 @@ const defaultModels = [
     });
   });
 
-  // Summary modal
-  document.getElementById('v-gen-summary').addEventListener('click', function() {
-    var s = window._calcState; if (!s) return;
-    var now = new Date();
-    document.getElementById('sum-date').textContent = now.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-    var rows = [
-      { label: 'Capital invertido',  value: fmt(s.capital),    gold: false },
-      { label: 'Producto',           value: s.product,         gold: false },
-      { label: 'Plazo',              value: s.plazo + ' meses', gold: false },
-      { label: 'ROI aplicado',       value: s.roiLabel,        gold: false },
-      { label: 'Ganancia mínima',    value: fmt(s.minProfit),  gold: true  },
-      { label: 'Ganancia máxima',    value: fmt(s.maxProfit),  gold: true  },
-      { label: 'Retorno total mín.', value: fmt(s.retMin),     gold: true  },
-      { label: 'Retorno total máx.', value: fmt(s.retMax),     gold: true  },
-    ];
-    document.getElementById('sum-rows').innerHTML = rows.map(function(r) {
-      return '<div class="summary-row"><span class="summary-row-label">' + r.label + '</span><span class="summary-row-value' + (r.gold ? ' gold' : '') + '">' + r.value + '</span></div>';
-    }).join('');
-    document.getElementById('summary-modal').classList.add('open');
-  });
+  // ─────────────────────────────────
+  // PDF GENERATOR
+  // ─────────────────────────────────
+  function loadJsPDF(cb) {
+    if (window.jspdf) { cb(window.jspdf.jsPDF); return; }
+    var sc = document.createElement('script');
+    sc.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js';
+    sc.onload = function() { cb(window.jspdf.jsPDF); };
+    document.head.appendChild(sc);
+  }
 
-  document.getElementById('sum-invest-btn').addEventListener('click', function() {
+  function generatePDF() {
     var s = window._calcState;
-    document.getElementById('summary-modal').classList.remove('open');
-    openLeadModal(s ? s.product : '', s ? s.capital : null, s ? s.plazo : null);
-  });
+    if (!s) return;
+    var btn = document.getElementById('v-gen-summary');
+    var origHTML = btn.innerHTML;
+    btn.disabled = true; btn.textContent = 'Generando PDF…';
+
+    loadJsPDF(function(JsPDF) {
+      try {
+        var doc  = new JsPDF({ unit: 'pt', format: 'letter' });
+        var pw   = 612;
+        var ml   = 40;
+        var cw   = 532; // content width
+        var isFija = s.product === 'Rentabilidad Fija';
+
+        // ── palette helpers ───────────────────────
+        var NAVY  = [12,  21,  36 ];
+        var NAVY2 = [20,  29,  52 ];
+        var NAVY4 = [44,  58,  92 ];
+        var GOLD  = [219, 192, 106];
+        var SURF  = [240, 241, 245];
+        var TXT   = [30,  30,  40 ];
+        var MID   = [100, 100, 115];
+        function fc(c) { doc.setFillColor(c[0],c[1],c[2]); }
+        function tc(c) { doc.setTextColor(c[0],c[1],c[2]); }
+        function dc(c) { doc.setDrawColor(c[0],c[1],c[2]); }
+
+        // ── HEADER ───────────────────────────────
+        fc(NAVY); doc.rect(0, 0, pw, 72, 'F');
+        fc(GOLD); doc.rect(0, 72, pw, 3, 'F');
+
+        doc.setFont('times','bold'); doc.setFontSize(20);
+        tc([255,255,255]); doc.text('MANIBE LLC', ml, 32);
+
+        doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
+        tc(GOLD); doc.text('PROJECT MANAGEMENT  ·  Southwest Florida', ml, 46);
+
+        tc([170,170,180]); doc.setFontSize(7);
+        doc.text('manibehomes.com', pw-ml, 34, { align: 'right' });
+        doc.text(new Date().toLocaleDateString('es-ES',{ day:'numeric', month:'long', year:'numeric' }), pw-ml, 46, { align: 'right' });
+
+        var y = 94;
+
+        // ── SECCIÓN 1: TU SIMULACIÓN ─────────────
+        doc.setFont('helvetica','bold'); doc.setFontSize(7.5); tc(GOLD);
+        doc.text('TU SIMULACIÓN', ml, y);
+        dc(GOLD); doc.setLineWidth(1.5); doc.line(ml, y+4, ml+110, y+4);
+        y += 20;
+
+        var pillW = (cw - 24) / 3;
+        var pills = [
+          { label: 'PRODUCTO',       val: s.product              },
+          { label: 'MONTO',          val: fmt(s.capital)         },
+          { label: 'PLAZO',          val: s.plazo + ' meses'     },
+        ];
+        pills.forEach(function(p, i) {
+          var px = ml + i * (pillW + 12);
+          fc(SURF); doc.roundedRect(px, y, pillW, 46, 4, 4, 'F');
+          doc.setFont('helvetica','bold'); doc.setFontSize(6.5); tc(MID);
+          doc.text(p.label, px + pillW/2, y+13, { align:'center' });
+          doc.setFont('times','bold'); doc.setFontSize(10.5); tc(TXT);
+          var vl = doc.splitTextToSize(p.val, pillW - 8);
+          doc.text(vl, px + pillW/2, y+30, { align:'center' });
+        });
+        y += 62;
+
+        // hero numbers box
+        doc.setFillColor(250, 247, 237);
+        dc(GOLD); doc.setLineWidth(1.5);
+        doc.roundedRect(ml, y, cw, 90, 6, 6, 'FD');
+
+        doc.setFont('helvetica','bold'); doc.setFontSize(7); tc(MID);
+        doc.text('RETORNO ESTIMADO DEL PERIODO', pw/2, y+16, { align:'center' });
+
+        var retStr = isFija ? fmt(s.retMin) : fmt(s.retMin) + ' – ' + fmt(s.retMax);
+        doc.setFont('times','bold'); doc.setFontSize(30); tc(NAVY);
+        doc.text(retStr, pw/2, y+50, { align:'center' });
+
+        var gainStr = isFija
+          ? 'Ganancia estimada: +' + fmt(s.minProfit)
+          : 'Ganancia estimada: +' + fmt(s.minProfit) + '  —  +' + fmt(s.maxProfit);
+        doc.setFont('helvetica','normal'); doc.setFontSize(9); tc([60,60,70]);
+        doc.text(gainStr, pw/2, y+66, { align:'center' });
+
+        var pm1 = ((s.minProfit / s.capital) * 100).toFixed(1);
+        var pm2 = ((s.maxProfit / s.capital) * 100).toFixed(1);
+        var roiLine = isFija
+          ? 'Retorno del periodo: +' + pm1 + '%  ·  ROI anual referencial: ' + s.roiLabel + '*'
+          : 'Retorno del periodo: +' + pm1 + '%–+' + pm2 + '%  ·  Equivalente anualizado ref.: ' + s.roiLabel;
+        doc.setFontSize(7.5); tc(MID);
+        doc.text(roiLine, pw/2, y+80, { align:'center' });
+        y += 106;
+
+        // ── SECCIÓN 2: SOBRE EL PRODUCTO ─────────
+        doc.setFont('helvetica','bold'); doc.setFontSize(7.5); tc(GOLD);
+        doc.text('SOBRE EL PRODUCTO', ml, y);
+        dc(GOLD); doc.setLineWidth(1.5); doc.line(ml, y+4, ml+138, y+4);
+        y += 18;
+
+        doc.setFont('times','bold'); doc.setFontSize(13); tc(NAVY);
+        doc.text(isFija ? 'Rentabilidad Fija Garantizada' : 'Inversión Colectiva Premium', ml, y);
+        y += 14;
+
+        var desc = isFija
+          ? 'Rentabilidad fija del 12–14% anual*, respaldada por múltiples proyectos en ejecución simultánea los 365 días del año. El retorno no depende de la venta o finalización de ningún proyecto puntual.'
+          : 'Capital conjunto de un grupo reducido de inversionistas — incluyendo Manibe (mín. 20%) — para desarrollar una Single Family Home en el Southwest de Florida. ROI 12–20% por ciclo (~6 meses).';
+        doc.setFont('helvetica','normal'); doc.setFontSize(8.5); tc([55,55,65]);
+        var descLines = doc.splitTextToSize(desc, cw);
+        doc.text(descLines, ml, y);
+        y += descLines.length * 11 + 12;
+
+        doc.setFont('helvetica','bold'); doc.setFontSize(7); tc(MID);
+        doc.text('FLUJO DEL PROCESO', ml, y);
+        y += 12;
+
+        var steps = isFija
+          ? ['Defines monto y plazo (12 meses)', 'Firma del contrato de inversión', 'Manibe opera proyectos en paralelo 365 días', 'Vencimiento: capital + rentabilidad fija']
+          : ['Manibe gestiona lote y permisos', 'Arquitectura e ingeniería del equipo', 'Inversionista entra a ejecución', 'Venta por Realtors y retorno'];
+        var sw = (cw - 30) / 4;
+        steps.forEach(function(step, i) {
+          var sx = ml + i * (sw + 10);
+          fc(NAVY2); doc.roundedRect(sx, y, sw, 50, 3, 3, 'F');
+          fc(GOLD); doc.circle(sx + sw/2, y + 13, 8, 'F');
+          doc.setFont('helvetica','bold'); doc.setFontSize(9); tc(NAVY);
+          doc.text(String(i+1), sx + sw/2, y + 16.5, { align:'center' });
+          doc.setFont('helvetica','normal'); doc.setFontSize(7); tc([190,205,225]);
+          var sl = doc.splitTextToSize(step, sw - 8);
+          doc.text(sl, sx + sw/2, y + 32, { align:'center' });
+          if (i < 3) {
+            doc.setFontSize(11); tc(NAVY4);
+            doc.text('›', sx + sw + 5, y + 27, { align:'center' });
+          }
+        });
+        y += 66;
+
+        // ── SECCIÓN 3: RESPALDO Y GARANTÍAS ──────
+        doc.setFont('helvetica','bold'); doc.setFontSize(7.5); tc(GOLD);
+        doc.text('RESPALDO Y GARANTÍAS', ml, y);
+        dc(GOLD); doc.setLineWidth(1.5); doc.line(ml, y+4, ml+153, y+4);
+        y += 18;
+
+        var gars = [
+          { t: 'Pólizas de seguro',  b: "Builders Risk · General Liability · Workers' Compensation · Builder Warranty" },
+          { t: 'Seguimiento 24/7',   b: 'Plataforma por inversionista · Fotos y documentos por etapa · Cámaras en vivo' },
+          { t: 'Marco legal EE.UU.', b: 'Contrato bajo sistema legal estadounidense · Transparencia total en el flujo' },
+        ];
+        var gw = (cw - 24) / 3;
+        gars.forEach(function(g, i) {
+          var gx = ml + i * (gw + 12);
+          fc(SURF); doc.roundedRect(gx, y, gw, 60, 4, 4, 'F');
+          fc(GOLD); doc.circle(gx + 12, y + 13, 4.5, 'F');
+          doc.setFont('helvetica','bold'); doc.setFontSize(8.5); tc(NAVY);
+          doc.text(g.t, gx + 22, y + 16);
+          doc.setFont('helvetica','normal'); doc.setFontSize(7.5); tc(MID);
+          var bl = doc.splitTextToSize(g.b, gw - 14);
+          doc.text(bl, gx + 8, y + 32);
+        });
+        y += 76;
+
+        // ── SEPARADOR + DISCLAIMER ────────────────
+        dc([210,212,220]); doc.setLineWidth(0.5);
+        doc.line(ml, y, pw - ml, y);
+        y += 11;
+
+        var disc = 'Proyección estimada basada en rendimientos históricos. No constituye garantía de retorno. Toda inversión conlleva riesgo. Cifras sujetas a condiciones al momento de la inversión.'
+          + (isFija ? ' * Tasa final 12–14% anual según condiciones vigentes.' : '');
+        doc.setFont('helvetica','italic'); doc.setFontSize(6.5); tc(MID);
+        doc.text(doc.splitTextToSize(disc, cw), ml, y);
+
+        // ── FOOTER ───────────────────────────────
+        fc(NAVY2); doc.rect(0, 750, pw, 42, 'F');
+        doc.setFont('helvetica','normal'); doc.setFontSize(7.5); tc([150,160,180]);
+        doc.text('© 2025 MANIBE LLC  ·  info@manibehomes.com  ·  +1 (239) 299-6978  ·  manibehomes.com', pw/2, 768, { align:'center' });
+        doc.setFontSize(7); tc(GOLD);
+        doc.text('Construimos tu futuro en Florida', pw/2, 782, { align:'center' });
+
+        // ── DESCARGA ─────────────────────────────
+        var fname = 'Simulacion-Manibe-' + (isFija ? 'Fija' : 'Colectiva') + '-' + s.plazo + 'meses.pdf';
+        doc.save(fname);
+
+      } catch(err) { console.error('[PDF]', err); }
+
+      btn.disabled = false;
+      btn.innerHTML = origHTML;
+    });
+  }
+
+  document.getElementById('v-gen-summary').addEventListener('click', generatePDF);
 
   // ─────────────────────────────────
   // LEAD MODAL
