@@ -201,70 +201,117 @@ const defaultModels = [
     }
 
     /* ── PRODUCTOS ── */
-    .prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
-    @media (max-width: 860px) { .prod-grid { grid-template-columns: 1fr; } }
-    .prod-card {
+    .prod-stack { display: flex; flex-direction: column; gap: 2rem; margin-top: 3rem; }
+
+    .prod-block {
       background: var(--navy-2); border: 1px solid var(--navy-4);
-      border-radius: 1.5rem; padding: 2.25rem; display: flex; flex-direction: column; gap: 1.5rem;
-      position: relative; transition: border-color 0.25s;
+      border-radius: 1.75rem; overflow: hidden; position: relative;
     }
-    .prod-card.featured { border-color: rgba(219,192,106,0.45); }
-    .prod-card:hover { border-color: rgba(219,192,106,0.35); }
-    .prod-badge-rec {
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: var(--gold); color: var(--navy); font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 999px;
-      white-space: nowrap;
+    .prod-block.featured {
+      border-color: rgba(219,192,106,0.45);
+      background: linear-gradient(135deg, rgba(219,192,106,0.04) 0%, var(--navy-2) 50%);
     }
-    .prod-roi {
-      font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--gold);
-      line-height: 1;
+
+    .prod-rec-strip {
+      background: var(--gold); color: var(--navy);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1.5rem; text-align: center;
     }
-    .prod-roi-label { font-size: 0.78rem; color: var(--navy-7); margin-top: 0.25rem; }
-    .prod-plazo {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
-      color: var(--gold); font-size: 0.8rem; font-weight: 600;
-      padding: 0.3rem 0.85rem; border-radius: 999px;
+
+    .prod-block-inner {
+      display: grid; grid-template-columns: 320px 1fr;
+      gap: 0; align-items: stretch;
+    }
+    @media (max-width: 900px) { .prod-block-inner { grid-template-columns: 1fr; } }
+
+    .prod-block-left {
+      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.25rem;
+      border-right: 1px solid var(--navy-4);
+    }
+    @media (max-width: 900px) { .prod-block-left { border-right: none; border-bottom: 1px solid var(--navy-4); } }
+
+    .prod-number {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.7;
     }
     .prod-name {
-      font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--white);
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+      color: var(--white); line-height: 1.2;
     }
-    .prod-desc { font-size: 0.95rem; color: var(--navy-7); line-height: 1.7; }
-    .prod-steps { display: flex; flex-direction: column; gap: 0.75rem; }
-    .prod-step {
-      display: flex; align-items: flex-start; gap: 0.85rem;
+    .prod-desc { font-size: 0.9rem; color: var(--navy-7); line-height: 1.7; }
+
+    .prod-roi-wrap { padding: 1.25rem 1rem; background: rgba(219,192,106,0.06); border: 1px solid rgba(219,192,106,0.18); border-radius: 1rem; }
+    .prod-roi {
+      font-family: 'Playfair Display', serif; font-size: 2.75rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
     }
-    .prod-step-num {
-      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
-      background: rgba(219,192,106,0.15); border: 1px solid rgba(219,192,106,0.3);
-      color: var(--gold); font-size: 0.7rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    .prod-roi-label { font-size: 0.75rem; color: var(--navy-7); margin-top: 0.3rem; line-height: 1.45; }
+    .prod-plazo {
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;
+      background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
+      color: var(--gold); font-size: 0.78rem; font-weight: 600;
+      padding: 0.28rem 0.75rem; border-radius: 999px;
     }
-    .prod-step-text { font-size: 0.88rem; color: var(--navy-7); line-height: 1.5; }
-    .prod-benefits { display: flex; flex-direction: column; gap: 0.6rem; }
-    .prod-benefit {
-      display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.88rem; color: var(--navy-7);
-      line-height: 1.45;
-    }
-    .prod-benefit-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
-    .prod-divider { border: none; border-top: 1px solid var(--navy-4); margin: 0; }
-    .prod-cta { margin-top: auto; }
+
     .btn-gold-full {
       display: flex; align-items: center; justify-content: center; gap: 0.5rem;
       background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.95rem;
-      padding: 0.9rem 2rem; border-radius: 1rem; border: none; cursor: pointer;
-      transition: background 0.2s; width: 100%;
+      padding: 0.85rem 1.5rem; border-radius: 0.875rem; border: none; cursor: pointer;
+      transition: background 0.2s; width: 100%; margin-top: auto;
     }
     .btn-gold-full:hover { background: var(--gold-h); }
     .btn-outline-full {
       display: flex; align-items: center; justify-content: center; gap: 0.5rem;
       background: transparent; color: var(--gold); border: 2px solid rgba(219,192,106,0.4);
-      font-weight: 700; font-size: 0.95rem; padding: 0.9rem 2rem; border-radius: 1rem;
-      cursor: pointer; transition: all 0.2s; width: 100%;
+      font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.5rem; border-radius: 0.875rem;
+      cursor: pointer; transition: all 0.2s; width: 100%; margin-top: auto;
     }
     .btn-outline-full:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
-    .prod-disclaimer { font-size: 0.7rem; color: var(--navy-6); text-align: center; margin-top: 0.75rem; line-height: 1.5; }
+    .prod-disclaimer { font-size: 0.68rem; color: var(--navy-6); text-align: center; margin-top: 0.5rem; line-height: 1.5; }
+
+    .prod-block-right { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 2rem; }
+
+    .prod-section-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--navy-6); margin-bottom: 1rem;
+    }
+
+    /* Horizontal step flow */
+    .prod-steps-h {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      gap: 0; align-items: start;
+    }
+    @media (max-width: 640px) {
+      .prod-steps-h { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .prod-step-arrow { display: none; }
+    }
+    .prod-step-h {
+      background: rgba(44,58,92,0.4); border: 1px solid var(--navy-4);
+      border-radius: 0.875rem; padding: 0.875rem 0.75rem;
+      display: flex; flex-direction: column; gap: 0.5rem; height: 100%;
+    }
+    .prod-step-h-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(219,192,106,0.15); border: 1px solid rgba(219,192,106,0.35);
+      color: var(--gold); font-size: 0.65rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .prod-step-h-text { font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.45; }
+    .prod-step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 0.35rem; color: var(--navy-5); font-size: 1rem; padding-top: 0.85rem;
+    }
+
+    /* Benefits 2-col grid */
+    .prod-benefits-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1.5rem;
+    }
+    @media (max-width: 640px) { .prod-benefits-grid { grid-template-columns: 1fr; } }
+    .prod-benefit {
+      display: flex; align-items: flex-start; gap: 0.55rem;
+      font-size: 0.85rem; color: var(--navy-7); line-height: 1.45;
+    }
+    .prod-benefit-icon { color: var(--gold); flex-shrink: 0; font-size: 0.8rem; margin-top: 3px; }
 
     /* ── CALCULATOR ── */
     .calc-card {
@@ -673,122 +720,134 @@ const defaultModels = [
       <h2 class="v-section-title">Elige tu <span style="color:var(--gold)">modelo de inversión</span></h2>
       <p class="v-section-sub">Dos estructuras diseñadas para distintos perfiles. Ambas con respaldo real, transparencia total y el equipo de Manibe trabajando con tu capital.</p>
 
-      <div class="prod-grid">
+      <div class="prod-stack">
 
-        <!-- CARD 1 — Colectiva Premium -->
-        <div class="prod-card featured">
-          <span class="prod-badge-rec">★ Recomendado</span>
+        <!-- ── PRODUCTO 1 — Colectiva Premium ── -->
+        <div class="prod-block featured">
+          <div class="prod-rec-strip">★ &nbsp; Recomendado &nbsp; ★</div>
+          <div class="prod-block-inner">
 
-          <div>
-            <p class="prod-name">Inversión Colectiva Premium</p>
-            <p class="prod-desc" style="margin-top:0.5rem;">
-              Capital conjunto de un grupo pequeño y limitado de inversionistas — incluyendo a Manibe — para desarrollar
-              una Single Family Home de alto valor.
-            </p>
-          </div>
+            <!-- LEFT -->
+            <div class="prod-block-left">
+              <p class="prod-number">Producto 01</p>
+              <p class="prod-name">Inversión Colectiva Premium</p>
+              <p class="prod-desc">
+                Capital conjunto de un grupo pequeño y limitado de inversionistas — incluyendo a Manibe —
+                para desarrollar una Single Family Home de alto valor en el SWF.
+              </p>
 
-          <div>
-            <p class="prod-roi">12% – 20%</p>
-            <p class="prod-roi-label">ROI por ciclo sobre el capital invertido</p>
-            <span class="prod-plazo" style="margin-top:0.75rem; display:inline-flex;">⏱ ~6 meses promedio <span style="color:var(--navy-6);font-weight:400;margin-left:0.25rem;">· según condiciones al cierre</span></span>
-          </div>
-
-          <hr class="prod-divider" />
-
-          <div>
-            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Flujo del proyecto</p>
-            <div class="prod-steps">
-              <div class="prod-step">
-                <span class="prod-step-num">1</span>
-                <span class="prod-step-text">Manibe gestiona lote y permisos — tú entras directo a la ejecución</span>
+              <div class="prod-roi-wrap">
+                <p class="prod-roi">12% – 20%</p>
+                <p class="prod-roi-label">ROI por ciclo sobre el capital invertido</p>
+                <span class="prod-plazo">⏱ ~6 meses promedio</span>
+                <p style="font-size:0.68rem;color:var(--navy-6);margin-top:0.4rem;">según condiciones al cierre</p>
               </div>
-              <div class="prod-step">
-                <span class="prod-step-num">2</span>
-                <span class="prod-step-text">Arquitectura e ingeniería a cargo del equipo</span>
+
+              <button class="btn-gold-full" onclick="openLeadModal('Colectiva Premium')">Quiero participar →</button>
+              <p class="prod-disclaimer">* Proyección estimada — no constituye garantía de retorno. Toda inversión conlleva riesgo.</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="prod-block-right">
+              <div>
+                <p class="prod-section-label">Flujo del proyecto</p>
+                <div class="prod-steps-h">
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">1</span>
+                    <span class="prod-step-h-text">Manibe gestiona lote y permisos</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">2</span>
+                    <span class="prod-step-h-text">Arquitectura e ingeniería a cargo del equipo</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">3</span>
+                    <span class="prod-step-h-text">Tú entras directo a la ejecución</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">4</span>
+                    <span class="prod-step-h-text">Venta por Realtors y retorno a inversionistas</span>
+                  </div>
+                </div>
               </div>
-              <div class="prod-step">
-                <span class="prod-step-num">3</span>
-                <span class="prod-step-text">Construcción con seguimiento transparente en plataforma</span>
-              </div>
-              <div class="prod-step">
-                <span class="prod-step-num">4</span>
-                <span class="prod-step-text">Venta por equipo de Realtors y retorno a los inversionistas</span>
+
+              <div>
+                <p class="prod-section-label">Por qué este producto</p>
+                <div class="prod-benefits-grid">
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Entras directo a la ejecución, sin esperar trámites</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Grupo reducido — Manibe invierte a tu lado</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Rentabilidad ligada a la eficiencia constructiva de Manibe</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Comercialización a cargo del equipo de Realtors</span></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <hr class="prod-divider" />
-
-          <div>
-            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Beneficios clave</p>
-            <div class="prod-benefits">
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Entras directo a la ejecución — sin espera de trámites</span></div>
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Grupo reducido con Manibe invirtiendo a tu lado</span></div>
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Rentabilidad ligada a la eficiencia constructiva de Manibe</span></div>
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Comercialización a cargo del equipo de Realtors</span></div>
-            </div>
-          </div>
-
-          <div class="prod-cta">
-            <button class="btn-gold-full" onclick="openLeadModal('Colectiva Premium')">Quiero participar →</button>
-            <p class="prod-disclaimer">* Proyección estimada — no constituye garantía de retorno. Toda inversión conlleva riesgo.</p>
           </div>
         </div>
 
-        <!-- CARD 2 — Construye tu Casa -->
-        <div class="prod-card">
-          <div>
-            <p class="prod-name">Construye tu Casa</p>
-            <p class="prod-desc" style="margin-top:0.5rem;">
-              Para un único cliente que desea desarrollar su propia propiedad en Florida. Manibe acompaña desde
-              la compra del lote hasta la entrega de llaves.
-            </p>
-          </div>
+        <!-- ── PRODUCTO 2 — Construye tu Casa ── -->
+        <div class="prod-block">
+          <div class="prod-block-inner">
 
-          <div>
-            <p class="prod-roi" style="font-size:1.75rem;">Personalizado</p>
-            <p class="prod-roi-label">Según diseño, lote y especificaciones elegidas</p>
-            <span class="prod-plazo" style="margin-top:0.75rem; display:inline-flex;">📅 Plazo a medida</span>
-          </div>
+            <!-- LEFT -->
+            <div class="prod-block-left">
+              <p class="prod-number">Producto 02</p>
+              <p class="prod-name">Construye tu Casa</p>
+              <p class="prod-desc">
+                Para un único cliente que desea desarrollar su propia propiedad en Florida.
+                Manibe acompaña desde la compra del lote hasta la entrega de llaves.
+              </p>
 
-          <hr class="prod-divider" />
+              <div class="prod-roi-wrap">
+                <p class="prod-roi" style="font-size:2rem;">Personalizado</p>
+                <p class="prod-roi-label">Según diseño, lote y especificaciones elegidas</p>
+                <span class="prod-plazo">📅 Plazo a medida</span>
+              </div>
 
-          <div>
-            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Flujo del proyecto</p>
-            <div class="prod-steps">
-              <div class="prod-step">
-                <span class="prod-step-num">1</span>
-                <span class="prod-step-text">Selección y compra del lote con asesoría de Manibe</span>
+              <button class="btn-outline-full" onclick="openLeadModal('Construye tu Casa')">Quiero construir →</button>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="prod-block-right">
+              <div>
+                <p class="prod-section-label">Flujo del proyecto</p>
+                <div class="prod-steps-h">
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">1</span>
+                    <span class="prod-step-h-text">Selección y compra del lote con asesoría</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">2</span>
+                    <span class="prod-step-h-text">Eliges el diseño del portafolio Manibe</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">3</span>
+                    <span class="prod-step-h-text">Construcción completa y transparente</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">4</span>
+                    <span class="prod-step-h-text">Entrega de llaves — para vivir o invertir</span>
+                  </div>
+                </div>
               </div>
-              <div class="prod-step">
-                <span class="prod-step-num">2</span>
-                <span class="prod-step-text">Eliges el diseño dentro del portafolio de modelos</span>
-              </div>
-              <div class="prod-step">
-                <span class="prod-step-num">3</span>
-                <span class="prod-step-text">Construcción completa con seguimiento transparente</span>
-              </div>
-              <div class="prod-step">
-                <span class="prod-step-num">4</span>
-                <span class="prod-step-text">Entrega de llaves — para vivir o como inversión</span>
+
+              <div>
+                <p class="prod-section-label">Qué incluye</p>
+                <div class="prod-benefits-grid">
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Asesoría integral desde el lote hasta la entrega</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Diseño elegido del portafolio de modelos Manibe</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Ejecución eficiente con control total del proyecto</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Ideal para vivir en Florida o como propiedad de renta</span></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <hr class="prod-divider" />
-
-          <div>
-            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Qué incluye</p>
-            <div class="prod-benefits">
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Asesoría integral desde el lote hasta la entrega</span></div>
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Diseño elegido del portafolio de modelos Manibe</span></div>
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Ejecución eficiente con control total del proyecto</span></div>
-              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Perfecto para vivir en Florida o como propiedad de renta</span></div>
-            </div>
-          </div>
-
-          <div class="prod-cta">
-            <button class="btn-outline-full" onclick="openLeadModal('Construye tu Casa')">Quiero construir →</button>
           </div>
         </div>
 
