@@ -1,0 +1,1581 @@
+---
+export const prerender = true;
+
+const mapMarkers = [
+  { lat: 26.5629, lng: -81.9495, label: 'Cape Coral',     detail: 'Mayor Crecimiento',   description: 'Playas cercanas, ambiente tranquilo' },
+  { lat: 26.6253, lng: -81.6248, label: 'Lehigh Acres',   detail: 'Precio Competitivo',  description: 'Buen clima, tierra accesible' },
+  { lat: 26.6409, lng: -81.8606, label: 'Fort Myers',     detail: 'Sede Principal',      description: 'Centro industrial y de operaciones' },
+  { lat: 26.9782, lng: -82.0784, label: 'Port Charlotte', detail: 'En Expansión',        description: 'Crecimiento residencial activo' },
+  { lat: 26.1392, lng: -81.7955, label: 'Naples',         detail: 'Mercado Premium',     description: 'Una de las mejores ciudades de EE.UU.' },
+  { lat: 26.3306, lng: -81.8010, label: 'Bonita Springs', detail: 'En Crecimiento',      description: 'Zona de expansión activa' },
+];
+
+const defaultModels = [
+  {
+    id: 'albany',
+    name: 'Albany',
+    beds: 4, baths: 3,
+    extras: ['Indep. habitaciones', 'Garaje doble', 'Contemporáneo'],
+    specs: 'Bajo techo 2,381 ft² (221 m²) · Bajo aire 1,731 ft² (161 m²)',
+    img: '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
+  },
+  {
+    id: 'sunset',
+    name: 'Sunset',
+    beds: 3, baths: 3,
+    extras: ['Oficina', 'Lanai', 'Garaje doble'],
+    specs: 'Bajo techo 2,372 ft² (220 m²) · Bajo aire 1,666 ft² (155 m²)',
+    img: '/Manibe/webp/Manibe.webp',
+  },
+  {
+    id: 'coraline',
+    name: 'Coraline',
+    beds: 3, baths: 3,
+    extras: ['Oficina', 'Lanai', 'Garaje doble'],
+    specs: 'Bajo techo 2,772 ft² (258 m²) · Bajo aire 1,906 ft² (177 m²)',
+    img: '/Caroline/webp/Caro3.webp',
+  },
+];
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invierte en Florida con Manibe — ROI 12–20% en construcción residencial</title>
+  <meta name="description" content="Proyectos de construcción residencial en el Southwest de Florida. Capital con respaldo real, transparencia total y retornos comprobados. Empresa familiar con +15 años de experiencia." />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://manibehomes.com/inversion" />
+  <meta property="og:title"       content="Invierte en Florida con Manibe — ROI 12–20%" />
+  <meta property="og:description" content="Empresa familiar de construcción residencial en el Southwest de Florida. +15 años de experiencia, proyectos seleccionados, transparencia total." />
+  <meta property="og:image"       content="https://manibehomes.com/og-inversion.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:    #0c1524;
+      --navy-2:  #141d34;
+      --navy-3:  #1e2a45;
+      --navy-4:  #2c3a5c;
+      --navy-5:  #3d4f72;
+      --navy-6:  #5e6d8c;
+      --navy-7:  #8894b0;
+      --gold:    #dbc06a;
+      --gold-h:  #c4a95a;
+      --surface: #f0f1f5;
+      --white:   #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+    .font-heading { font-family: 'Playfair Display', serif; }
+
+    /* ── HEADER ── */
+    .v-header {
+      background: var(--navy-2);
+      border-bottom: 1px solid var(--navy-4);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky; top: 0; z-index: 500;
+    }
+    .v-header-left { display: flex; flex-direction: column; gap: 0.25rem; }
+    .v-header img { height: 40px; }
+    .v-badge {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); background: rgba(219,192,106,0.1); border: 1px solid rgba(219,192,106,0.25);
+      padding: 0.2rem 0.75rem; border-radius: 999px; width: fit-content;
+    }
+    .v-header-nav { display: flex; gap: 1.5rem; align-items: center; }
+    .v-header-nav a {
+      color: var(--navy-7); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .v-header-nav a:hover { color: var(--white); }
+    .v-header-cta {
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem;
+      padding: 0.6rem 1.25rem; border-radius: 0.75rem; border: none; cursor: pointer;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .v-header-cta:hover { background: var(--gold-h); }
+    @media (max-width: 768px) {
+      .v-header-nav { display: none; }
+    }
+
+    /* ── SECTIONS ── */
+    .v-section { padding: 5rem 2rem; }
+    .v-section.light { background: var(--surface); color: var(--navy); }
+    .v-section.dark  { background: var(--navy); }
+    .v-section.mid   { background: var(--navy-2); }
+    .v-inner { max-width: 1100px; margin: 0 auto; }
+    .v-section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .v-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .v-section-title.dark-text { color: var(--navy); }
+    .v-section-sub { font-size: 1.05rem; color: var(--navy-7); max-width: 700px; line-height: 1.7; }
+
+    /* ── HERO ── */
+    .hero-section {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 60%, var(--navy-3) 100%);
+      position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
+    }
+    .hero-glow {
+      position: absolute; top: -200px; right: -200px; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(219,192,106,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5.5vw, 4.25rem); font-weight: 700; line-height: 1.08;
+      margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: rgba(255,255,255,0.68); line-height: 1.75;
+      max-width: 580px; margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1rem;
+      padding: 1rem 2.25rem; border-radius: 1rem; border: none; cursor: pointer;
+      transition: background 0.2s; text-decoration: none;
+    }
+    .btn-gold:hover { background: var(--gold-h); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 2px solid rgba(219,192,106,0.4); color: var(--gold);
+      padding: 1rem 2.25rem; border-radius: 1rem; text-decoration: none;
+      font-weight: 600; font-size: 1rem; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+      max-width: 700px;
+    }
+    .hero-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem; font-weight: 700; color: var(--gold); line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    @media (max-width: 540px) {
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .hero-stats > div:last-child { grid-column: 1 / -1; }
+    }
+
+    /* ── TRAYECTORIA ── */
+    .tray-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+      margin-top: 3rem;
+    }
+    .tray-text p { font-size: 1.05rem; color: var(--navy-5); line-height: 1.8; margin-bottom: 1.25rem; }
+    .tray-stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    .tray-stat-card {
+      background: var(--navy); border-radius: 1.25rem; padding: 1.75rem 1.5rem; text-align: center;
+      border: 1px solid var(--navy-4);
+    }
+    .tray-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem; font-weight: 700; color: var(--gold); margin-bottom: 0.35rem;
+    }
+    .tray-stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.45; }
+    @media (max-width: 860px) {
+      .tray-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ── PRODUCTOS ── */
+    .prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 860px) { .prod-grid { grid-template-columns: 1fr; } }
+    .prod-card {
+      background: var(--navy-2); border: 1px solid var(--navy-4);
+      border-radius: 1.5rem; padding: 2.25rem; display: flex; flex-direction: column; gap: 1.5rem;
+      position: relative; transition: border-color 0.25s;
+    }
+    .prod-card.featured { border-color: rgba(219,192,106,0.45); }
+    .prod-card:hover { border-color: rgba(219,192,106,0.35); }
+    .prod-badge-rec {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--navy); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 999px;
+      white-space: nowrap;
+    }
+    .prod-roi {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--gold);
+      line-height: 1;
+    }
+    .prod-roi-label { font-size: 0.78rem; color: var(--navy-7); margin-top: 0.25rem; }
+    .prod-plazo {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
+      color: var(--gold); font-size: 0.8rem; font-weight: 600;
+      padding: 0.3rem 0.85rem; border-radius: 999px;
+    }
+    .prod-name {
+      font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--white);
+    }
+    .prod-desc { font-size: 0.95rem; color: var(--navy-7); line-height: 1.7; }
+    .prod-steps { display: flex; flex-direction: column; gap: 0.75rem; }
+    .prod-step {
+      display: flex; align-items: flex-start; gap: 0.85rem;
+    }
+    .prod-step-num {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: rgba(219,192,106,0.15); border: 1px solid rgba(219,192,106,0.3);
+      color: var(--gold); font-size: 0.7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .prod-step-text { font-size: 0.88rem; color: var(--navy-7); line-height: 1.5; }
+    .prod-benefits { display: flex; flex-direction: column; gap: 0.6rem; }
+    .prod-benefit {
+      display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.88rem; color: var(--navy-7);
+      line-height: 1.45;
+    }
+    .prod-benefit-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
+    .prod-divider { border: none; border-top: 1px solid var(--navy-4); margin: 0; }
+    .prod-cta { margin-top: auto; }
+    .btn-gold-full {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.95rem;
+      padding: 0.9rem 2rem; border-radius: 1rem; border: none; cursor: pointer;
+      transition: background 0.2s; width: 100%;
+    }
+    .btn-gold-full:hover { background: var(--gold-h); }
+    .btn-outline-full {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: transparent; color: var(--gold); border: 2px solid rgba(219,192,106,0.4);
+      font-weight: 700; font-size: 0.95rem; padding: 0.9rem 2rem; border-radius: 1rem;
+      cursor: pointer; transition: all 0.2s; width: 100%;
+    }
+    .btn-outline-full:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
+    .prod-disclaimer { font-size: 0.7rem; color: var(--navy-6); text-align: center; margin-top: 0.75rem; line-height: 1.5; }
+
+    /* ── CALCULATOR ── */
+    .calc-card {
+      background: rgba(30,42,69,0.7); border: 1px solid var(--navy-4);
+      border-radius: 1.5rem; padding: 2.5rem; backdrop-filter: blur(8px);
+    }
+    .calc-label {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--navy-7); margin-bottom: 0.75rem; display: block;
+    }
+    .calc-amount-wrap { position: relative; }
+    .calc-amount-wrap .dollar {
+      position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%);
+      font-size: 1.5rem; font-weight: 700; color: var(--gold);
+    }
+    #v-amount {
+      width: 100%; background: rgba(44,58,92,0.5); border: 2px solid var(--navy-4);
+      color: var(--white); border-radius: 1rem; padding: 1.25rem 1.25rem 1.25rem 3rem;
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
+      transition: border-color 0.2s; outline: none;
+    }
+    #v-amount:focus { border-color: var(--gold); }
+    #v-slider {
+      width: 100%; height: 8px; border-radius: 4px; appearance: none; cursor: pointer; margin-top: 1rem;
+      background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct,8%), var(--navy-4) var(--pct,8%), var(--navy-4) 100%);
+    }
+    #v-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gold); cursor: pointer; border: 3px solid var(--navy); box-shadow: 0 0 0 3px rgba(219,192,106,0.3);
+    }
+    #v-slider::-moz-range-thumb {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gold); cursor: pointer; border: 3px solid var(--navy);
+    }
+    .slider-range { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--navy-7); margin-top: 0.4rem; }
+    .product-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .product-tab {
+      text-align: left; padding: 1.1rem 1.25rem; border-radius: 1rem;
+      border: 2px solid var(--navy-4); background: rgba(44,58,92,0.3);
+      cursor: pointer; transition: all 0.2s; color: var(--navy-7);
+    }
+    .product-tab .tab-name { font-family: 'Playfair Display',serif; font-size: 1rem; font-weight: 700; display: block; margin-bottom: 0.25rem; }
+    .product-tab .tab-detail { font-size: 0.8rem; }
+    .product-tab.active { border-color: var(--gold); background: rgba(219,192,106,0.08); color: var(--white); }
+    .product-tab.active .tab-name { color: var(--white); }
+    .product-tab.active .tab-detail { color: var(--gold); }
+    .product-tab:hover:not(.active) { border-color: var(--navy-5); }
+    .plazo-tabs { display: flex; gap: 0.5rem; }
+    .plazo-tab {
+      flex: 1; padding: 0.75rem; border-radius: 0.75rem; border: 2px solid var(--navy-4);
+      background: rgba(44,58,92,0.3); cursor: pointer; transition: all 0.2s;
+      font-weight: 700; font-size: 0.95rem; color: var(--navy-7); text-align: center;
+    }
+    .plazo-tab.active { border-color: var(--gold); background: rgba(219,192,106,0.08); color: var(--white); }
+    .plazo-tab:hover:not(.active) { border-color: var(--navy-5); }
+    .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 768px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
+    .result-card {
+      background: rgba(44,58,92,0.4); border: 1px solid var(--navy-4);
+      border-radius: 1.25rem; padding: 1.5rem 1rem; text-align: center;
+      transition: all 0.3s ease;
+    }
+    .result-card.highlight { border-color: rgba(219,192,106,0.4); background: rgba(219,192,106,0.06); }
+    .result-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy-7); margin-bottom: 0.5rem; }
+    .result-card-value { font-family: 'Playfair Display',serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1.2; }
+    .result-card-value.white { color: var(--white); }
+    .result-card-sub { font-size: 0.72rem; color: var(--navy-7); margin-top: 0.3rem; }
+    .calc-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+    .btn-gold-calc {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1rem;
+      padding: 1rem 2rem; border-radius: 1rem; border: none; cursor: pointer;
+      transition: background 0.2s; width: 100%;
+    }
+    .btn-gold-calc:hover { background: var(--gold-h); }
+    .btn-outline-calc {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: transparent; border: 2px solid rgba(219,192,106,0.35); color: var(--gold);
+      font-weight: 700; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 1rem;
+      cursor: pointer; transition: all 0.2s; width: 100%;
+    }
+    .btn-outline-calc:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
+    .calc-disclaimer { font-size: 0.75rem; color: var(--navy-7); text-align: center; margin-top: 0.75rem; line-height: 1.6; }
+
+    /* ── MODELS ── */
+    .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .model-card {
+      background: var(--navy-2); border: 1px solid var(--navy-4); border-radius: 1.25rem;
+      overflow: hidden; display: flex; flex-direction: column;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .model-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.45); border-color: rgba(219,192,106,0.4); }
+    .model-card-img { width: 100%; height: 200px; object-fit: cover; display: block; flex-shrink: 0; }
+    .model-card-img-placeholder {
+      width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;
+      background: var(--navy-3); flex-shrink: 0;
+    }
+    .model-card-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+    .model-card-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
+    .model-specs { font-size: 0.75rem; color: var(--navy-6); line-height: 1.5; }
+    .model-stats { display: flex; gap: 1.5rem; }
+    .model-stat { display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; color: var(--navy-7); }
+    .stat-num { font-weight: 700; font-size: 1rem; color: var(--white); }
+    .model-extras { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .model-extra-tag {
+      background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
+      color: rgba(219,192,106,0.8); font-size: 0.72rem; font-weight: 600;
+      padding: 0.25rem 0.65rem; border-radius: 999px; white-space: nowrap;
+    }
+    .model-card-footer {
+      display: flex; gap: 0.5rem; align-items: center;
+      padding-top: 0.75rem; border-top: 1px solid var(--navy-4); margin-top: auto;
+    }
+    .btn-sm { font-size: 0.78rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 0.6rem; border: none; cursor: pointer; transition: all 0.15s; }
+    .btn-edit { background: rgba(44,58,92,0.7); color: var(--navy-7); border: 1px solid var(--navy-4); }
+    .btn-edit:hover { background: var(--navy-4); color: var(--white); }
+    .btn-delete { background: rgba(220,38,38,0.1); color: #f87171; border: 1px solid rgba(220,38,38,0.25); }
+    .btn-delete:hover { background: rgba(220,38,38,0.2); }
+    .btn-info {
+      flex: 1; background: rgba(219,192,106,0.1); color: var(--gold);
+      border: 1px solid rgba(219,192,106,0.25); font-size: 0.78rem; font-weight: 700;
+      padding: 0.5rem 1rem; border-radius: 0.6rem; cursor: pointer; transition: all 0.15s;
+      text-align: center;
+    }
+    .btn-info:hover { background: rgba(219,192,106,0.18); }
+    .btn-add {
+      display: flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--navy);
+      font-weight: 700; font-size: 0.9rem; padding: 0.75rem 1.5rem; border-radius: 0.875rem;
+      border: none; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-add:hover { background: var(--gold-h); transform: translateY(-1px); }
+
+    /* ── MAP ── */
+    #v-map { width: 100%; height: 460px; border-radius: 1.25rem; overflow: hidden; border: 1px solid var(--navy-4); }
+    .map-table-overlay {
+      position: absolute; bottom: 12px; left: 12px; z-index: 1000;
+      background: rgba(12,21,36,0.92); backdrop-filter: blur(8px);
+      border: 1px solid var(--navy-4); border-radius: 1rem; overflow: hidden;
+      font-size: 0.78rem; max-width: 360px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .map-table-overlay table { width: 100%; border-collapse: collapse; }
+    .map-table-overlay th { text-align: left; color: var(--navy-7); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.65rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--navy-4); }
+    .map-table-overlay td { padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(44,58,92,0.4); color: var(--navy-7); }
+    .map-table-overlay tr:last-child td { border-bottom: none; }
+    .map-table-overlay td:first-child { color: var(--white); font-weight: 600; }
+    .map-zone-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 999px; white-space: nowrap; display: inline-block; }
+    .map-wrap { position: relative; }
+    .map-note { font-size: 0.82rem; color: var(--navy-7); margin-top: 1rem; line-height: 1.6; }
+
+    /* ── GARANTÍAS ── */
+    .gar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 860px) { .gar-grid { grid-template-columns: 1fr; } }
+    .gar-card {
+      background: var(--navy-2); border: 1px solid var(--navy-4); border-radius: 1.5rem;
+      padding: 2rem; display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color 0.25s;
+    }
+    .gar-card:hover { border-color: rgba(219,192,106,0.3); }
+    .gar-icon {
+      width: 48px; height: 48px; border-radius: 1rem;
+      background: rgba(219,192,106,0.1); border: 1px solid rgba(219,192,106,0.2);
+      display: flex; align-items: center; justify-content: center; color: var(--gold);
+    }
+    .gar-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+    .gar-items { display: flex; flex-direction: column; gap: 0.55rem; }
+    .gar-item {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--navy-7); line-height: 1.45;
+    }
+    .gar-item-dot { flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 6px; }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--navy); padding: 6rem 2rem;
+      border-top: 1px solid var(--navy-4);
+    }
+    .cta-final-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .cta-final-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .cta-final-sub { font-size: 1.05rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 2.5rem; }
+    .cta-final-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: #25d366; color: #fff; font-weight: 700; font-size: 0.95rem;
+      padding: 0.9rem 1.75rem; border-radius: 1rem; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-wa:hover { background: #1ebe5d; }
+
+    /* ── FOOTER ── */
+    .v-footer { background: var(--navy-2); border-top: 1px solid var(--navy-4); padding: 1.5rem 2rem; text-align: center; }
+    .v-footer p { font-size: 0.8rem; color: var(--navy-7); }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(12,21,36,0.88); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--navy-2); border: 1px solid var(--navy-4); border-radius: 1.5rem;
+      padding: 2rem; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+    .modal-title { font-family: 'Playfair Display',serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--white); }
+    .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--navy-7); margin-bottom: 0.5rem; }
+    .form-input {
+      width: 100%; background: rgba(44,58,92,0.5); border: 1.5px solid var(--navy-4);
+      color: var(--white); border-radius: 0.75rem; padding: 0.75rem 1rem;
+      font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .form-input:focus { border-color: var(--gold); }
+    .form-input::placeholder { color: var(--navy-6); }
+    select.form-input option { background: var(--navy-2); color: var(--white); }
+    .tag-input-wrap { display: flex; gap: 0.5rem; }
+    .tag-input-wrap .form-input { flex: 1; }
+    .btn-outline {
+      background: transparent; border: 1.5px solid var(--navy-4); color: var(--navy-7);
+      font-weight: 600; font-size: 0.85rem; padding: 0.6rem 1.25rem; border-radius: 0.75rem;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--navy-6); color: var(--white); }
+    .btn-primary-sm {
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem;
+      padding: 0.6rem 1.5rem; border-radius: 0.75rem; border: none; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-primary-sm:hover { background: var(--gold-h); }
+    .tags-preview { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; min-height: 1.5rem; }
+    .tag-chip {
+      background: rgba(219,192,106,0.12); border: 1px solid rgba(219,192,106,0.3);
+      color: var(--gold); font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem;
+      border-radius: 999px; display: flex; align-items: center; gap: 0.3rem; cursor: pointer;
+    }
+    .tag-chip:hover { background: rgba(219,192,106,0.2); }
+
+    /* ── SUMMARY MODAL ── */
+    .summary-box {
+      background: var(--white); color: var(--navy); border-radius: 1.25rem;
+      padding: 2.5rem; max-width: 560px; width: 100%;
+    }
+    .summary-header { text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--surface); }
+    .summary-header img { height: 36px; margin-bottom: 0.75rem; filter: invert(1) sepia(1) saturate(0) brightness(0.2); }
+    .summary-header h2 { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 700; color: var(--navy); }
+    .summary-header p { font-size: 0.8rem; color: var(--navy-6); margin-top: 0.25rem; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--surface); }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row-label { font-size: 0.82rem; color: var(--navy-6); font-weight: 500; }
+    .summary-row-value { font-family: 'Playfair Display',serif; font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .summary-row-value.gold { color: #b8860b; }
+    .summary-disclaimer { font-size: 0.7rem; color: var(--navy-7); text-align: center; margin-top: 1.25rem; line-height: 1.6; font-style: italic; border-top: 1px solid var(--surface); padding-top: 1rem; }
+    .summary-print-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--navy); color: var(--white); font-weight: 700; font-size: 0.9rem;
+      padding: 0.85rem 1.75rem; border-radius: 0.875rem; border: none; cursor: pointer;
+      transition: background 0.15s; margin-top: 1.25rem; width: 100%;
+    }
+    .summary-print-btn:hover { background: var(--navy-3); }
+    .summary-invest-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.9rem;
+      padding: 0.85rem 1.75rem; border-radius: 0.875rem; border: none; cursor: pointer;
+      transition: background 0.15s; margin-top: 0.5rem; width: 100%;
+    }
+    .summary-invest-btn:hover { background: var(--gold-h); }
+
+    /* ── LEAD MODAL ── */
+    .lead-success {
+      text-align: center; padding: 2rem 0; display: none;
+    }
+    .lead-success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(219,192,106,0.12); border: 2px solid rgba(219,192,106,0.35);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem; color: var(--gold); font-size: 1.75rem;
+    }
+    .lead-success h3 { font-family: 'Playfair Display',serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .lead-success p { font-size: 0.95rem; color: var(--navy-7); line-height: 1.6; }
+    .lead-error-msg {
+      display: none; background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25);
+      color: #f87171; border-radius: 0.75rem; padding: 0.75rem 1rem;
+      font-size: 0.85rem; margin-bottom: 1rem;
+    }
+    .lead-ctx-info {
+      background: rgba(219,192,106,0.06); border: 1px solid rgba(219,192,106,0.18);
+      border-radius: 0.75rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+      font-size: 0.82rem; color: var(--navy-7); display: none;
+    }
+    .lead-ctx-info span { color: var(--gold); font-weight: 600; }
+
+    /* ── PRINT ── */
+    @media print {
+      body * { visibility: hidden; }
+      #summary-modal, #summary-modal * { visibility: visible; }
+      #summary-modal { position: fixed; inset: 0; display: flex !important; align-items: center; justify-content: center; background: white; }
+      .summary-print-btn, .summary-invest-btn, .modal-close-btn { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="v-header">
+    <div class="v-header-left">
+      <img src="/logo-manibe-blanco.png" alt="MANIBE LLC" />
+      <span class="v-badge">Inversión Residencial — Florida</span>
+    </div>
+    <nav class="v-header-nav">
+      <a href="#trayectoria">Historia</a>
+      <a href="#productos">Inversión</a>
+      <a href="#simulador">Simulador</a>
+      <a href="#modelos">Modelos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="v-header-cta" onclick="openLeadModal('')">Quiero invertir</button>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero-section" id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <p class="v-section-label" style="margin-bottom:1rem;">Oportunidad de inversión</p>
+      <h1 class="hero-headline">
+        Conecta tu capital con<br />
+        <span style="color:var(--gold)">proyectos reales</span><br />
+        en la Florida
+      </h1>
+      <p class="hero-sub">
+        Empresa familiar de construcción residencial con número limitado de proyectos en el Southwest de Florida.
+        Calidad, eficiencia y atención personalizada en cada desarrollo.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn-gold" onclick="openLeadModal('')">Quiero invertir</button>
+        <a class="btn-ghost" href="#productos">Ver productos ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <p class="hero-stat-val">+15</p>
+          <p class="hero-stat-label">años de experiencia en construcción</p>
+        </div>
+        <div>
+          <p class="hero-stat-val">12–20%</p>
+          <p class="hero-stat-label">ROI estimado por ciclo de inversión</p>
+        </div>
+        <div>
+          <p class="hero-stat-val">~6 meses</p>
+          <p class="hero-stat-label">plazo promedio por ciclo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRAYECTORIA ── -->
+  <section class="v-section light" id="trayectoria">
+    <div class="v-inner">
+      <p class="v-section-label">Nuestra historia</p>
+      <h2 class="v-section-title dark-text">+15 años construyendo en <span style="color:var(--gold-h)">Southwest Florida</span></h2>
+      <div class="tray-grid">
+        <div class="tray-text">
+          <p>
+            Juan Carlos Cárdenas, fundador y Gerente General de Manibe LLC, lleva más de 15 años en la industria
+            de la construcción residencial en el Southwest de Florida. En 2017 fundó Blue Brush LLC, estableciendo
+            alianzas estratégicas con proveedores clave que hoy son la base operativa de Manibe.
+          </p>
+          <p>
+            Manibe nace como la evolución natural de ese recorrido: un vehículo de inversión estructurado, con número
+            limitado de proyectos seleccionados, enfocado en eficiencia constructiva y retornos comprobados para
+            sus inversionistas.
+          </p>
+          <p style="font-size:0.9rem; color:var(--navy-6);">
+            Cada proyecto cuenta con Manibe invirtiendo a su lado — mínimo el 20% del capital — alineando intereses
+            con cada inversionista desde el primer día.
+          </p>
+        </div>
+        <div class="tray-stats-grid">
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">+15</p>
+            <p class="tray-stat-label">años de experiencia</p>
+          </div>
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">11</p>
+            <p class="tray-stat-label">proyectos el último año</p>
+          </div>
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">8</p>
+            <p class="tray-stat-label">entregados al 100%</p>
+          </div>
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">2017</p>
+            <p class="tray-stat-label">fundación Blue Brush LLC</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTOS ── -->
+  <section class="v-section mid" id="productos">
+    <div class="v-inner">
+      <p class="v-section-label">Cómo invertir</p>
+      <h2 class="v-section-title">Elige tu <span style="color:var(--gold)">modelo de inversión</span></h2>
+      <p class="v-section-sub">Dos estructuras diseñadas para distintos perfiles. Ambas con respaldo real, transparencia total y el equipo de Manibe trabajando con tu capital.</p>
+
+      <div class="prod-grid">
+
+        <!-- CARD 1 — Colectiva Premium -->
+        <div class="prod-card featured">
+          <span class="prod-badge-rec">★ Recomendado</span>
+
+          <div>
+            <p class="prod-name">Inversión Colectiva Premium</p>
+            <p class="prod-desc" style="margin-top:0.5rem;">
+              Capital conjunto de un grupo pequeño y limitado de inversionistas — incluyendo a Manibe — para desarrollar
+              una Single Family Home de alto valor.
+            </p>
+          </div>
+
+          <div>
+            <p class="prod-roi">12% – 20%</p>
+            <p class="prod-roi-label">ROI por ciclo sobre el capital invertido</p>
+            <span class="prod-plazo" style="margin-top:0.75rem; display:inline-flex;">⏱ ~6 meses promedio <span style="color:var(--navy-6);font-weight:400;margin-left:0.25rem;">· según condiciones al cierre</span></span>
+          </div>
+
+          <hr class="prod-divider" />
+
+          <div>
+            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Flujo del proyecto</p>
+            <div class="prod-steps">
+              <div class="prod-step">
+                <span class="prod-step-num">1</span>
+                <span class="prod-step-text">Manibe gestiona lote y permisos — tú entras directo a la ejecución</span>
+              </div>
+              <div class="prod-step">
+                <span class="prod-step-num">2</span>
+                <span class="prod-step-text">Arquitectura e ingeniería a cargo del equipo</span>
+              </div>
+              <div class="prod-step">
+                <span class="prod-step-num">3</span>
+                <span class="prod-step-text">Construcción con seguimiento transparente en plataforma</span>
+              </div>
+              <div class="prod-step">
+                <span class="prod-step-num">4</span>
+                <span class="prod-step-text">Venta por equipo de Realtors y retorno a los inversionistas</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="prod-divider" />
+
+          <div>
+            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Beneficios clave</p>
+            <div class="prod-benefits">
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Entras directo a la ejecución — sin espera de trámites</span></div>
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Grupo reducido con Manibe invirtiendo a tu lado</span></div>
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Rentabilidad ligada a la eficiencia constructiva de Manibe</span></div>
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Comercialización a cargo del equipo de Realtors</span></div>
+            </div>
+          </div>
+
+          <div class="prod-cta">
+            <button class="btn-gold-full" onclick="openLeadModal('Colectiva Premium')">Quiero participar →</button>
+            <p class="prod-disclaimer">* Proyección estimada — no constituye garantía de retorno. Toda inversión conlleva riesgo.</p>
+          </div>
+        </div>
+
+        <!-- CARD 2 — Construye tu Casa -->
+        <div class="prod-card">
+          <div>
+            <p class="prod-name">Construye tu Casa</p>
+            <p class="prod-desc" style="margin-top:0.5rem;">
+              Para un único cliente que desea desarrollar su propia propiedad en Florida. Manibe acompaña desde
+              la compra del lote hasta la entrega de llaves.
+            </p>
+          </div>
+
+          <div>
+            <p class="prod-roi" style="font-size:1.75rem;">Personalizado</p>
+            <p class="prod-roi-label">Según diseño, lote y especificaciones elegidas</p>
+            <span class="prod-plazo" style="margin-top:0.75rem; display:inline-flex;">📅 Plazo a medida</span>
+          </div>
+
+          <hr class="prod-divider" />
+
+          <div>
+            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Flujo del proyecto</p>
+            <div class="prod-steps">
+              <div class="prod-step">
+                <span class="prod-step-num">1</span>
+                <span class="prod-step-text">Selección y compra del lote con asesoría de Manibe</span>
+              </div>
+              <div class="prod-step">
+                <span class="prod-step-num">2</span>
+                <span class="prod-step-text">Eliges el diseño dentro del portafolio de modelos</span>
+              </div>
+              <div class="prod-step">
+                <span class="prod-step-num">3</span>
+                <span class="prod-step-text">Construcción completa con seguimiento transparente</span>
+              </div>
+              <div class="prod-step">
+                <span class="prod-step-num">4</span>
+                <span class="prod-step-text">Entrega de llaves — para vivir o como inversión</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="prod-divider" />
+
+          <div>
+            <p style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy-7);margin-bottom:0.75rem;">Qué incluye</p>
+            <div class="prod-benefits">
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Asesoría integral desde el lote hasta la entrega</span></div>
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Diseño elegido del portafolio de modelos Manibe</span></div>
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Ejecución eficiente con control total del proyecto</span></div>
+              <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Perfecto para vivir en Florida o como propiedad de renta</span></div>
+            </div>
+          </div>
+
+          <div class="prod-cta">
+            <button class="btn-outline-full" onclick="openLeadModal('Construye tu Casa')">Quiero construir →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SIMULADOR ── -->
+  <section class="v-section dark" id="simulador">
+    <div class="v-inner">
+      <p class="v-section-label">Simulador de inversión</p>
+      <h2 class="v-section-title" style="margin-bottom:2.5rem;">Calcula tu <span style="color:var(--gold)">retorno estimado</span></h2>
+
+      <div class="calc-card">
+        <div class="form-group">
+          <label class="calc-label">Monto de inversión</label>
+          <div class="calc-amount-wrap">
+            <span class="dollar">$</span>
+            <input id="v-amount" type="text" inputmode="numeric" value="100,000" autocomplete="off" />
+          </div>
+          <input id="v-slider" type="range" min="50000" max="500000" step="5000" value="100000" />
+          <div class="slider-range"><span>$50,000</span><span>$500,000</span></div>
+        </div>
+
+        <div class="form-group">
+          <label class="calc-label">Producto de inversión</label>
+          <div class="product-tabs">
+            <button class="product-tab active" data-product="1">
+              <span class="tab-name">Colectiva Premium</span>
+              <span class="tab-detail">ROI 12% – 20% sobre el capital</span>
+            </button>
+            <button class="product-tab" data-product="2">
+              <span class="tab-name">Rentabilidad Fija</span>
+              <span class="tab-detail">14% anual garantizado</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="calc-label">Plazo</label>
+          <div class="plazo-tabs">
+            <button class="plazo-tab active" data-months="6">6 meses</button>
+            <button class="plazo-tab" data-months="12">12 meses</button>
+            <button class="plazo-tab" data-months="18">18 meses</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:2rem;">
+          <label class="calc-label">Proyección estimada</label>
+          <div class="results-grid">
+            <div class="result-card">
+              <p class="result-card-label">Capital inicial</p>
+              <p class="result-card-value white" id="v-capital">$100,000</p>
+              <p class="result-card-sub">&nbsp;</p>
+            </div>
+            <div class="result-card highlight">
+              <p class="result-card-label">Retorno mínimo</p>
+              <p class="result-card-value" id="v-ret-min">$112,000</p>
+              <p class="result-card-sub" id="v-ret-min-sub">+12%</p>
+            </div>
+            <div class="result-card highlight">
+              <p class="result-card-label">Retorno máximo</p>
+              <p class="result-card-value" id="v-ret-max">$120,000</p>
+              <p class="result-card-sub" id="v-ret-max-sub">+20%</p>
+            </div>
+            <div class="result-card">
+              <p class="result-card-label">ROI anualizado</p>
+              <p class="result-card-value" id="v-roi-anual">12–20%</p>
+              <p class="result-card-sub" id="v-roi-sub">sobre capital</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-actions">
+          <button class="btn-gold-calc" id="v-gen-summary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Generar resumen
+          </button>
+          <button class="btn-outline-calc" onclick="openLeadModal('Colectiva Premium')">
+            Quiero invertir con este simulador →
+          </button>
+        </div>
+        <p class="calc-disclaimer">Proyección estimada basada en rendimientos históricos. No constituye garantía de retorno. Los resultados reales pueden variar según condiciones del mercado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAPA ── -->
+  <section class="v-section dark">
+    <div class="v-inner">
+      <p class="v-section-label">Zona de operaciones</p>
+      <h2 class="v-section-title" style="margin-bottom:0.75rem;">Dónde <span style="color:var(--gold)">construimos</span></h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:1rem;margin-bottom:0.75rem;max-width:700px;line-height:1.7;">
+        Southwest Florida — Costa del Golfo de México. Operamos en Cape Coral, Fort Myers, Lehigh Acres,
+        Naples, Bonita Springs y Port Charlotte.
+      </p>
+      <p class="map-note" style="margin-bottom:2rem;">
+        La I-75 conecta la zona con Miami al sur y Tampa / Orlando al norte — a no más de 3 horas.
+        Potencial de desarrollo calculado a 60 años de crecimiento demográfico sostenido.
+      </p>
+      <div class="map-wrap">
+        <div id="v-map"></div>
+        <div class="map-table-overlay">
+          <table>
+            <thead><tr><th>Ciudad</th><th>Rol</th><th>Descripción</th></tr></thead>
+            <tbody id="v-map-tbody">
+              <tr><td>Cape Coral</td><td><span class="map-zone-badge">Mayor Crecimiento</span></td><td>Playas cercanas, ambiente tranquilo</td></tr>
+              <tr><td>Lehigh Acres</td><td><span class="map-zone-badge">Precio Competitivo</span></td><td>Buen clima, tierra accesible</td></tr>
+              <tr><td>Fort Myers</td><td><span class="map-zone-badge">Sede Principal</span></td><td>Centro industrial y de operaciones</td></tr>
+              <tr><td>Port Charlotte</td><td><span class="map-zone-badge">En Expansión</span></td><td>Crecimiento residencial activo</td></tr>
+              <tr><td>Naples</td><td><span class="map-zone-badge">Mercado Premium</span></td><td>Una de las mejores ciudades de EE.UU.</td></tr>
+              <tr><td>Bonita Springs</td><td><span class="map-zone-badge">En Crecimiento</span></td><td>Zona de expansión activa</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MODELOS ── -->
+  <section class="v-section dark" id="modelos">
+    <div class="v-inner">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
+        <div>
+          <p class="v-section-label">Portafolio</p>
+          <h2 class="v-section-title">Modelos de <span style="color:var(--gold)">casas</span></h2>
+        </div>
+        <button class="btn-add" id="v-add-model">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+          </svg>
+          Agregar modelo
+        </button>
+      </div>
+      <div class="models-grid" id="v-models-grid">
+        {defaultModels.map(m => (
+          <div class="model-card">
+            {m.img
+              ? <img class="model-card-img" src={m.img} alt={m.name} loading="lazy" />
+              : <div class="model-card-img-placeholder">
+                  <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#3d4f72" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <polyline stroke-linecap="round" stroke-linejoin="round" points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                </div>
+            }
+            <div class="model-card-body">
+              <div class="model-card-name">{m.name}</div>
+              <div class="model-stats">
+                <div class="model-stat"><span class="stat-num">{m.beds}</span>&nbsp;hab.</div>
+                <div class="model-stat"><span class="stat-num">{m.baths}</span>&nbsp;baños</div>
+              </div>
+              <p class="model-specs">{m.specs}</p>
+              {m.extras.length > 0 && (
+                <div class="model-extras">
+                  {m.extras.map(e => <span class="model-extra-tag">{e}</span>)}
+                </div>
+              )}
+              <div class="model-card-footer">
+                <button class="btn-info" data-model={m.name} onclick={`openLeadModal('Construye tu Casa')`}>
+                  Solicitar información
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GARANTÍAS ── -->
+  <section class="v-section mid">
+    <div class="v-inner">
+      <p class="v-section-label">Respaldo</p>
+      <h2 class="v-section-title">Tu inversión, <span style="color:var(--gold)">protegida</span></h2>
+      <p class="v-section-sub">Cada proyecto de Manibe opera bajo un marco de protecciones legales, financieras y tecnológicas.</p>
+
+      <div class="gar-grid">
+
+        <div class="gar-card">
+          <div class="gar-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <p class="gar-title">Pólizas y seguros</p>
+          <p style="font-size:0.85rem;color:var(--navy-7);line-height:1.6;">
+            Cada proyecto está cubierto por un conjunto completo de seguros durante toda la obra.
+          </p>
+          <div class="gar-items">
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Builders Risk — daños físicos al proyecto</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>General Liability — demandas de terceros</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Workers' Compensation — empleados directos e indirectos</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Builder Warranty — obligación legal de responder por defectos constructivos en Florida</span></div>
+          </div>
+        </div>
+
+        <div class="gar-card">
+          <div class="gar-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <p class="gar-title">Control y seguimiento</p>
+          <p style="font-size:0.85rem;color:var(--navy-7);line-height:1.6;">
+            Visibilidad total de tu proyecto desde cualquier lugar del mundo, en tiempo real.
+          </p>
+          <div class="gar-items">
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Plataforma personalizada con usuario y clave por inversionista</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Seguimiento 24/7 del avance de obra</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Fotos y documentos actualizados en cada etapa</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Acceso a cámaras en vivo en el proyecto</span></div>
+          </div>
+        </div>
+
+        <div class="gar-card">
+          <div class="gar-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <p class="gar-title">Marco legal</p>
+          <p style="font-size:0.85rem;color:var(--navy-7);line-height:1.6;">
+            Tu inversión está respaldada por el sistema legal estadounidense, uno de los más sólidos del mundo.
+          </p>
+          <div class="gar-items">
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Contrato bajo marco legal de los Estados Unidos</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Seguridad jurídica en cada etapa del proyecto</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Transparencia total en el flujo de la inversión</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ── -->
+  <section class="cta-final" id="contacto">
+    <div class="cta-final-inner">
+      <p class="v-section-label" style="text-align:center;justify-content:center;">¿Listo para empezar?</p>
+      <h2 class="cta-final-title">
+        Tu próxima inversión<br />
+        <span style="color:var(--gold)">comienza aquí</span>
+      </h2>
+      <p class="cta-final-sub">
+        Agenda una conversación con el equipo de Manibe. Sin compromisos.
+        Cuéntanos en qué producto estás interesado y te contactamos en 24 horas.
+      </p>
+      <div class="cta-final-btns">
+        <button class="btn-gold" onclick="openLeadModal('')">Quiero invertir</button>
+        <a class="btn-wa" href="https://wa.me/12392996978" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp directo
+        </a>
+      </div>
+      <p style="font-size:0.75rem;color:var(--navy-6);margin-top:1.75rem;">
+        📧 info@manibehomes.com &nbsp;·&nbsp; 📱 +1 (239) 299-6978 &nbsp;·&nbsp; 📍 Fort Myers, Florida EE.UU.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="v-footer">
+    <p>© 2025 MANIBE LLC — Project Management · <a href="/" style="color:var(--navy-6);text-decoration:none;">manibehomes.com</a></p>
+  </footer>
+
+  <!-- ── SUMMARY MODAL ── -->
+  <div class="modal-overlay" id="summary-modal">
+    <div class="summary-box">
+      <div class="summary-header">
+        <img src="/logo-manibe-blanco.png" alt="MANIBE LLC" />
+        <h2>Resumen de Inversión</h2>
+        <p id="sum-date"></p>
+      </div>
+      <div id="sum-rows"></div>
+      <p class="summary-disclaimer">Proyección estimada basada en rendimientos históricos — no constituye garantía de retorno. Los resultados reales pueden variar según condiciones del mercado.</p>
+      <button class="summary-invest-btn" id="sum-invest-btn">
+        Quiero invertir con este plan →
+      </button>
+      <button class="summary-print-btn" onclick="window.print()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+        </svg>
+        Imprimir / Guardar PDF
+      </button>
+      <button class="btn-outline" style="width:100%;margin-top:0.5rem;" onclick="document.getElementById('summary-modal').classList.remove('open')">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- ── ADD/EDIT MODEL MODAL ── -->
+  <div class="modal-overlay" id="model-modal">
+    <div class="modal-box">
+      <h3 class="modal-title" id="model-modal-title">Agregar modelo</h3>
+      <input type="hidden" id="model-edit-id" />
+      <div class="form-group">
+        <label class="form-label">Nombre del modelo *</label>
+        <input class="form-input" id="m-name" placeholder="Ej: Modelo Tifany" />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Habitaciones *</label>
+          <input class="form-input" id="m-beds" type="number" min="1" max="10" placeholder="3" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Baños *</label>
+          <input class="form-input" id="m-baths" type="number" min="1" max="10" placeholder="2" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Características</label>
+        <div class="tag-input-wrap">
+          <input class="form-input" id="m-tag-input" placeholder="Ej: Piscina privada" />
+          <button class="btn-outline" id="m-tag-add-btn">+ Agregar</button>
+        </div>
+        <div class="tags-preview" id="m-tags-preview"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Foto del modelo</label>
+        <input class="form-input" id="m-photo" type="file" accept="image/*" style="padding:0.5rem;" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="document.getElementById('model-modal').classList.remove('open')">Cancelar</button>
+        <button class="btn-primary-sm" id="m-save-btn">Guardar modelo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LEAD MODAL ── -->
+  <div class="modal-overlay" id="lead-modal">
+    <div class="modal-box">
+      <!-- Success state -->
+      <div class="lead-success" id="lead-success">
+        <div class="lead-success-icon">✓</div>
+        <h3>¡Recibimos tu solicitud!</h3>
+        <p style="margin-top:0.5rem;">El equipo de Manibe se pondrá en contacto contigo en las próximas 24 horas.</p>
+        <button class="btn-primary-sm" style="margin-top:1.5rem;width:100%;" onclick="document.getElementById('lead-modal').classList.remove('open')">Cerrar</button>
+      </div>
+
+      <!-- Form state -->
+      <div id="lead-form-content">
+        <h3 class="modal-title">Agenda una conversación</h3>
+
+        <!-- Context info (shown when opened from simulator/product) -->
+        <div class="lead-ctx-info" id="lead-ctx-info"></div>
+
+        <!-- Error -->
+        <div class="lead-error-msg" id="lead-error-msg"></div>
+
+        <form id="lead-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="lead-nombre">Nombre completo *</label>
+            <input class="form-input" id="lead-nombre" name="nombre" type="text" placeholder="Juan Pérez" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lead-contacto">Email o WhatsApp *</label>
+            <input class="form-input" id="lead-contacto" name="contacto" type="text" placeholder="correo@ejemplo.com o +57 300 000 0000" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lead-interes">¿Qué te interesa?</label>
+            <select class="form-input" id="lead-interes" name="interes">
+              <option value="">Selecciona una opción</option>
+              <option value="Colectiva Premium">Inversión Colectiva Premium</option>
+              <option value="Construye tu Casa">Construye tu Casa</option>
+              <option value="No estoy seguro">No estoy seguro aún</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lead-mensaje">Mensaje (opcional)</label>
+            <textarea class="form-input" id="lead-mensaje" name="mensaje" rows="3" placeholder="Cuéntanos brevemente qué tienes en mente..." style="resize:vertical;"></textarea>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button type="button" class="btn-outline" style="flex:1;" onclick="document.getElementById('lead-modal').classList.remove('open')">Cancelar</button>
+            <button type="submit" class="btn-primary-sm" id="lead-submit-btn" style="flex:2;">Enviar solicitud</button>
+          </div>
+          <p style="font-size:0.72rem;color:var(--navy-6);text-align:center;margin-top:0.75rem;line-height:1.5;">
+            Al enviar confirmas que Manibe LLC podrá contactarte. No compartimos tu información con terceros.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ defaultModels, mapMarkers }}>
+  // ─────────────────────────────────
+  // CALCULATOR
+  // ─────────────────────────────────
+  var rawAmount = 100000;
+  var activeProduct = 1;
+  var activePlazo = 6;
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+  function fmtPct(n) { return (n % 1 === 0 ? n : n.toFixed(1)) + '%'; }
+
+  function updateSliderTrack() {
+    var min = 50000, max = 500000;
+    var pct = ((rawAmount - min) / (max - min)) * 100;
+    document.getElementById('v-slider').style.setProperty('--pct', pct.toFixed(2) + '%');
+  }
+
+  function animateValue(el, newText) {
+    el.style.opacity = '0'; el.style.transform = 'translateY(6px)';
+    setTimeout(function() {
+      el.textContent = newText;
+      el.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+    }, 120);
+  }
+
+  function calculate() {
+    var capital = rawAmount, months = activePlazo;
+    var minROI, maxROI, minProfit, maxProfit, roiLabel;
+
+    if (activeProduct === 1) {
+      minROI = 0.12; maxROI = 0.20;
+      minProfit = capital * minROI; maxProfit = capital * maxROI;
+      var roiMinAnual = (minROI / months) * 12 * 100;
+      var roiMaxAnual = (maxROI / months) * 12 * 100;
+      roiLabel = fmtPct(Math.round(roiMinAnual)) + ' – ' + fmtPct(Math.round(roiMaxAnual));
+      document.getElementById('v-roi-sub').textContent = 'anualizado (' + months + ' meses)';
+    } else {
+      var periodRate = 0.14 * (months / 12);
+      minProfit = capital * periodRate; maxProfit = minProfit;
+      roiLabel = '14%';
+      document.getElementById('v-roi-sub').textContent = 'anual fijo';
+    }
+
+    var retMin = capital + minProfit, retMax = capital + maxProfit;
+    var pctMin = ((minProfit / capital) * 100).toFixed(1);
+    var pctMax = ((maxProfit / capital) * 100).toFixed(1);
+
+    animateValue(document.getElementById('v-capital'), fmt(capital));
+    animateValue(document.getElementById('v-ret-min'), fmt(retMin));
+    animateValue(document.getElementById('v-ret-max'), fmt(retMax));
+    animateValue(document.getElementById('v-roi-anual'), roiLabel);
+    document.getElementById('v-ret-min-sub').textContent = '+' + pctMin + '% total';
+    document.getElementById('v-ret-max-sub').textContent = '+' + (activeProduct === 2 ? pctMin : pctMax) + '% total';
+
+    window._calcState = {
+      capital: capital, retMin: retMin, retMax: retMax,
+      product: activeProduct === 1 ? 'Colectiva Premium' : 'Rentabilidad Fija',
+      plazo: months, roiLabel: roiLabel,
+      minProfit: minProfit, maxProfit: maxProfit,
+    };
+  }
+
+  document.getElementById('v-amount').addEventListener('input', function() {
+    var digits = this.value.replace(/\D/g, '');
+    rawAmount = Math.min(Math.max(parseInt(digits) || 0, 0), 500000);
+    this.value = rawAmount.toLocaleString('en-US');
+    document.getElementById('v-slider').value = String(rawAmount);
+    updateSliderTrack(); calculate();
+  });
+  document.getElementById('v-slider').addEventListener('input', function() {
+    rawAmount = parseInt(this.value);
+    document.getElementById('v-amount').value = rawAmount.toLocaleString('en-US');
+    updateSliderTrack(); calculate();
+  });
+  document.querySelectorAll('.product-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      activeProduct = parseInt(this.dataset.product);
+      document.querySelectorAll('.product-tab').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      if (activeProduct === 2) {
+        activePlazo = 12;
+        document.querySelectorAll('.plazo-tab').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelector('.plazo-tab[data-months="12"]').classList.add('active');
+      }
+      calculate();
+    });
+  });
+  document.querySelectorAll('.plazo-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      activePlazo = parseInt(this.dataset.months);
+      document.querySelectorAll('.plazo-tab').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      calculate();
+    });
+  });
+
+  // Summary modal
+  document.getElementById('v-gen-summary').addEventListener('click', function() {
+    var s = window._calcState; if (!s) return;
+    var now = new Date();
+    document.getElementById('sum-date').textContent = now.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    var rows = [
+      { label: 'Capital invertido',  value: fmt(s.capital),    gold: false },
+      { label: 'Producto',           value: s.product,         gold: false },
+      { label: 'Plazo',              value: s.plazo + ' meses', gold: false },
+      { label: 'ROI aplicado',       value: s.roiLabel,        gold: false },
+      { label: 'Ganancia mínima',    value: fmt(s.minProfit),  gold: true  },
+      { label: 'Ganancia máxima',    value: fmt(s.maxProfit),  gold: true  },
+      { label: 'Retorno total mín.', value: fmt(s.retMin),     gold: true  },
+      { label: 'Retorno total máx.', value: fmt(s.retMax),     gold: true  },
+    ];
+    document.getElementById('sum-rows').innerHTML = rows.map(function(r) {
+      return '<div class="summary-row"><span class="summary-row-label">' + r.label + '</span><span class="summary-row-value' + (r.gold ? ' gold' : '') + '">' + r.value + '</span></div>';
+    }).join('');
+    document.getElementById('summary-modal').classList.add('open');
+  });
+
+  document.getElementById('sum-invest-btn').addEventListener('click', function() {
+    var s = window._calcState;
+    document.getElementById('summary-modal').classList.remove('open');
+    openLeadModal(s ? s.product : '', s ? s.capital : null, s ? s.plazo : null);
+  });
+
+  // ─────────────────────────────────
+  // LEAD MODAL
+  // ─────────────────────────────────
+  var _leadCtx = { interes: '', monto: null, plazo: null };
+
+  function openLeadModal(interes, monto, plazo) {
+    _leadCtx = { interes: interes || '', monto: monto || null, plazo: plazo || null };
+
+    // Reset form & states
+    document.getElementById('lead-form').reset();
+    document.getElementById('lead-success').style.display = 'none';
+    document.getElementById('lead-form-content').style.display = 'block';
+    document.getElementById('lead-error-msg').style.display = 'none';
+    document.getElementById('lead-error-msg').textContent = '';
+    var btn = document.getElementById('lead-submit-btn');
+    btn.disabled = false; btn.textContent = 'Enviar solicitud';
+
+    // Pre-select interest
+    if (interes) {
+      var sel = document.getElementById('lead-interes');
+      if (sel) sel.value = interes;
+    }
+
+    // Context info block
+    var ctxEl = document.getElementById('lead-ctx-info');
+    if (monto) {
+      ctxEl.style.display = 'block';
+      ctxEl.innerHTML = 'Simulación: <span>' + fmt(monto) + '</span> · <span>' + (plazo || '') + ' meses</span>' + (interes ? ' · <span>' + interes + '</span>' : '');
+    } else {
+      ctxEl.style.display = 'none';
+    }
+
+    document.getElementById('lead-modal').classList.add('open');
+  }
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  document.getElementById('lead-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var nombre   = document.getElementById('lead-nombre').value.trim();
+    var contacto = document.getElementById('lead-contacto').value.trim();
+    var interes  = document.getElementById('lead-interes').value;
+    var mensaje  = document.getElementById('lead-mensaje').value.trim();
+    var errEl    = document.getElementById('lead-error-msg');
+    var btn      = document.getElementById('lead-submit-btn');
+
+    if (!nombre || !contacto) {
+      errEl.textContent = 'Por favor completa nombre y contacto.';
+      errEl.style.display = 'block'; return;
+    }
+
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    errEl.style.display = 'none';
+
+    try {
+      var res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre, contacto, interes: interes || undefined,
+          monto_simulado: _leadCtx.monto,
+          plazo_simulado: _leadCtx.plazo,
+          mensaje: mensaje || undefined,
+        }),
+      });
+      var data = await res.json();
+      if (res.ok && data.ok) {
+        document.getElementById('lead-form-content').style.display = 'none';
+        document.getElementById('lead-success').style.display = 'block';
+      } else {
+        errEl.textContent = data.error || 'Error al enviar. Intenta de nuevo.';
+        errEl.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Enviar solicitud';
+      }
+    } catch {
+      errEl.textContent = 'Error de conexión. Intenta de nuevo.';
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Enviar solicitud';
+    }
+  });
+
+  // Close modal on overlay click
+  document.getElementById('lead-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+  document.getElementById('summary-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+
+  // ─────────────────────────────────
+  // MODELS — custom cards
+  // ─────────────────────────────────
+  var LS_KEY = 'manibe_inversion_custom_models';
+  var editingTags = [];
+
+  function loadCustomModels() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; } }
+  function saveCustomModels(models) { localStorage.setItem(LS_KEY, JSON.stringify(models)); }
+
+  function buildCustomCardHTML(m) {
+    var imgHtml = m.img
+      ? '<img class="model-card-img" src="' + m.img + '" alt="' + m.name + '" loading="lazy">'
+      : '<div class="model-card-img-placeholder"><svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#3d4f72" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline stroke-linecap="round" stroke-linejoin="round" points="9 22 9 12 15 12 15 22"/></svg></div>';
+    var extrasHtml = (m.extras || []).length
+      ? '<div class="model-extras">' + (m.extras || []).map(function(e) { return '<span class="model-extra-tag">' + e + '</span>'; }).join('') + '</div>'
+      : '';
+    return imgHtml +
+      '<div class="model-card-body">' +
+        '<div class="model-card-name">' + m.name + '</div>' +
+        '<div class="model-stats">' +
+          '<div class="model-stat"><span class="stat-num">' + m.beds + '</span>&nbsp;hab.</div>' +
+          '<div class="model-stat"><span class="stat-num">' + m.baths + '</span>&nbsp;baños</div>' +
+        '</div>' + extrasHtml +
+        '<div class="model-card-footer">' +
+          '<button class="btn-sm btn-edit" data-id="' + m.id + '">Editar</button>' +
+          '<button class="btn-sm btn-delete" data-id="' + m.id + '">Eliminar</button>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderCustomModels() {
+    var grid = document.getElementById('v-models-grid');
+    grid.querySelectorAll('.model-card-custom').forEach(function(el) { el.remove(); });
+    loadCustomModels().forEach(function(m) {
+      var card = document.createElement('div');
+      card.className = 'model-card model-card-custom'; card.dataset.customId = m.id;
+      card.innerHTML = buildCustomCardHTML(m);
+      card.querySelector('.btn-edit').addEventListener('click', function() { openEditModel(m.id); });
+      card.querySelector('.btn-delete').addEventListener('click', function() { deleteModel(m.id); });
+      grid.appendChild(card);
+    });
+  }
+
+  function openAddModel() {
+    document.getElementById('model-modal-title').textContent = 'Agregar modelo';
+    document.getElementById('model-edit-id').value = '';
+    document.getElementById('m-name').value = '';
+    document.getElementById('m-beds').value = '';
+    document.getElementById('m-baths').value = '';
+    document.getElementById('m-photo').value = '';
+    editingTags = []; renderTagsPreview();
+    document.getElementById('model-modal').classList.add('open');
+  }
+
+  function openEditModel(id) {
+    var m = loadCustomModels().find(function(x) { return x.id === id; }); if (!m) return;
+    document.getElementById('model-modal-title').textContent = 'Editar modelo';
+    document.getElementById('model-edit-id').value = id;
+    document.getElementById('m-name').value = m.name;
+    document.getElementById('m-beds').value = m.beds;
+    document.getElementById('m-baths').value = m.baths;
+    document.getElementById('m-photo').value = '';
+    editingTags = (m.extras || []).slice(); renderTagsPreview();
+    document.getElementById('model-modal').classList.add('open');
+  }
+
+  function deleteModel(id) {
+    if (!confirm('¿Eliminar este modelo?')) return;
+    saveCustomModels(loadCustomModels().filter(function(m) { return m.id !== id; }));
+    renderCustomModels();
+  }
+
+  function renderTagsPreview() {
+    var el = document.getElementById('m-tags-preview');
+    el.innerHTML = editingTags.map(function(tag, i) {
+      return '<span class="tag-chip" data-i="' + i + '">' + tag + ' <span>×</span></span>';
+    }).join('');
+    el.querySelectorAll('.tag-chip').forEach(function(chip) {
+      chip.addEventListener('click', function() { editingTags.splice(parseInt(this.dataset.i), 1); renderTagsPreview(); });
+    });
+  }
+
+  document.getElementById('m-tag-add-btn').addEventListener('click', function() {
+    var val = document.getElementById('m-tag-input').value.trim();
+    if (val) { editingTags.push(val); document.getElementById('m-tag-input').value = ''; renderTagsPreview(); }
+  });
+  document.getElementById('m-tag-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('m-tag-add-btn').click(); }
+  });
+
+  document.getElementById('m-save-btn').addEventListener('click', function() {
+    var name = document.getElementById('m-name').value.trim();
+    var beds = parseInt(document.getElementById('m-beds').value) || 0;
+    var baths = parseInt(document.getElementById('m-baths').value) || 0;
+    if (!name || !beds || !baths) { alert('Nombre, habitaciones y baños son obligatorios.'); return; }
+    var editId = document.getElementById('model-edit-id').value;
+    var customs = loadCustomModels();
+    var photoFile = document.getElementById('m-photo').files[0];
+
+    function saveWithImg(imgData) {
+      if (editId) {
+        var idx = customs.findIndex(function(m) { return m.id === editId; });
+        if (idx >= 0) {
+          customs[idx].name = name; customs[idx].beds = beds; customs[idx].baths = baths;
+          customs[idx].extras = editingTags.slice(); if (imgData) customs[idx].img = imgData;
+        }
+      } else {
+        customs.push({ id: 'c_' + Date.now(), name: name, beds: beds, baths: baths, extras: editingTags.slice(), img: imgData || null });
+      }
+      saveCustomModels(customs); renderCustomModels();
+      document.getElementById('model-modal').classList.remove('open');
+    }
+
+    if (photoFile) {
+      var reader = new FileReader();
+      reader.onload = function(ev) { saveWithImg(ev.target.result); };
+      reader.readAsDataURL(photoFile);
+    } else { saveWithImg(null); }
+  });
+
+  document.getElementById('v-add-model').addEventListener('click', openAddModel);
+
+  // ─────────────────────────────────
+  // MAP
+  // ─────────────────────────────────
+  function loadLeaflet(cb) {
+    if (window.L) { cb(); return; }
+    var css = document.createElement('link'); css.rel = 'stylesheet';
+    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
+    var js = document.createElement('script'); js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    js.onload = cb; document.head.appendChild(js);
+  }
+
+  function goldPin() {
+    return window.L.divIcon({
+      className: '', iconSize: [28, 36], iconAnchor: [14, 36], popupAnchor: [0, -38],
+      html: '<svg viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:36px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6))"><path d="M14 0C6.268 0 0 6.268 0 14c0 7.732 14 22 14 22S28 21.732 28 14C28 6.268 21.732 0 14 0z" fill="#dbc06a"/><circle cx="14" cy="14" r="5" fill="#141d34"/></svg>',
+    });
+  }
+
+  function initMap() {
+    var L = window.L;
+    var map = L.map('v-map', { center: [26.55, -81.85], zoom: 9, scrollWheelZoom: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 19,
+    }).addTo(map);
+    var refs = mapMarkers.map(function(m) {
+      return L.marker([m.lat, m.lng], { icon: goldPin() })
+        .bindPopup('<p style="margin:0 0 2px;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:700;color:#dbc06a;">' + m.label + '</p><p style="margin:0;font-family:\'DM Sans\',sans-serif;font-size:11px;color:#b8c0d4;">' + m.detail + '</p>', { maxWidth: 160 })
+        .addTo(map);
+    });
+    setTimeout(function() {
+      var bounds = L.latLngBounds(mapMarkers.map(function(m) { return [m.lat, m.lng]; }));
+      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 10 });
+    }, 200);
+    document.querySelectorAll('#v-map-tbody tr').forEach(function(row, i) {
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', function() {
+        var m = mapMarkers[i];
+        map.setView([m.lat, m.lng], 12, { animate: false });
+        refs[i].openPopup(); map.panBy([0, -70], { animate: true, duration: 0.4 });
+      });
+    });
+  }
+
+  var mapEl = document.getElementById('v-map');
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { loadLeaflet(initMap); obs.disconnect(); }
+  }, { threshold: 0.1 });
+  if (mapEl) obs.observe(mapEl);
+
+  // ─────────────────────────────────
+  // INIT
+  // ─────────────────────────────────
+  updateSliderTrack();
+  calculate();
+  renderCustomModels();
+  </script>
+
+  <style>
+    #v-map :global(.leaflet-control-zoom a) { background: #141d34; color: #dbc06a; border-color: #2c3a5c; }
+    #v-map :global(.leaflet-control-zoom a:hover) { background: #2c3a5c; }
+    #v-map :global(.leaflet-control-attribution) { background: rgba(12,21,36,0.8); color: #5e6d8c; font-size: 10px; }
+    #v-map :global(.leaflet-popup-content-wrapper) { background: #141d34; border: 1px solid rgba(219,192,106,0.3); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); padding: 0; }
+    #v-map :global(.leaflet-popup-content) { margin: 0; padding: 10px 14px; }
+    #v-map :global(.leaflet-popup-tip) { background: #141d34; }
+    #v-map :global(.leaflet-popup-close-button) { color: #5e6d8c !important; }
+  </style>
+
+</body>
+</html>
