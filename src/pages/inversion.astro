@@ -1139,7 +1139,7 @@ const defaultModels = [
             </button>
             <button class="product-tab" data-product="2">
               <span class="tab-name">Rentabilidad Fija</span>
-              <span class="tab-detail">12–14% anual · referencia 14%</span>
+              <span class="tab-detail">12–14% anual</span>
             </button>
           </div>
         </div>
@@ -1191,7 +1191,7 @@ const defaultModels = [
           </button>
         </div>
         <p class="calc-disclaimer">Proyección estimada basada en rendimientos históricos. No constituye garantía de retorno. Los resultados reales pueden variar según condiciones del mercado.</p>
-        <p class="calc-disclaimer" id="calc-fija-note" style="display:none;color:rgba(219,192,106,0.7);">Para Rentabilidad Fija, el simulador usa 14% como tasa de referencia. La tasa final puede ser 12–14% dependiendo de las condiciones al momento de la inversión.</p>
+        <p class="calc-disclaimer" id="calc-fija-note" style="display:none;color:rgba(219,192,106,0.7);">Para Rentabilidad Fija, el simulador muestra el rango 12–14% anual. La tasa final se define al momento de la inversión según condiciones vigentes.</p>
       </div>
     </div>
   </section>
@@ -1518,10 +1518,10 @@ const defaultModels = [
       roiLabel = fmtPct(Math.round(roiMinAnual)) + ' – ' + fmtPct(Math.round(roiMaxAnual));
       document.getElementById('v-roi-sub').textContent = 'anualizado (' + months + ' meses)';
     } else {
-      var periodRate = 0.14 * (months / 12);
-      minProfit = capital * periodRate; maxProfit = minProfit;
-      roiLabel = '14%';
-      document.getElementById('v-roi-sub').textContent = 'anual fijo';
+      minProfit = capital * 0.12 * (months / 12);
+      maxProfit = capital * 0.14 * (months / 12);
+      roiLabel = '12% – 14%';
+      document.getElementById('v-roi-sub').textContent = 'anual (' + months + ' meses)';
     }
 
     var retMin = capital + minProfit, retMax = capital + maxProfit;
@@ -1533,7 +1533,7 @@ const defaultModels = [
     animateValue(document.getElementById('v-ret-max'), fmt(retMax));
     animateValue(document.getElementById('v-roi-anual'), roiLabel);
     document.getElementById('v-ret-min-sub').textContent = '+' + pctMin + '% total';
-    document.getElementById('v-ret-max-sub').textContent = '+' + (activeProduct === 2 ? pctMin : pctMax) + '% total';
+    document.getElementById('v-ret-max-sub').textContent = '+' + pctMax + '% total';
 
     window._calcState = {
       capital: capital, retMin: retMin, retMax: retMax,
@@ -1694,20 +1694,18 @@ const defaultModels = [
         doc.setFont('helvetica','bold'); doc.setFontSize(7); tc(MID);
         doc.text('RETORNO ESTIMADO DEL PERIODO', pw/2, y+16, { align:'center' });
 
-        var retStr = isFija ? fmt(s.retMin) : fmt(s.retMin) + ' – ' + fmt(s.retMax);
+        var retStr = fmt(s.retMin) + ' – ' + fmt(s.retMax);
         doc.setFont('times','bold'); doc.setFontSize(30); tc(NAVY);
         doc.text(retStr, pw/2, y+50, { align:'center' });
 
-        var gainStr = isFija
-          ? 'Ganancia estimada: +' + fmt(s.minProfit)
-          : 'Ganancia estimada: +' + fmt(s.minProfit) + '  —  +' + fmt(s.maxProfit);
+        var gainStr = 'Ganancia estimada: +' + fmt(s.minProfit) + '  —  +' + fmt(s.maxProfit);
         doc.setFont('helvetica','normal'); doc.setFontSize(9); tc([60,60,70]);
         doc.text(gainStr, pw/2, y+66, { align:'center' });
 
         var pm1 = ((s.minProfit / s.capital) * 100).toFixed(1);
         var pm2 = ((s.maxProfit / s.capital) * 100).toFixed(1);
         var roiLine = isFija
-          ? 'Retorno del periodo: +' + pm1 + '%  ·  ROI anual referencial: ' + s.roiLabel + '*'
+          ? 'Retorno del periodo: +' + pm1 + '%–+' + pm2 + '%  ·  ROI anual: ' + s.roiLabel + '*'
           : 'Retorno del periodo: +' + pm1 + '%–+' + pm2 + '%  ·  Equivalente anualizado ref.: ' + s.roiLabel;
         doc.setFontSize(7.5); tc(MID);
         doc.text(roiLine, pw/2, y+80, { align:'center' });
