@@ -23,6 +23,7 @@ const defaultModels = [
     description: 'Diseño amplio con posibilidad de independizar dos habitaciones — ideal para inversión con renta o para familias que valoran la privacidad. Acabados modernos contemporáneos y doble garaje en el Southwest de Florida.',
     img: '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
     gallery: [
+      '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
       '/Albany/webp/Albany.webp',
       '/Albany/webp/A7400011.ARW.webp',
       '/Albany/webp/A7400014.ARW.webp',
@@ -52,6 +53,7 @@ const defaultModels = [
     description: 'Diseño espacioso con acabados de lujo. Tres habitaciones amplias, tres baños completos, oficina integrada y lanai. Ideal para quienes buscan funcionalidad y elegancia en un solo espacio.',
     img: '/Manibe/webp/Manibe.webp',
     gallery: [
+      '/Manibe/webp/Manibe.webp',
       '/Manibe/webp/DSC00082_1.webp',
       '/Manibe/webp/DSC00087.webp',
       '/Manibe/webp/DSC00097.webp',
@@ -144,6 +146,7 @@ const defaultModels = [
     description: 'El modelo más amplio del portafolio. Piscina privada, oficina, lanai y acabados premium. Diseñado para quienes buscan el máximo en confort y valor en el Southwest de Florida.',
     img: '/Caroline/webp/Caro3.webp',
     gallery: [
+      '/Caroline/webp/Caro3.webp',
       '/Caroline/webp/Caro1.webp',
       '/Caroline/webp/Caro2.webp',
       '/Caroline/webp/Caroline.webp',
@@ -208,7 +211,7 @@ const defaultModels = [
       position: sticky; top: 0; z-index: 500;
     }
     .v-header-left { display: flex; flex-direction: column; gap: 0.25rem; }
-    .v-header img { height: 40px; }
+    .v-header img { height: 40px; width: auto; }
     .v-badge {
       font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--gold); background: rgba(219,192,106,0.1); border: 1px solid rgba(219,192,106,0.25);
@@ -1637,6 +1640,7 @@ const defaultModels = [
 
     document.getElementById('lead-modal').classList.add('open');
   }
+  window.openLeadModal = openLeadModal;
 
   function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
@@ -1770,7 +1774,7 @@ const defaultModels = [
   function initMap() {
     var L = window.L;
     var map = L.map('v-map', { center: [26.55, -81.85], zoom: 9, scrollWheelZoom: false });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 19,
     }).addTo(map);
     var refs = mapMarkers.map(function(m) {
