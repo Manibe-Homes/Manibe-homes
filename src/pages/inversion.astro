@@ -12,28 +12,117 @@ const mapMarkers = [
 
 const defaultModels = [
   {
-    id: 'albany',
-    name: 'Albany',
-    beds: 4, baths: 3,
+    id: 'albany', name: 'Albany', beds: 4, baths: 3, tag: null,
     extras: ['Indep. habitaciones', 'Garaje doble', 'Contemporáneo'],
-    specs: 'Bajo techo 2,381 ft² (221 m²) · Bajo aire 1,731 ft² (161 m²)',
+    specsTable: [
+      { label: 'Área bajo techo', value: '2,381 ft² / 221 m²' },
+      { label: 'Área bajo aire',  value: '1,731 ft² / 161 m²' },
+      { label: 'Estilo',          value: 'Moderno contemporáneo' },
+      { label: 'Garaje',          value: 'Doble' },
+    ],
+    description: 'Diseño amplio con posibilidad de independizar dos habitaciones — ideal para inversión con renta o para familias que valoran la privacidad. Acabados modernos contemporáneos y doble garaje en el Southwest de Florida.',
     img: '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
+    gallery: [
+      '/Albany/webp/Albany.webp',
+      '/Albany/webp/A7400011.ARW.webp',
+      '/Albany/webp/A7400014.ARW.webp',
+      '/Albany/webp/A7400017.ARW.webp',
+      '/Albany/webp/A7400022.ARW.webp',
+      '/Albany/webp/A7400028.ARW.webp',
+      '/Albany/webp/A7400030.ARW.webp',
+      '/Albany/webp/A7400032.ARW.webp',
+      '/Albany/webp/A7400033.ARW.webp',
+      '/Albany/webp/A7400044.ARW.webp',
+      '/Albany/webp/A7400048.ARW.webp',
+      '/Albany/webp/A7400066.ARW.webp',
+      '/Albany/webp/DJI_20250524150853_0300_D.DNG.webp',
+      '/Albany/webp/DJI_20250524150957_0303_D.DNG.webp',
+      '/Albany/webp/DJI_20250524151337_0313_D.DNG.webp',
+    ],
   },
   {
-    id: 'sunset',
-    name: 'Sunset',
-    beds: 3, baths: 3,
+    id: 'sunset', name: 'Sunset', beds: 3, baths: 3, tag: 'Más solicitado',
     extras: ['Oficina', 'Lanai', 'Garaje doble'],
-    specs: 'Bajo techo 2,372 ft² (220 m²) · Bajo aire 1,666 ft² (155 m²)',
+    specsTable: [
+      { label: 'Área bajo techo', value: '2,372 ft² / 220 m²' },
+      { label: 'Área bajo aire',  value: '1,666 ft² / 155 m²' },
+      { label: 'Estilo',          value: 'Moderno contemporáneo' },
+      { label: 'Garaje',          value: 'Doble' },
+    ],
+    description: 'Diseño espacioso con acabados de lujo. Tres habitaciones amplias, tres baños completos, oficina integrada y lanai. Ideal para quienes buscan funcionalidad y elegancia en un solo espacio.',
     img: '/Manibe/webp/Manibe.webp',
+    gallery: [
+      '/Manibe/webp/DSC00082_1.webp',
+      '/Manibe/webp/DSC00087.webp',
+      '/Manibe/webp/DSC00097.webp',
+      '/Manibe/webp/DSC00112.webp',
+      '/Manibe/webp/DSC00122.webp',
+      '/Manibe/webp/DSC00127.webp',
+      '/Manibe/webp/DSC00132.webp',
+      '/Manibe/webp/DSC00137.webp',
+      '/Manibe/webp/DSC00142.webp',
+      '/Manibe/webp/DSC00147.webp',
+      '/Manibe/webp/DSC00152.webp',
+      '/Manibe/webp/DSC00157.webp',
+      '/Manibe/webp/DSC00162.webp',
+      '/Manibe/webp/DSC00167.webp',
+      '/Manibe/webp/DSC00172.webp',
+      '/Manibe/webp/DSC00177.webp',
+      '/Manibe/webp/DSC00182.webp',
+      '/Manibe/webp/DSC00187.webp',
+      '/Manibe/webp/DSC00192.webp',
+      '/Manibe/webp/DSC00197.webp',
+      '/Manibe/webp/DSC00202.webp',
+      '/Manibe/webp/DSC00207.webp',
+      '/Manibe/webp/DSC00212.webp',
+      '/Manibe/webp/DSC00217.webp',
+      '/Manibe/webp/DSC00222.webp',
+      '/Manibe/webp/DSC00227.webp',
+      '/Manibe/webp/DSC00232.webp',
+      '/Manibe/webp/DSC00237.webp',
+      '/Manibe/webp/DSC00242.webp',
+      '/Manibe/webp/DSC00247.webp',
+      '/Manibe/webp/DSC00252.webp',
+      '/Manibe/webp/DSC00257.webp',
+      '/Manibe/webp/DSC00262.webp',
+      '/Manibe/webp/DSC00267.webp',
+      '/Manibe/webp/DSC00272.webp',
+      '/Manibe/webp/DSC00277.webp',
+      '/Manibe/webp/DSC00282.webp',
+      '/Manibe/webp/Interior 1721.webp',
+      '/Manibe/webp/Outside 1721 4 - 2.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 06 53 PM.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 07 18 PM.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 07 34 PM_1.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 07 49 PM.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 08 05 PM.webp',
+    ],
   },
   {
-    id: 'coraline',
-    name: 'Coraline',
-    beds: 3, baths: 3,
-    extras: ['Oficina', 'Lanai', 'Garaje doble'],
-    specs: 'Bajo techo 2,772 ft² (258 m²) · Bajo aire 1,906 ft² (177 m²)',
+    id: 'coraline', name: 'Coraline', beds: 3, baths: 3, tag: null,
+    extras: ['Oficina', 'Lanai', 'Piscina privada', 'Garaje doble'],
+    specsTable: [
+      { label: 'Área bajo techo', value: '2,772 ft² / 258 m²' },
+      { label: 'Área bajo aire',  value: '1,906 ft² / 177 m²' },
+      { label: 'Estilo',          value: 'Moderno premium' },
+      { label: 'Piscina',         value: 'Privada' },
+      { label: 'Garaje',          value: 'Doble' },
+    ],
+    description: 'El modelo más amplio del portafolio. Piscina privada, oficina, lanai y acabados premium. Diseñado para quienes buscan el máximo en confort y valor en el Southwest de Florida.',
     img: '/Caroline/webp/Caro3.webp',
+    gallery: [
+      '/Caroline/webp/Caro1.webp',
+      '/Caroline/webp/Caro2.webp',
+      '/Caroline/webp/Caroline.webp',
+      '/Caroline/webp/Caro4.webp',
+      '/Caroline/webp/Caro5.webp',
+      '/Caroline/webp/Caro6.webp',
+      '/Caroline/webp/Caro7.webp',
+      '/Caroline/webp/Caro8.webp',
+      '/Caroline/webp/Caro9.webp',
+      '/Caroline/webp/Caro10.webp',
+      '/Caroline/webp/Caro11.webp',
+    ],
   },
 ];
 ---
@@ -397,53 +486,114 @@ const defaultModels = [
     .btn-outline-calc:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
     .calc-disclaimer { font-size: 0.75rem; color: var(--navy-7); text-align: center; margin-top: 0.75rem; line-height: 1.6; }
 
-    /* ── MODELS ── */
-    .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    .model-card {
-      background: var(--navy-2); border: 1px solid var(--navy-4); border-radius: 1.25rem;
-      overflow: hidden; display: flex; flex-direction: column;
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-    }
-    .model-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.45); border-color: rgba(219,192,106,0.4); }
-    .model-card-img { width: 100%; height: 200px; object-fit: cover; display: block; flex-shrink: 0; }
-    .model-card-img-placeholder {
-      width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;
-      background: var(--navy-3); flex-shrink: 0;
-    }
-    .model-card-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
-    .model-card-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
-    .model-specs { font-size: 0.75rem; color: var(--navy-6); line-height: 1.5; }
-    .model-stats { display: flex; gap: 1.5rem; }
-    .model-stat { display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; color: var(--navy-7); }
+    /* ── MODEL VIEWER ── */
     .stat-num { font-weight: 700; font-size: 1rem; color: var(--white); }
-    .model-extras { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .model-extra-tag {
       background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
       color: rgba(219,192,106,0.8); font-size: 0.72rem; font-weight: 600;
       padding: 0.25rem 0.65rem; border-radius: 999px; white-space: nowrap;
     }
-    .model-card-footer {
-      display: flex; gap: 0.5rem; align-items: center;
-      padding-top: 0.75rem; border-top: 1px solid var(--navy-4); margin-top: auto;
+
+    .model-viewer { margin-top: 2.5rem; }
+
+    .model-tabs { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .model-tab {
+      position: relative; background: rgba(44,58,92,0.3); border: 2px solid var(--navy-4);
+      color: var(--navy-7); font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1rem;
+      padding: 0.75rem 2rem; border-radius: 0.875rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
     }
-    .btn-sm { font-size: 0.78rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 0.6rem; border: none; cursor: pointer; transition: all 0.15s; }
-    .btn-edit { background: rgba(44,58,92,0.7); color: var(--navy-7); border: 1px solid var(--navy-4); }
-    .btn-edit:hover { background: var(--navy-4); color: var(--white); }
-    .btn-delete { background: rgba(220,38,38,0.1); color: #f87171; border: 1px solid rgba(220,38,38,0.25); }
-    .btn-delete:hover { background: rgba(220,38,38,0.2); }
-    .btn-info {
-      flex: 1; background: rgba(219,192,106,0.1); color: var(--gold);
-      border: 1px solid rgba(219,192,106,0.25); font-size: 0.78rem; font-weight: 700;
-      padding: 0.5rem 1rem; border-radius: 0.6rem; cursor: pointer; transition: all 0.15s;
-      text-align: center;
+    .model-tab:hover:not(.active) { border-color: var(--navy-5); color: var(--white); }
+    .model-tab.active { border-color: var(--gold); background: rgba(219,192,106,0.1); color: var(--white); }
+    .model-tab-badge {
+      position: absolute; top: -9px; right: -6px;
+      background: var(--gold); color: var(--navy);
+      font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.18rem 0.55rem; border-radius: 999px; white-space: nowrap;
     }
-    .btn-info:hover { background: rgba(219,192,106,0.18); }
-    .btn-add {
-      display: flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--navy);
-      font-weight: 700; font-size: 0.9rem; padding: 0.75rem 1.5rem; border-radius: 0.875rem;
-      border: none; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+
+    .model-detail {
+      display: none; background: var(--navy-2); border: 1px solid var(--navy-4);
+      border-radius: 1.5rem; overflow: hidden;
     }
-    .btn-add:hover { background: var(--gold-h); transform: translateY(-1px); }
+    .model-detail.active { display: grid; grid-template-columns: 55% 45%; }
+    @media (max-width: 900px) { .model-detail.active { grid-template-columns: 1fr; } }
+
+    .model-gallery-col { background: var(--navy-3); }
+    .model-main-wrap { position: relative; overflow: hidden; }
+    .model-main-img {
+      width: 100%; height: 420px; object-fit: cover; display: block;
+      transition: opacity 0.25s ease;
+    }
+    @media (max-width: 900px) { .model-main-img { height: 260px; } }
+
+    .mdl-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(12,21,36,0.72); border: 1px solid rgba(219,192,106,0.25);
+      color: var(--white); width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; font-size: 1.25rem; z-index: 2;
+      backdrop-filter: blur(4px); line-height: 1;
+    }
+    .mdl-nav:hover { background: rgba(219,192,106,0.25); border-color: var(--gold); }
+    .mdl-prev { left: 12px; }
+    .mdl-next { right: 12px; }
+    .mdl-counter {
+      position: absolute; bottom: 10px; right: 12px;
+      background: rgba(12,21,36,0.72); backdrop-filter: blur(4px);
+      color: rgba(255,255,255,0.7); font-size: 0.72rem; font-weight: 600;
+      padding: 0.22rem 0.6rem; border-radius: 999px; pointer-events: none;
+    }
+
+    .model-thumbs {
+      display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.6rem;
+      scrollbar-width: thin; scrollbar-color: var(--navy-4) transparent;
+    }
+    .model-thumbs::-webkit-scrollbar { height: 4px; }
+    .model-thumbs::-webkit-scrollbar-thumb { background: var(--navy-4); border-radius: 2px; }
+    .mdl-thumb {
+      width: 68px; height: 50px; object-fit: cover; border-radius: 0.4rem; flex-shrink: 0;
+      border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s, opacity 0.15s; opacity: 0.5;
+    }
+    .mdl-thumb.active { border-color: var(--gold); opacity: 1; }
+    .mdl-thumb:hover:not(.active) { opacity: 0.8; }
+
+    .model-info-col {
+      padding: 2rem 2.25rem; display: flex; flex-direction: column; gap: 1.25rem;
+      border-left: 1px solid var(--navy-4); overflow-y: auto; max-height: 520px;
+    }
+    @media (max-width: 900px) { .model-info-col { border-left: none; border-top: 1px solid var(--navy-4); max-height: none; } }
+
+    .model-info-name {
+      font-family: 'Playfair Display', serif; font-size: 1.85rem; font-weight: 700;
+      color: var(--white); line-height: 1.15; margin-top: 0.25rem;
+    }
+    .model-info-tag {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.2rem;
+    }
+    .model-info-stats { display: flex; gap: 2rem; }
+    .model-info-stat { display: flex; align-items: baseline; gap: 0.4rem; font-size: 0.88rem; color: var(--navy-7); }
+    .model-info-stat .stat-num { font-size: 1.6rem; font-family: 'Playfair Display', serif; }
+
+    .model-specs-table {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem;
+      background: rgba(44,58,92,0.35); border-radius: 0.875rem; padding: 1rem 1.1rem;
+    }
+    .model-spec-row { display: flex; flex-direction: column; gap: 0.15rem; }
+    .model-spec-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy-6); }
+    .model-spec-value { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+
+    .model-info-extras { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .model-info-desc { font-size: 0.9rem; color: var(--navy-7); line-height: 1.75; }
+
+    .btn-model-cta {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.9rem;
+      padding: 0.9rem 1.5rem; border-radius: 0.875rem; border: none; cursor: pointer;
+      transition: background 0.2s; width: 100%; margin-top: auto;
+    }
+    .btn-model-cta:hover { background: var(--gold-h); }
 
     /* ── MAP ── */
     #v-map { width: 100%; height: 460px; border-radius: 1.25rem; overflow: hidden; border: 1px solid var(--navy-4); }
@@ -1041,48 +1191,72 @@ const defaultModels = [
   <!-- ── MODELOS ── -->
   <section class="v-section dark" id="modelos">
     <div class="v-inner">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
-        <div>
-          <p class="v-section-label">Portafolio</p>
-          <h2 class="v-section-title">Modelos de <span style="color:var(--gold)">casas</span></h2>
+      <p class="v-section-label">Portafolio</p>
+      <h2 class="v-section-title">Nuestros <span style="color:var(--gold)">modelos</span></h2>
+      <p class="v-section-sub" style="margin-bottom:0;">Selecciona un modelo para explorar la galería completa, especificaciones y detalles de construcción.</p>
+
+      <div class="model-viewer">
+        <!-- Tab strip -->
+        <div class="model-tabs">
+          {defaultModels.map((m, i) => (
+            <button class:list={['model-tab', i === 0 && 'active']} data-model-idx={i}>
+              {m.tag && <span class="model-tab-badge">{m.tag}</span>}
+              {m.name}
+            </button>
+          ))}
         </div>
-        <button class="btn-add" id="v-add-model">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-          </svg>
-          Agregar modelo
-        </button>
-      </div>
-      <div class="models-grid" id="v-models-grid">
-        {defaultModels.map(m => (
-          <div class="model-card">
-            {m.img
-              ? <img class="model-card-img" src={m.img} alt={m.name} loading="lazy" />
-              : <div class="model-card-img-placeholder">
-                  <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#3d4f72" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                    <polyline stroke-linecap="round" stroke-linejoin="round" points="9 22 9 12 15 12 15 22"/>
-                  </svg>
-                </div>
-            }
-            <div class="model-card-body">
-              <div class="model-card-name">{m.name}</div>
-              <div class="model-stats">
-                <div class="model-stat"><span class="stat-num">{m.beds}</span>&nbsp;hab.</div>
-                <div class="model-stat"><span class="stat-num">{m.baths}</span>&nbsp;baños</div>
+
+        <!-- Detail panels -->
+        {defaultModels.map((m, i) => (
+          <div class:list={['model-detail', i === 0 && 'active']} data-model-panel={i}>
+
+            <!-- Gallery column -->
+            <div class="model-gallery-col">
+              <div class="model-main-wrap">
+                <img class="model-main-img" src={m.gallery[0]} alt={m.name} loading="eager" />
+                <button class="mdl-nav mdl-prev" aria-label="Foto anterior">&#8249;</button>
+                <button class="mdl-nav mdl-next" aria-label="Siguiente foto">&#8250;</button>
+                <span class="mdl-counter">1 / {m.gallery.length}</span>
               </div>
-              <p class="model-specs">{m.specs}</p>
-              {m.extras.length > 0 && (
-                <div class="model-extras">
-                  {m.extras.map(e => <span class="model-extra-tag">{e}</span>)}
-                </div>
-              )}
-              <div class="model-card-footer">
-                <button class="btn-info" data-model={m.name} onclick={`openLeadModal('Construye tu Casa')`}>
-                  Solicitar información
-                </button>
+              <div class="model-thumbs">
+                {m.gallery.map((img, j) => (
+                  <img
+                    class:list={['mdl-thumb', j === 0 && 'active']}
+                    src={img}
+                    alt={`${m.name} foto ${j + 1}`}
+                    loading="lazy"
+                  />
+                ))}
               </div>
             </div>
+
+            <!-- Info column -->
+            <div class="model-info-col">
+              <div>
+                {m.tag && <span class="model-info-tag">{m.tag}</span>}
+                <h3 class="model-info-name">{m.name}</h3>
+              </div>
+              <div class="model-info-stats">
+                <div class="model-info-stat"><span class="stat-num">{m.beds}</span>&nbsp;hab.</div>
+                <div class="model-info-stat"><span class="stat-num">{m.baths}</span>&nbsp;baños</div>
+              </div>
+              <div class="model-specs-table">
+                {m.specsTable.map(row => (
+                  <div class="model-spec-row">
+                    <span class="model-spec-label">{row.label}</span>
+                    <span class="model-spec-value">{row.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="model-info-extras">
+                {m.extras.map(e => <span class="model-extra-tag">{e}</span>)}
+              </div>
+              <p class="model-info-desc">{m.description}</p>
+              <button class="btn-model-cta" onclick="openLeadModal('Construye tu Casa')">
+                Solicitar información sobre este modelo →
+              </button>
+            </div>
+
           </div>
         ))}
       </div>
@@ -1207,44 +1381,6 @@ const defaultModels = [
         Imprimir / Guardar PDF
       </button>
       <button class="btn-outline" style="width:100%;margin-top:0.5rem;" onclick="document.getElementById('summary-modal').classList.remove('open')">Cerrar</button>
-    </div>
-  </div>
-
-  <!-- ── ADD/EDIT MODEL MODAL ── -->
-  <div class="modal-overlay" id="model-modal">
-    <div class="modal-box">
-      <h3 class="modal-title" id="model-modal-title">Agregar modelo</h3>
-      <input type="hidden" id="model-edit-id" />
-      <div class="form-group">
-        <label class="form-label">Nombre del modelo *</label>
-        <input class="form-input" id="m-name" placeholder="Ej: Modelo Tifany" />
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-        <div class="form-group">
-          <label class="form-label">Habitaciones *</label>
-          <input class="form-input" id="m-beds" type="number" min="1" max="10" placeholder="3" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Baños *</label>
-          <input class="form-input" id="m-baths" type="number" min="1" max="10" placeholder="2" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Características</label>
-        <div class="tag-input-wrap">
-          <input class="form-input" id="m-tag-input" placeholder="Ej: Piscina privada" />
-          <button class="btn-outline" id="m-tag-add-btn">+ Agregar</button>
-        </div>
-        <div class="tags-preview" id="m-tags-preview"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Foto del modelo</label>
-        <input class="form-input" id="m-photo" type="file" accept="image/*" style="padding:0.5rem;" />
-      </div>
-      <div class="modal-footer">
-        <button class="btn-outline" onclick="document.getElementById('model-modal').classList.remove('open')">Cancelar</button>
-        <button class="btn-primary-sm" id="m-save-btn">Guardar modelo</button>
-      </div>
     </div>
   </div>
 
@@ -1524,126 +1660,61 @@ const defaultModels = [
   });
 
   // ─────────────────────────────────
-  // MODELS — custom cards
+  // MODEL VIEWER
   // ─────────────────────────────────
-  var LS_KEY = 'manibe_inversion_custom_models';
-  var editingTags = [];
+  var mdlCurrentIdx = {};
 
-  function loadCustomModels() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; } }
-  function saveCustomModels(models) { localStorage.setItem(LS_KEY, JSON.stringify(models)); }
+  function mdlGoTo(panelIdx, photoIdx) {
+    var panel = document.querySelector('[data-model-panel="' + panelIdx + '"]');
+    if (!panel) return;
+    var thumbs = panel.querySelectorAll('.mdl-thumb');
+    var mainImg = panel.querySelector('.model-main-img');
+    var counter = panel.querySelector('.mdl-counter');
+    var total = thumbs.length;
+    if (!total) return;
 
-  function buildCustomCardHTML(m) {
-    var imgHtml = m.img
-      ? '<img class="model-card-img" src="' + m.img + '" alt="' + m.name + '" loading="lazy">'
-      : '<div class="model-card-img-placeholder"><svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#3d4f72" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline stroke-linecap="round" stroke-linejoin="round" points="9 22 9 12 15 12 15 22"/></svg></div>';
-    var extrasHtml = (m.extras || []).length
-      ? '<div class="model-extras">' + (m.extras || []).map(function(e) { return '<span class="model-extra-tag">' + e + '</span>'; }).join('') + '</div>'
-      : '';
-    return imgHtml +
-      '<div class="model-card-body">' +
-        '<div class="model-card-name">' + m.name + '</div>' +
-        '<div class="model-stats">' +
-          '<div class="model-stat"><span class="stat-num">' + m.beds + '</span>&nbsp;hab.</div>' +
-          '<div class="model-stat"><span class="stat-num">' + m.baths + '</span>&nbsp;baños</div>' +
-        '</div>' + extrasHtml +
-        '<div class="model-card-footer">' +
-          '<button class="btn-sm btn-edit" data-id="' + m.id + '">Editar</button>' +
-          '<button class="btn-sm btn-delete" data-id="' + m.id + '">Eliminar</button>' +
-        '</div>' +
-      '</div>';
+    photoIdx = ((photoIdx % total) + total) % total;
+    mdlCurrentIdx[panelIdx] = photoIdx;
+
+    mainImg.style.opacity = '0';
+    var newSrc = thumbs[photoIdx].src;
+    setTimeout(function() {
+      mainImg.src = newSrc;
+      mainImg.style.opacity = '1';
+    }, 180);
+
+    thumbs.forEach(function(th, i) { th.classList.toggle('active', i === photoIdx); });
+    thumbs[photoIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (counter) counter.textContent = (photoIdx + 1) + ' / ' + total;
   }
 
-  function renderCustomModels() {
-    var grid = document.getElementById('v-models-grid');
-    grid.querySelectorAll('.model-card-custom').forEach(function(el) { el.remove(); });
-    loadCustomModels().forEach(function(m) {
-      var card = document.createElement('div');
-      card.className = 'model-card model-card-custom'; card.dataset.customId = m.id;
-      card.innerHTML = buildCustomCardHTML(m);
-      card.querySelector('.btn-edit').addEventListener('click', function() { openEditModel(m.id); });
-      card.querySelector('.btn-delete').addEventListener('click', function() { deleteModel(m.id); });
-      grid.appendChild(card);
+  defaultModels.forEach(function(m, i) {
+    mdlCurrentIdx[i] = 0;
+    var panel = document.querySelector('[data-model-panel="' + i + '"]');
+    if (!panel) return;
+
+    panel.querySelector('.mdl-prev').addEventListener('click', function() {
+      mdlGoTo(i, (mdlCurrentIdx[i] || 0) - 1);
     });
-  }
-
-  function openAddModel() {
-    document.getElementById('model-modal-title').textContent = 'Agregar modelo';
-    document.getElementById('model-edit-id').value = '';
-    document.getElementById('m-name').value = '';
-    document.getElementById('m-beds').value = '';
-    document.getElementById('m-baths').value = '';
-    document.getElementById('m-photo').value = '';
-    editingTags = []; renderTagsPreview();
-    document.getElementById('model-modal').classList.add('open');
-  }
-
-  function openEditModel(id) {
-    var m = loadCustomModels().find(function(x) { return x.id === id; }); if (!m) return;
-    document.getElementById('model-modal-title').textContent = 'Editar modelo';
-    document.getElementById('model-edit-id').value = id;
-    document.getElementById('m-name').value = m.name;
-    document.getElementById('m-beds').value = m.beds;
-    document.getElementById('m-baths').value = m.baths;
-    document.getElementById('m-photo').value = '';
-    editingTags = (m.extras || []).slice(); renderTagsPreview();
-    document.getElementById('model-modal').classList.add('open');
-  }
-
-  function deleteModel(id) {
-    if (!confirm('¿Eliminar este modelo?')) return;
-    saveCustomModels(loadCustomModels().filter(function(m) { return m.id !== id; }));
-    renderCustomModels();
-  }
-
-  function renderTagsPreview() {
-    var el = document.getElementById('m-tags-preview');
-    el.innerHTML = editingTags.map(function(tag, i) {
-      return '<span class="tag-chip" data-i="' + i + '">' + tag + ' <span>×</span></span>';
-    }).join('');
-    el.querySelectorAll('.tag-chip').forEach(function(chip) {
-      chip.addEventListener('click', function() { editingTags.splice(parseInt(this.dataset.i), 1); renderTagsPreview(); });
+    panel.querySelector('.mdl-next').addEventListener('click', function() {
+      mdlGoTo(i, (mdlCurrentIdx[i] || 0) + 1);
     });
-  }
 
-  document.getElementById('m-tag-add-btn').addEventListener('click', function() {
-    var val = document.getElementById('m-tag-input').value.trim();
-    if (val) { editingTags.push(val); document.getElementById('m-tag-input').value = ''; renderTagsPreview(); }
-  });
-  document.getElementById('m-tag-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('m-tag-add-btn').click(); }
+    panel.querySelectorAll('.mdl-thumb').forEach(function(th, j) {
+      th.addEventListener('click', function() { mdlGoTo(i, j); });
+    });
   });
 
-  document.getElementById('m-save-btn').addEventListener('click', function() {
-    var name = document.getElementById('m-name').value.trim();
-    var beds = parseInt(document.getElementById('m-beds').value) || 0;
-    var baths = parseInt(document.getElementById('m-baths').value) || 0;
-    if (!name || !beds || !baths) { alert('Nombre, habitaciones y baños son obligatorios.'); return; }
-    var editId = document.getElementById('model-edit-id').value;
-    var customs = loadCustomModels();
-    var photoFile = document.getElementById('m-photo').files[0];
-
-    function saveWithImg(imgData) {
-      if (editId) {
-        var idx = customs.findIndex(function(m) { return m.id === editId; });
-        if (idx >= 0) {
-          customs[idx].name = name; customs[idx].beds = beds; customs[idx].baths = baths;
-          customs[idx].extras = editingTags.slice(); if (imgData) customs[idx].img = imgData;
-        }
-      } else {
-        customs.push({ id: 'c_' + Date.now(), name: name, beds: beds, baths: baths, extras: editingTags.slice(), img: imgData || null });
-      }
-      saveCustomModels(customs); renderCustomModels();
-      document.getElementById('model-modal').classList.remove('open');
-    }
-
-    if (photoFile) {
-      var reader = new FileReader();
-      reader.onload = function(ev) { saveWithImg(ev.target.result); };
-      reader.readAsDataURL(photoFile);
-    } else { saveWithImg(null); }
+  document.querySelectorAll('.model-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var idx = parseInt(this.dataset.modelIdx);
+      document.querySelectorAll('.model-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelectorAll('.model-detail').forEach(function(p) { p.classList.remove('active'); });
+      var panel = document.querySelector('[data-model-panel="' + idx + '"]');
+      if (panel) panel.classList.add('active');
+    });
   });
-
-  document.getElementById('v-add-model').addEventListener('click', openAddModel);
 
   // ─────────────────────────────────
   // MAP
@@ -1699,7 +1770,6 @@ const defaultModels = [
   // ─────────────────────────────────
   updateSliderTrack();
   calculate();
-  renderCustomModels();
   </script>
 
   <style>
