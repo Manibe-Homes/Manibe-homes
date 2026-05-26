@@ -203,15 +203,19 @@ const defaultModels = [
     .v-header {
       background: var(--navy-2);
       border-bottom: 1px solid var(--navy-4);
-      padding: 1.25rem 2rem;
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
       position: sticky; top: 0; z-index: 500;
     }
-    .v-header-left { display: flex; flex-direction: column; gap: 0.25rem; }
-    .v-header img { height: 40px; width: auto; }
+    .v-header-left {
+      display: flex; flex-direction: column;
+      align-items: flex-start; gap: 0.5rem;
+    }
+    .v-header img { height: 50px; width: auto; display: block; }
+    @media (max-width: 768px) { .v-header img { height: 42px; } }
     .v-badge {
       font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--gold); background: rgba(219,192,106,0.1); border: 1px solid rgba(219,192,106,0.25);
