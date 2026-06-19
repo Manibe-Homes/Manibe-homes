@@ -1,0 +1,337 @@
+---
+export const prerender = false;
+import AdminLayout from '../../../components/portal/AdminLayout.astro';
+import { createSupabaseAdmin } from '../../../lib/supabase';
+import { getPortalT, type PortalLang } from '../../../i18n/portal';
+
+const lang = (Astro.locals as any).lang || 'es';
+const t = getPortalT(lang);
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/portal/login');
+
+const supabase = createSupabaseAdmin();
+const { data: clients } = await supabase
+  .from('profiles')
+  .select('*, project_clients(project_id, projects:project_id(name))')
+  .eq('role', 'client')
+  .order('created_at', { ascending: false });
+
+const activeClients = clients?.filter((c: any) => c.active).length || 0;
+const inactiveClients = clients?.filter((c: any) => !c.active).length || 0;
+---
+<AdminLayout title={t.layout.clients} user={user} activeNav="usuarios" lang={lang}>
+  <!-- Stats row -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon gold">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      </div>
+      <div class="stat-label">{t.users.totalClients}</div>
+      <div class="stat-value gold">{clients?.length || 0}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      </div>
+      <div class="stat-label">{t.users.active}</div>
+      <div class="stat-value">{activeClients}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+      </div>
+      <div class="stat-label">{t.users.inactive}</div>
+      <div class="stat-value">{inactiveClients}</div>
+    </div>
+  </div>
+
+  <!-- Client table -->
+  <div class="card" style="margin-bottom:2rem;">
+    <div class="card-header">
+      <span>{(clients?.length || 0) + ' ' + t.users.clientsRegistered}</span>
+      <button class="btn btn-primary btn-sm" id="open-create-modal">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        {t.users.createClient}
+      </button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>{t.common.name}</th>
+            <th>{t.common.email}</th>
+            <th>{t.common.phone}</th>
+            <th>{t.users.projects}</th>
+            <th>{t.common.status}</th>
+            <th>{t.common.actions}</th>
+          </tr>
+        </thead>
+        <tbody id="users-tbody">
+          {(!clients || clients.length === 0) ? (
+            <tr><td colspan="6">
+              <div class="empty-state">
+                <div class="empty-state-icon">
+                  <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                </div>
+                <p>{t.users.noClientsYet}</p>
+                <small>{t.users.noClientsSub}</small>
+              </div>
+            </td></tr>
+          ) : clients.map((c: any) => {
+            const projects = c.project_clients?.map((pc: any) => pc.projects?.name).filter(Boolean).join(', ') || '—';
+            return (
+              <tr data-id={c.id}>
+                <td style="font-weight:600;">{c.full_name || '—'}</td>
+                <td style="color:var(--navy-400);">{c.email}</td>
+                <td style="color:var(--navy-400);">{c.phone || '—'}</td>
+                <td style="font-size:0.8rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--navy-400);">{projects}</td>
+                <td>
+                  <span class={`badge ${c.active ? 'badge-active' : 'badge-inactive'}`}>
+                    {c.active ? t.common.active : t.common.inactive}
+                  </span>
+                </td>
+                <td>
+                  <div style="display:flex;gap:0.35rem;">
+                    <button class="btn btn-secondary btn-sm edit-user-btn"
+                      data-id={c.id} data-name={c.full_name || ''} data-phone={c.phone || ''} data-active={c.active}>
+                      {t.common.edit}
+                    </button>
+                    <button class="btn btn-danger btn-sm toggle-user-btn"
+                      data-id={c.id} data-active={c.active}>
+                      {c.active ? t.users.deactivate : t.users.activate}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+    <div class="quick-action" style="cursor:pointer;" id="quick-create-client">
+      <div class="quick-action-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+      </div>
+      <div>
+        <div class="quick-action-title">{t.users.newClient}</div>
+        <div class="quick-action-desc">{t.users.newClientDesc}</div>
+      </div>
+    </div>
+    <a href="/portal/admin/proyectos" class="quick-action">
+      <div class="quick-action-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+      </div>
+      <div>
+        <div class="quick-action-title">{t.users.viewProjects}</div>
+        <div class="quick-action-desc">{t.users.viewProjectsDesc}</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Create Modal -->
+  <div class="modal-overlay" id="create-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">{t.users.createTitle}</span>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">{t.users.fullNameLabel}</label>
+          <input class="form-input" id="c-name" placeholder={t.users.fullNamePlaceholder} />
+        </div>
+        <div class="form-group">
+          <label class="form-label">{t.users.emailLabel}</label>
+          <input class="form-input" id="c-email" type="email" placeholder={t.users.emailPlaceholder} />
+        </div>
+        <div class="form-group">
+          <label class="form-label">{t.common.phone}</label>
+          <input class="form-input" id="c-phone" placeholder={t.users.phonePlaceholder} />
+        </div>
+        <div class="form-group">
+          <label class="form-label">{t.users.tempPasswordLabel}</label>
+          <input class="form-input" id="c-pass" type="text" placeholder={t.users.tempPasswordPlaceholder} />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close>{t.common.cancel}</button>
+        <button class="btn btn-primary" id="create-user-btn">
+          <span id="create-text">{t.users.createClientBtn}</span>
+          <div class="spinner" id="create-spinner" style="display:none;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">{t.users.editTitle}</span>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="e-id" />
+        <div class="form-group">
+          <label class="form-label">{t.users.fullNameEditLabel}</label>
+          <input class="form-input" id="e-name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">{t.common.phone}</label>
+          <input class="form-input" id="e-phone" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            Nueva contraseña
+            <span style="font-weight:400;font-size:0.78rem;opacity:0.55;margin-left:0.35rem;">(dejar vacío para no cambiar)</span>
+          </label>
+          <input class="form-input" id="e-pass" type="password" placeholder="••••••••" autocomplete="new-password" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close>{t.common.cancel}</button>
+        <button class="btn btn-primary" id="save-edit-btn">
+          <span id="edit-text">{t.common.save}</span>
+          <div class="spinner" id="edit-spinner" style="display:none;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="users-i18n" hidden
+    data-creating={t.common.creating}
+    data-create-btn={t.users.createClientBtn}
+    data-fields-required={t.users.fieldsRequired}
+    data-client-created={t.users.clientCreated}
+    data-error-creating={t.users.errorCreatingClient}
+    data-client-updated={t.users.clientUpdated}
+    data-saving={t.common.saving}
+    data-save={t.common.save}
+    data-client-activated={t.users.clientActivated}
+    data-client-deactivated={t.users.clientDeactivated}
+  ></div>
+</AdminLayout>
+
+<script is:inline>
+  var i18n = document.getElementById('users-i18n').dataset;
+
+  // Modal helpers
+  function openModal(id) { document.getElementById(id)?.classList.add('open'); }
+  function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
+  document.querySelectorAll('[data-close]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      this.closest('.modal-overlay')?.classList.remove('open');
+    });
+  });
+
+  document.getElementById('open-create-modal')?.addEventListener('click', function() {
+    openModal('create-modal');
+  });
+
+  document.getElementById('quick-create-client')?.addEventListener('click', function() {
+    openModal('create-modal');
+  });
+
+  // Create user
+  document.getElementById('create-user-btn')?.addEventListener('click', async function() {
+    var name = document.getElementById('c-name').value.trim();
+    var email = document.getElementById('c-email').value.trim();
+    var phone = document.getElementById('c-phone').value.trim();
+    var pass = document.getElementById('c-pass').value.trim();
+
+    if (!name || !email || !pass) {
+      window.showToast(i18n.fieldsRequired, 'error');
+      return;
+    }
+
+    this.disabled = true;
+    document.getElementById('create-spinner').style.display = 'inline-block';
+    document.getElementById('create-text').textContent = i18n.creating;
+
+    try {
+      var res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ full_name: name, email: email, phone: phone, password: pass }),
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      window.showToast(i18n.clientCreated, 'success');
+      closeModal('create-modal');
+      setTimeout(function() { location.reload(); }, 500);
+    } catch(e) {
+      window.showToast(e.message || i18n.errorCreating, 'error');
+      this.disabled = false;
+      document.getElementById('create-spinner').style.display = 'none';
+      document.getElementById('create-text').textContent = i18n.createBtn;
+    }
+  });
+
+  // Edit user
+  document.querySelectorAll('.edit-user-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.getElementById('e-id').value = this.dataset.id;
+      document.getElementById('e-name').value = this.dataset.name;
+      document.getElementById('e-phone').value = this.dataset.phone;
+      document.getElementById('e-pass').value = '';
+      openModal('edit-modal');
+    });
+  });
+
+  document.getElementById('save-edit-btn')?.addEventListener('click', async function() {
+    var id = document.getElementById('e-id').value;
+    var name = document.getElementById('e-name').value.trim();
+    var phone = document.getElementById('e-phone').value.trim();
+    var pass = document.getElementById('e-pass').value;
+
+    this.disabled = true;
+    document.getElementById('edit-spinner').style.display = 'inline-block';
+    document.getElementById('edit-text').textContent = i18n.saving;
+
+    var payload = { id: id, full_name: name, phone: phone };
+    if (pass) payload.password = pass;
+
+    try {
+      var res = await fetch('/api/admin/users', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error((await res.json()).error);
+      window.showToast(i18n.clientUpdated, 'success');
+      closeModal('edit-modal');
+      setTimeout(function() { location.reload(); }, 500);
+    } catch(e) {
+      window.showToast(e.message || 'Error', 'error');
+      this.disabled = false;
+      document.getElementById('edit-spinner').style.display = 'none';
+      document.getElementById('edit-text').textContent = i18n.save;
+    }
+  });
+
+  // Toggle active
+  document.querySelectorAll('.toggle-user-btn').forEach(function(btn) {
+    btn.addEventListener('click', async function() {
+      var id = this.dataset.id;
+      var newActive = this.dataset.active !== 'true';
+      this.disabled = true;
+      try {
+        var res = await fetch('/api/admin/users', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: id, active: newActive }),
+        });
+        if (!res.ok) throw new Error((await res.json()).error);
+        window.showToast(newActive ? i18n.clientActivated : i18n.clientDeactivated, 'success');
+        setTimeout(function() { location.reload(); }, 500);
+      } catch(e) {
+        window.showToast(e.message || 'Error', 'error');
+        this.disabled = false;
+      }
+    });
+  });
+</script>
