@@ -291,9 +291,16 @@ const defaultModels = [
     }
     .btn-ghost:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
     .hero-stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
-      max-width: 700px; width: 100%;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      max-width: 700px; width: 100%; margin-top: 1rem;
+    }
+    .hero-stats > div {
+      background: rgba(20, 29, 52, 0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.75rem;
+      padding: 1.25rem 1rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .hero-stat-val {
       font-family: 'Playfair Display', serif;
