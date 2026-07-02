@@ -1,15 +1,6 @@
 ---
 export const prerender = true;
 
-const mapMarkers = [
-  { lat: 26.5629, lng: -81.9495, label: 'Cape Coral',     detail: 'Mayor Crecimiento',   description: 'Playas cercanas, ambiente tranquilo' },
-  { lat: 26.6253, lng: -81.6248, label: 'Lehigh Acres',   detail: 'Precio Competitivo',  description: 'Buen clima, tierra accesible' },
-  { lat: 26.6409, lng: -81.8606, label: 'Fort Myers',     detail: 'Sede Principal',      description: 'Centro industrial y de operaciones' },
-  { lat: 26.9782, lng: -82.0784, label: 'Port Charlotte', detail: 'En Expansión',        description: 'Crecimiento residencial activo' },
-  { lat: 26.1392, lng: -81.7955, label: 'Naples',         detail: 'Mercado Premium',     description: 'Una de las mejores ciudades de EE.UU.' },
-  { lat: 26.3306, lng: -81.8010, label: 'Bonita Springs', detail: 'En Crecimiento',      description: 'Zona de expansión activa' },
-];
-
 const defaultModels = [
   {
     id: 'albany', name: 'Albany', beds: 4, baths: 3, tag: null,
@@ -258,7 +249,10 @@ const defaultModels = [
     /* ── HERO ── */
     .hero-section {
       min-height: 100vh; display: flex; align-items: center;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 60%, var(--navy-3) 100%);
+      /* TODO: agregar imagen definitiva al recibir el asset /hero-inversion.jpg */
+      background:
+        linear-gradient(135deg, rgba(12,21,36,0.93) 0%, rgba(20,29,52,0.90) 60%, rgba(30,42,69,0.87) 100%),
+        url('/hero-inversion.jpg') center / cover no-repeat;
       position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
     }
     .hero-glow {
@@ -267,16 +261,10 @@ const defaultModels = [
       pointer-events: none;
     }
     .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
-    .hero-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5.5vw, 4.25rem); font-weight: 700; line-height: 1.08;
-      margin-bottom: 1.5rem;
+    .hero-desc {
+      font-size: 1.15rem; color: rgba(255,255,255,0.72); line-height: 1.8;
+      max-width: 700px; margin-bottom: 3rem; text-align: justify;
     }
-    .hero-sub {
-      font-size: 1.15rem; color: rgba(255,255,255,0.68); line-height: 1.75;
-      max-width: 580px; margin-bottom: 2.5rem;
-    }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
     .btn-gold {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
       background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1rem;
@@ -312,7 +300,7 @@ const defaultModels = [
       display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
       margin-top: 3rem;
     }
-    .tray-text p { font-size: 1.05rem; color: var(--navy-5); line-height: 1.8; margin-bottom: 1.25rem; }
+    .tray-text p { font-size: 1.05rem; color: var(--navy-5); line-height: 1.8; margin-bottom: 1.25rem; text-align: justify; }
     .tray-stats-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
     }
@@ -443,89 +431,6 @@ const defaultModels = [
     }
     .prod-benefit-icon { color: var(--gold); flex-shrink: 0; font-size: 0.8rem; margin-top: 3px; }
 
-    /* ── CALCULATOR ── */
-    .calc-card {
-      background: rgba(30,42,69,0.7); border: 1px solid var(--navy-4);
-      border-radius: 1.5rem; padding: 2.5rem; backdrop-filter: blur(8px);
-    }
-    .calc-label {
-      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--navy-7); margin-bottom: 0.75rem; display: block;
-    }
-    .calc-amount-wrap { position: relative; }
-    .calc-amount-wrap .dollar {
-      position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%);
-      font-size: 1.5rem; font-weight: 700; color: var(--gold);
-    }
-    #v-amount {
-      width: 100%; background: rgba(44,58,92,0.5); border: 2px solid var(--navy-4);
-      color: var(--white); border-radius: 1rem; padding: 1.25rem 1.25rem 1.25rem 3rem;
-      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
-      transition: border-color 0.2s; outline: none;
-    }
-    #v-amount:focus { border-color: var(--gold); }
-    #v-slider {
-      width: 100%; height: 8px; border-radius: 4px; appearance: none; cursor: pointer; margin-top: 1rem;
-      background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct,8%), var(--navy-4) var(--pct,8%), var(--navy-4) 100%);
-    }
-    #v-slider::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
-      background: var(--gold); cursor: pointer; border: 3px solid var(--navy); box-shadow: 0 0 0 3px rgba(219,192,106,0.3);
-    }
-    #v-slider::-moz-range-thumb {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: var(--gold); cursor: pointer; border: 3px solid var(--navy);
-    }
-    .slider-range { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--navy-7); margin-top: 0.4rem; }
-    .product-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-    .product-tab {
-      text-align: left; padding: 1.1rem 1.25rem; border-radius: 1rem;
-      border: 2px solid var(--navy-4); background: rgba(44,58,92,0.3);
-      cursor: pointer; transition: all 0.2s; color: var(--navy-7);
-    }
-    .product-tab .tab-name { font-family: 'Playfair Display',serif; font-size: 1rem; font-weight: 700; display: block; margin-bottom: 0.25rem; }
-    .product-tab .tab-detail { font-size: 0.8rem; }
-    .product-tab.active { border-color: var(--gold); background: rgba(219,192,106,0.08); color: var(--white); }
-    .product-tab.active .tab-name { color: var(--white); }
-    .product-tab.active .tab-detail { color: var(--gold); }
-    .product-tab:hover:not(.active) { border-color: var(--navy-5); }
-    .plazo-tabs { display: flex; gap: 0.5rem; }
-    .plazo-tab {
-      flex: 1; padding: 0.75rem; border-radius: 0.75rem; border: 2px solid var(--navy-4);
-      background: rgba(44,58,92,0.3); cursor: pointer; transition: all 0.2s;
-      font-weight: 700; font-size: 0.95rem; color: var(--navy-7); text-align: center;
-    }
-    .plazo-tab.active { border-color: var(--gold); background: rgba(219,192,106,0.08); color: var(--white); }
-    .plazo-tab:hover:not(.active) { border-color: var(--navy-5); }
-    .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    @media (max-width: 768px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
-    .result-card {
-      background: rgba(44,58,92,0.4); border: 1px solid var(--navy-4);
-      border-radius: 1.25rem; padding: 1.5rem 1rem; text-align: center;
-      transition: all 0.3s ease;
-    }
-    .result-card.highlight { border-color: rgba(219,192,106,0.4); background: rgba(219,192,106,0.06); }
-    .result-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy-7); margin-bottom: 0.5rem; }
-    .result-card-value { font-family: 'Playfair Display',serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1.2; }
-    .result-card-value.white { color: var(--white); }
-    .result-card-sub { font-size: 0.72rem; color: var(--navy-7); margin-top: 0.3rem; }
-    .calc-actions { display: flex; flex-direction: column; gap: 0.75rem; }
-    .btn-gold-calc {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1rem;
-      padding: 1rem 2rem; border-radius: 1rem; border: none; cursor: pointer;
-      transition: background 0.2s; width: 100%;
-    }
-    .btn-gold-calc:hover { background: var(--gold-h); }
-    .btn-outline-calc {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      background: transparent; border: 2px solid rgba(219,192,106,0.35); color: var(--gold);
-      font-weight: 700; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 1rem;
-      cursor: pointer; transition: all 0.2s; width: 100%;
-    }
-    .btn-outline-calc:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
-    .calc-disclaimer { font-size: 0.75rem; color: var(--navy-7); text-align: center; margin-top: 0.75rem; line-height: 1.6; }
-
     /* ── MODEL VIEWER ── */
     .stat-num { font-weight: 700; font-size: 1rem; color: var(--white); }
     .model-extra-tag {
@@ -635,23 +540,6 @@ const defaultModels = [
     }
     .btn-model-cta:hover { background: var(--gold-h); }
 
-    /* ── MAP ── */
-    #v-map { width: 100%; height: 460px; border-radius: 1.25rem; overflow: hidden; border: 1px solid var(--navy-4); }
-    .map-table-overlay {
-      position: absolute; bottom: 12px; left: 12px; z-index: 1000;
-      background: rgba(12,21,36,0.92); backdrop-filter: blur(8px);
-      border: 1px solid var(--navy-4); border-radius: 1rem; overflow: hidden;
-      font-size: 0.78rem; max-width: 360px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    }
-    .map-table-overlay table { width: 100%; border-collapse: collapse; }
-    .map-table-overlay th { text-align: left; color: var(--navy-7); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.65rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--navy-4); }
-    .map-table-overlay td { padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(44,58,92,0.4); color: var(--navy-7); }
-    .map-table-overlay tr:last-child td { border-bottom: none; }
-    .map-table-overlay td:first-child { color: var(--white); font-weight: 600; }
-    .map-zone-badge { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 999px; white-space: nowrap; display: inline-block; }
-    .map-wrap { position: relative; }
-    .map-note { font-size: 0.82rem; color: var(--navy-7); margin-top: 1rem; line-height: 1.6; }
-
     /* ── GARANTÍAS ── */
     .gar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
     @media (max-width: 860px) { .gar-grid { grid-template-columns: 1fr; } }
@@ -744,36 +632,6 @@ const defaultModels = [
     }
     .tag-chip:hover { background: rgba(219,192,106,0.2); }
 
-    /* ── SUMMARY MODAL ── */
-    .summary-box {
-      background: var(--white); color: var(--navy); border-radius: 1.25rem;
-      padding: 2.5rem; max-width: 560px; width: 100%;
-    }
-    .summary-header { text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--surface); }
-    .summary-header img { height: 36px; margin-bottom: 0.75rem; filter: invert(1) sepia(1) saturate(0) brightness(0.2); }
-    .summary-header h2 { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 700; color: var(--navy); }
-    .summary-header p { font-size: 0.8rem; color: var(--navy-6); margin-top: 0.25rem; }
-    .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--surface); }
-    .summary-row:last-child { border-bottom: none; }
-    .summary-row-label { font-size: 0.82rem; color: var(--navy-6); font-weight: 500; }
-    .summary-row-value { font-family: 'Playfair Display',serif; font-size: 1rem; font-weight: 700; color: var(--navy); }
-    .summary-row-value.gold { color: #b8860b; }
-    .summary-disclaimer { font-size: 0.7rem; color: var(--navy-7); text-align: center; margin-top: 1.25rem; line-height: 1.6; font-style: italic; border-top: 1px solid var(--surface); padding-top: 1rem; }
-    .summary-print-btn {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      background: var(--navy); color: var(--white); font-weight: 700; font-size: 0.9rem;
-      padding: 0.85rem 1.75rem; border-radius: 0.875rem; border: none; cursor: pointer;
-      transition: background 0.15s; margin-top: 1.25rem; width: 100%;
-    }
-    .summary-print-btn:hover { background: var(--navy-3); }
-    .summary-invest-btn {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.9rem;
-      padding: 0.85rem 1.75rem; border-radius: 0.875rem; border: none; cursor: pointer;
-      transition: background 0.15s; margin-top: 0.5rem; width: 100%;
-    }
-    .summary-invest-btn:hover { background: var(--gold-h); }
-
     /* ── LEAD MODAL ── */
     .lead-success {
       text-align: center; padding: 2rem 0; display: none;
@@ -798,13 +656,6 @@ const defaultModels = [
     }
     .lead-ctx-info span { color: var(--gold); font-weight: 600; }
 
-    /* ── PRINT ── */
-    @media print {
-      body * { visibility: hidden; }
-      #summary-modal, #summary-modal * { visibility: visible; }
-      #summary-modal { position: fixed; inset: 0; display: flex !important; align-items: center; justify-content: center; background: white; }
-      .summary-print-btn, .summary-invest-btn, .modal-close-btn { display: none !important; }
-    }
   </style>
 </head>
 <body>
@@ -818,7 +669,6 @@ const defaultModels = [
     <nav class="v-header-nav">
       <a href="#trayectoria">Historia</a>
       <a href="#productos">Inversión</a>
-      <a href="#simulador">Simulador</a>
       <a href="#modelos">Modelos</a>
       <a href="#contacto">Contacto</a>
     </nav>
@@ -829,20 +679,9 @@ const defaultModels = [
   <section class="hero-section" id="hero">
     <div class="hero-glow"></div>
     <div class="hero-inner">
-      <p class="v-section-label" style="margin-bottom:1rem;">Oportunidad de inversión</p>
-      <h1 class="hero-headline">
-        Conecta tu capital con<br />
-        <span style="color:var(--gold)">proyectos reales</span><br />
-        en la Florida
-      </h1>
-      <p class="hero-sub">
-        Empresa familiar de construcción residencial con número limitado de proyectos en el Southwest de Florida.
-        Calidad, eficiencia y atención personalizada en cada desarrollo.
+      <p class="hero-desc">
+        Somos una constructora residencial boutique en Southwest Florida. Desarrollamos pocos proyectos a la vez — no por capacidad, sino por convicción: cada desarrollo merece atención total, no atención dividida.
       </p>
-      <div class="hero-ctas">
-        <button class="btn-gold" onclick="openLeadModal('')">Quiero invertir</button>
-        <a class="btn-ghost" href="#productos">Ver productos ↓</a>
-      </div>
       <div class="hero-stats">
         <div>
           <p class="hero-stat-val">+15</p>
@@ -878,8 +717,7 @@ const defaultModels = [
             sus inversionistas.
           </p>
           <p style="font-size:0.9rem; color:var(--navy-6);">
-            Cada proyecto cuenta con Manibe invirtiendo a su lado — mínimo el 20% del capital — alineando intereses
-            con cada inversionista desde el primer día.
+            Como garantía de transparencia y compromiso, Manibe aporta capital propio en no menos del 30% de cada proyecto. El inversionista no entra solo: siempre tendrá un socio con piel en el juego.
           </p>
         </div>
         <div class="tray-stats-grid">
@@ -901,6 +739,19 @@ const defaultModels = [
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── MAPA ── -->
+  <section class="v-section dark">
+    <div class="v-inner">
+      <p class="v-section-label">Zona de operaciones</p>
+      <h2 class="v-section-title" style="margin-bottom:0.75rem;">Dónde <span style="color:var(--gold)">construimos</span></h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:1rem;margin-bottom:2rem;max-width:700px;line-height:1.7;">
+        Con presencia activa en Southwest Florida, desarrollamos proyectos que entienden el mercado, el clima y el estilo de vida de la región. En ciudades como Cape Coral, Fort Myers, Lehigh Acres, Naples, Port Charlotte, entre otras.
+      </p>
+      <!-- TODO: reemplazar src con el asset definitivo del mapa al recibirlo -->
+      <img src="/mapa-southwest-florida.png" alt="Mapa Southwest Florida — Zona de operaciones Manibe" style="width:100%;border-radius:1.25rem;border:1px solid var(--navy-4);display:block;" />
     </div>
   </section>
 
@@ -1113,121 +964,6 @@ const defaultModels = [
     </div>
   </section>
 
-  <!-- ── SIMULADOR ── -->
-  <section class="v-section dark" id="simulador">
-    <div class="v-inner">
-      <p class="v-section-label">Simulador de inversión</p>
-      <h2 class="v-section-title" style="margin-bottom:2.5rem;">Calcula tu <span style="color:var(--gold)">retorno estimado</span></h2>
-
-      <div class="calc-card">
-        <div class="form-group">
-          <label class="calc-label">Monto de inversión</label>
-          <div class="calc-amount-wrap">
-            <span class="dollar">$</span>
-            <input id="v-amount" type="text" inputmode="numeric" value="100,000" autocomplete="off" />
-          </div>
-          <input id="v-slider" type="range" min="50000" max="500000" step="5000" value="100000" />
-          <div class="slider-range"><span>$50,000</span><span>$500,000</span></div>
-        </div>
-
-        <div class="form-group">
-          <label class="calc-label">Producto de inversión</label>
-          <div class="product-tabs">
-            <button class="product-tab active" data-product="1">
-              <span class="tab-name">Colectiva Premium</span>
-              <span class="tab-detail">ROI 12% – 20% sobre el capital</span>
-            </button>
-            <button class="product-tab" data-product="2">
-              <span class="tab-name">Rentabilidad Fija</span>
-              <span class="tab-detail">12–14% anual</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="calc-label">Plazo</label>
-          <div class="plazo-tabs">
-            <button class="plazo-tab active" data-months="6">6 meses</button>
-            <button class="plazo-tab" data-months="8">8 meses</button>
-            <button class="plazo-tab" data-months="12">12 meses</button>
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-bottom:2rem;">
-          <label class="calc-label">Proyección estimada</label>
-          <div class="results-grid">
-            <div class="result-card">
-              <p class="result-card-label">Capital inicial</p>
-              <p class="result-card-value white" id="v-capital">$100,000</p>
-              <p class="result-card-sub">&nbsp;</p>
-            </div>
-            <div class="result-card highlight">
-              <p class="result-card-label">Retorno mínimo</p>
-              <p class="result-card-value" id="v-ret-min">$112,000</p>
-              <p class="result-card-sub" id="v-ret-min-sub">+12%</p>
-            </div>
-            <div class="result-card highlight">
-              <p class="result-card-label">Retorno máximo</p>
-              <p class="result-card-value" id="v-ret-max">$120,000</p>
-              <p class="result-card-sub" id="v-ret-max-sub">+20%</p>
-            </div>
-            <div class="result-card">
-              <p class="result-card-label">ROI anualizado</p>
-              <p class="result-card-value" id="v-roi-anual">12–20%</p>
-              <p class="result-card-sub" id="v-roi-sub">sobre capital</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="calc-actions">
-          <button class="btn-gold-calc" id="v-gen-summary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
-            Descargar resumen PDF
-          </button>
-          <button class="btn-outline-calc" onclick="openLeadModal('Colectiva Premium')">
-            Quiero invertir con este simulador →
-          </button>
-        </div>
-        <p class="calc-disclaimer">Proyección estimada basada en rendimientos históricos. No constituye garantía de retorno. Los resultados reales pueden variar según condiciones del mercado.</p>
-        <p class="calc-disclaimer" id="calc-fija-note" style="display:none;color:rgba(219,192,106,0.7);">Para Rentabilidad Fija, el simulador muestra el rango 12–14% anual. La tasa final se define al momento de la inversión según condiciones vigentes.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── MAPA ── -->
-  <section class="v-section dark">
-    <div class="v-inner">
-      <p class="v-section-label">Zona de operaciones</p>
-      <h2 class="v-section-title" style="margin-bottom:0.75rem;">Dónde <span style="color:var(--gold)">construimos</span></h2>
-      <p style="color:rgba(255,255,255,0.65);font-size:1rem;margin-bottom:0.75rem;max-width:700px;line-height:1.7;">
-        Southwest Florida — Costa del Golfo de México. Operamos en Cape Coral, Fort Myers, Lehigh Acres,
-        Naples, Bonita Springs y Port Charlotte.
-      </p>
-      <p class="map-note" style="margin-bottom:2rem;">
-        La I-75 conecta la zona con Miami al sur y Tampa / Orlando al norte — a no más de 3 horas.
-        Potencial de desarrollo calculado a 60 años de crecimiento demográfico sostenido.
-      </p>
-      <div class="map-wrap">
-        <div id="v-map"></div>
-        <div class="map-table-overlay">
-          <table>
-            <thead><tr><th>Ciudad</th><th>Rol</th><th>Descripción</th></tr></thead>
-            <tbody id="v-map-tbody">
-              <tr><td>Cape Coral</td><td><span class="map-zone-badge">Mayor Crecimiento</span></td><td>Playas cercanas, ambiente tranquilo</td></tr>
-              <tr><td>Lehigh Acres</td><td><span class="map-zone-badge">Precio Competitivo</span></td><td>Buen clima, tierra accesible</td></tr>
-              <tr><td>Fort Myers</td><td><span class="map-zone-badge">Sede Principal</span></td><td>Centro industrial y de operaciones</td></tr>
-              <tr><td>Port Charlotte</td><td><span class="map-zone-badge">En Expansión</span></td><td>Crecimiento residencial activo</td></tr>
-              <tr><td>Naples</td><td><span class="map-zone-badge">Mercado Premium</span></td><td>Una de las mejores ciudades de EE.UU.</td></tr>
-              <tr><td>Bonita Springs</td><td><span class="map-zone-badge">En Crecimiento</span></td><td>Zona de expansión activa</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ── MODELOS ── -->
   <section class="v-section dark" id="modelos">
     <div class="v-inner">
@@ -1401,29 +1137,6 @@ const defaultModels = [
     <p>© 2025 MANIBE LLC — Project Management · <a href="/" style="color:var(--navy-6);text-decoration:none;">manibehomes.com</a></p>
   </footer>
 
-  <!-- ── SUMMARY MODAL ── -->
-  <div class="modal-overlay" id="summary-modal">
-    <div class="summary-box">
-      <div class="summary-header">
-        <img src="/logo-manibe-blanco.png" alt="MANIBE LLC" />
-        <h2>Resumen de Inversión</h2>
-        <p id="sum-date"></p>
-      </div>
-      <div id="sum-rows"></div>
-      <p class="summary-disclaimer">Proyección estimada basada en rendimientos históricos — no constituye garantía de retorno. Los resultados reales pueden variar según condiciones del mercado.</p>
-      <button class="summary-invest-btn" id="sum-invest-btn">
-        Quiero invertir con este plan →
-      </button>
-      <button class="summary-print-btn" onclick="window.print()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
-        </svg>
-        Imprimir / Guardar PDF
-      </button>
-      <button class="btn-outline" style="width:100%;margin-top:0.5rem;" onclick="document.getElementById('summary-modal').classList.remove('open')">Cerrar</button>
-    </div>
-  </div>
-
   <!-- ── LEAD MODAL ── -->
   <div class="modal-overlay" id="lead-modal">
     <div class="modal-box">
@@ -1480,333 +1193,7 @@ const defaultModels = [
     </div>
   </div>
 
-  <script define:vars={{ defaultModels, mapMarkers }}>
-  // ─────────────────────────────────
-  // CALCULATOR
-  // ─────────────────────────────────
-  var rawAmount = 100000;
-  var activeProduct = 1;
-  var activePlazo = 6;
-
-  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
-  function fmtPct(n) { return (n % 1 === 0 ? n : n.toFixed(1)) + '%'; }
-
-  function updateSliderTrack() {
-    var min = 50000, max = 500000;
-    var pct = ((rawAmount - min) / (max - min)) * 100;
-    document.getElementById('v-slider').style.setProperty('--pct', pct.toFixed(2) + '%');
-  }
-
-  function animateValue(el, newText) {
-    el.style.opacity = '0'; el.style.transform = 'translateY(6px)';
-    setTimeout(function() {
-      el.textContent = newText;
-      el.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-      el.style.opacity = '1'; el.style.transform = 'translateY(0)';
-    }, 120);
-  }
-
-  function calculate() {
-    var capital = rawAmount, months = activePlazo;
-    var minROI, maxROI, minProfit, maxProfit, roiLabel;
-
-    if (activeProduct === 1) {
-      minROI = 0.12; maxROI = 0.20;
-      minProfit = capital * minROI; maxProfit = capital * maxROI;
-      var roiMinAnual = (minROI / months) * 12 * 100;
-      var roiMaxAnual = (maxROI / months) * 12 * 100;
-      roiLabel = fmtPct(Math.round(roiMinAnual)) + ' – ' + fmtPct(Math.round(roiMaxAnual));
-      document.getElementById('v-roi-sub').textContent = 'anualizado (' + months + ' meses)';
-    } else {
-      minProfit = capital * 0.12 * (months / 12);
-      maxProfit = capital * 0.14 * (months / 12);
-      roiLabel = '12% – 14%';
-      document.getElementById('v-roi-sub').textContent = 'anual (' + months + ' meses)';
-    }
-
-    var retMin = capital + minProfit, retMax = capital + maxProfit;
-    var pctMin = ((minProfit / capital) * 100).toFixed(1);
-    var pctMax = ((maxProfit / capital) * 100).toFixed(1);
-
-    animateValue(document.getElementById('v-capital'), fmt(capital));
-    animateValue(document.getElementById('v-ret-min'), fmt(retMin));
-    animateValue(document.getElementById('v-ret-max'), fmt(retMax));
-    animateValue(document.getElementById('v-roi-anual'), roiLabel);
-    document.getElementById('v-ret-min-sub').textContent = '+' + pctMin + '% total';
-    document.getElementById('v-ret-max-sub').textContent = '+' + pctMax + '% total';
-
-    window._calcState = {
-      capital: capital, retMin: retMin, retMax: retMax,
-      product: activeProduct === 1 ? 'Colectiva Premium' : 'Rentabilidad Fija',
-      plazo: months, roiLabel: roiLabel,
-      minProfit: minProfit, maxProfit: maxProfit,
-    };
-  }
-
-  document.getElementById('v-amount').addEventListener('input', function() {
-    var digits = this.value.replace(/\D/g, '');
-    rawAmount = Math.min(Math.max(parseInt(digits) || 0, 0), 500000);
-    this.value = rawAmount.toLocaleString('en-US');
-    document.getElementById('v-slider').value = String(rawAmount);
-    updateSliderTrack(); calculate();
-  });
-  document.getElementById('v-slider').addEventListener('input', function() {
-    rawAmount = parseInt(this.value);
-    document.getElementById('v-amount').value = rawAmount.toLocaleString('en-US');
-    updateSliderTrack(); calculate();
-  });
-  function toggleFijaNoteVisibility() {
-    var note = document.getElementById('calc-fija-note');
-    if (note) note.style.display = activeProduct === 2 ? 'block' : 'none';
-  }
-
-  document.querySelectorAll('.product-tab').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      activeProduct = parseInt(this.dataset.product);
-      document.querySelectorAll('.product-tab').forEach(function(b) { b.classList.remove('active'); });
-      this.classList.add('active');
-      if (activeProduct === 2) {
-        activePlazo = 12;
-        document.querySelectorAll('.plazo-tab').forEach(function(b) { b.classList.remove('active'); });
-        document.querySelector('.plazo-tab[data-months="12"]').classList.add('active');
-      }
-      toggleFijaNoteVisibility();
-      calculate();
-    });
-  });
-  document.querySelectorAll('.plazo-tab').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      activePlazo = parseInt(this.dataset.months);
-      document.querySelectorAll('.plazo-tab').forEach(function(b) { b.classList.remove('active'); });
-      this.classList.add('active');
-      calculate();
-    });
-  });
-
-  // ─────────────────────────────────
-  // PDF GENERATOR
-  // ─────────────────────────────────
-  function loadJsPDF(cb) {
-    if (window.jspdf) { cb(window.jspdf.jsPDF); return; }
-    var sc = document.createElement('script');
-    sc.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js';
-    sc.onload = function() { cb(window.jspdf.jsPDF); };
-    document.head.appendChild(sc);
-  }
-
-  function loadLogoDataUrl(cb) {
-    var img = new Image();
-    img.onload = function() {
-      var canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
-      canvas.getContext('2d').drawImage(img, 0, 0);
-      cb(canvas.toDataURL('image/png'), img.naturalWidth, img.naturalHeight);
-    };
-    img.onerror = function() { cb(null, 0, 0); };
-    img.src = '/logo-manibe-blanco.png';
-  }
-
-  function generatePDF() {
-    var s = window._calcState;
-    if (!s) return;
-    var btn = document.getElementById('v-gen-summary');
-    var origHTML = btn.innerHTML;
-    btn.disabled = true; btn.textContent = 'Generando PDF…';
-
-    var _logoData = null, _logoW = 0, _logoH = 0, _JsPDF = null, _pending = 2;
-    function onReady() {
-      _pending--; if (_pending > 0) return;
-      buildPDF(_JsPDF, _logoData, _logoW, _logoH);
-    }
-    loadLogoDataUrl(function(dataUrl, w, h) { _logoData = dataUrl; _logoW = w; _logoH = h; onReady(); });
-    loadJsPDF(function(Ctor) { _JsPDF = Ctor; onReady(); });
-
-    function buildPDF(JsPDF, logoData, logoNW, logoNH) {
-      try {
-        var doc  = new JsPDF({ unit: 'pt', format: 'letter' });
-        var pw   = 612;
-        var ml   = 40;
-        var cw   = 532; // content width
-        var isFija = s.product === 'Rentabilidad Fija';
-
-        // ── palette helpers ───────────────────────
-        var NAVY  = [12,  21,  36 ];
-        var NAVY2 = [20,  29,  52 ];
-        var NAVY4 = [44,  58,  92 ];
-        var GOLD  = [219, 192, 106];
-        var SURF  = [240, 241, 245];
-        var TXT   = [30,  30,  40 ];
-        var MID   = [100, 100, 115];
-        function fc(c) { doc.setFillColor(c[0],c[1],c[2]); }
-        function tc(c) { doc.setTextColor(c[0],c[1],c[2]); }
-        function dc(c) { doc.setDrawColor(c[0],c[1],c[2]); }
-
-        // ── HEADER ───────────────────────────────
-        fc(NAVY); doc.rect(0, 0, pw, 72, 'F');
-        fc(GOLD); doc.rect(0, 72, pw, 3, 'F');
-
-        if (logoData && logoNW && logoNH) {
-          var lh = 38;
-          var lw = lh * (logoNW / logoNH);
-          if (lw > 220) { lw = 220; lh = lw * (logoNH / logoNW); }
-          doc.addImage(logoData, 'PNG', ml, (72 - lh) / 2, lw, lh);
-        } else {
-          doc.setFont('times','bold'); doc.setFontSize(20);
-          tc([255,255,255]); doc.text('MANIBE LLC', ml, 32);
-          doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
-          tc(GOLD); doc.text('PROJECT MANAGEMENT  ·  Southwest Florida', ml, 46);
-        }
-
-        tc([170,170,180]); doc.setFontSize(7);
-        doc.text('manibehomes.com', pw-ml, 34, { align: 'right' });
-        doc.text(new Date().toLocaleDateString('es-ES',{ day:'numeric', month:'long', year:'numeric' }), pw-ml, 46, { align: 'right' });
-
-        var y = 94;
-
-        // ── SECCIÓN 1: TU SIMULACIÓN ─────────────
-        doc.setFont('helvetica','bold'); doc.setFontSize(7.5); tc(GOLD);
-        doc.text('TU SIMULACIÓN', ml, y);
-        dc(GOLD); doc.setLineWidth(1.5); doc.line(ml, y+4, ml+110, y+4);
-        y += 20;
-
-        var pillW = (cw - 24) / 3;
-        var pills = [
-          { label: 'PRODUCTO',       val: s.product              },
-          { label: 'MONTO',          val: fmt(s.capital)         },
-          { label: 'PLAZO',          val: s.plazo + ' meses'     },
-        ];
-        pills.forEach(function(p, i) {
-          var px = ml + i * (pillW + 12);
-          fc(SURF); doc.roundedRect(px, y, pillW, 46, 4, 4, 'F');
-          doc.setFont('helvetica','bold'); doc.setFontSize(6.5); tc(MID);
-          doc.text(p.label, px + pillW/2, y+13, { align:'center' });
-          doc.setFont('times','bold'); doc.setFontSize(10.5); tc(TXT);
-          var vl = doc.splitTextToSize(p.val, pillW - 8);
-          doc.text(vl, px + pillW/2, y+30, { align:'center' });
-        });
-        y += 62;
-
-        // hero numbers box
-        doc.setFillColor(250, 247, 237);
-        dc(GOLD); doc.setLineWidth(1.5);
-        doc.roundedRect(ml, y, cw, 90, 6, 6, 'FD');
-
-        doc.setFont('helvetica','bold'); doc.setFontSize(7); tc(MID);
-        doc.text('RETORNO ESTIMADO DEL PERIODO', pw/2, y+16, { align:'center' });
-
-        var retStr = fmt(s.retMin) + ' – ' + fmt(s.retMax);
-        doc.setFont('times','bold'); doc.setFontSize(30); tc(NAVY);
-        doc.text(retStr, pw/2, y+50, { align:'center' });
-
-        var gainStr = 'Ganancia estimada: +' + fmt(s.minProfit) + '  —  +' + fmt(s.maxProfit);
-        doc.setFont('helvetica','normal'); doc.setFontSize(9); tc([60,60,70]);
-        doc.text(gainStr, pw/2, y+66, { align:'center' });
-
-        var pm1 = ((s.minProfit / s.capital) * 100).toFixed(1);
-        var pm2 = ((s.maxProfit / s.capital) * 100).toFixed(1);
-        var roiLine = isFija
-          ? 'Retorno del periodo: +' + pm1 + '%–+' + pm2 + '%  ·  ROI anual: ' + s.roiLabel + '*'
-          : 'Retorno del periodo: +' + pm1 + '%–+' + pm2 + '%  ·  Equivalente anualizado ref.: ' + s.roiLabel;
-        doc.setFontSize(7.5); tc(MID);
-        doc.text(roiLine, pw/2, y+80, { align:'center' });
-        y += 106;
-
-        // ── SECCIÓN 2: SOBRE EL PRODUCTO ─────────
-        doc.setFont('helvetica','bold'); doc.setFontSize(7.5); tc(GOLD);
-        doc.text('SOBRE EL PRODUCTO', ml, y);
-        dc(GOLD); doc.setLineWidth(1.5); doc.line(ml, y+4, ml+138, y+4);
-        y += 18;
-
-        doc.setFont('times','bold'); doc.setFontSize(13); tc(NAVY);
-        doc.text(isFija ? 'Rentabilidad Fija Garantizada' : 'Inversión Colectiva Premium', ml, y);
-        y += 14;
-
-        var desc = isFija
-          ? 'Rentabilidad fija del 12–14% anual*, respaldada por múltiples proyectos en ejecución simultánea los 365 días del año. El retorno no depende de la venta o finalización de ningún proyecto puntual.'
-          : 'Capital conjunto de un grupo reducido de inversionistas — incluyendo Manibe (mín. 20%) — para desarrollar una Single Family Home en el Southwest de Florida. ROI 12–20% por ciclo (~6 meses).';
-        doc.setFont('helvetica','normal'); doc.setFontSize(8.5); tc([55,55,65]);
-        var descLines = doc.splitTextToSize(desc, cw);
-        doc.text(descLines, ml, y);
-        y += descLines.length * 11 + 12;
-
-        doc.setFont('helvetica','bold'); doc.setFontSize(7); tc(MID);
-        doc.text('FLUJO DEL PROCESO', ml, y);
-        y += 12;
-
-        var steps = isFija
-          ? ['Defines monto y plazo (12 meses)', 'Firma del contrato de inversión', 'Manibe opera proyectos en paralelo 365 días', 'Vencimiento: capital + rentabilidad fija']
-          : ['Manibe gestiona lote y permisos', 'Arquitectura e ingeniería del equipo', 'Inversionista entra a ejecución', 'Venta por Realtors y retorno'];
-        var sw = (cw - 30) / 4;
-        steps.forEach(function(step, i) {
-          var sx = ml + i * (sw + 10);
-          fc(NAVY2); doc.roundedRect(sx, y, sw, 50, 3, 3, 'F');
-          fc(GOLD); doc.circle(sx + sw/2, y + 13, 8, 'F');
-          doc.setFont('helvetica','bold'); doc.setFontSize(9); tc(NAVY);
-          doc.text(String(i+1), sx + sw/2, y + 16.5, { align:'center' });
-          doc.setFont('helvetica','normal'); doc.setFontSize(7); tc([190,205,225]);
-          var sl = doc.splitTextToSize(step, sw - 8);
-          doc.text(sl, sx + sw/2, y + 32, { align:'center' });
-          if (i < 3) {
-            doc.setFontSize(11); tc(NAVY4);
-            doc.text('›', sx + sw + 5, y + 27, { align:'center' });
-          }
-        });
-        y += 66;
-
-        // ── SECCIÓN 3: RESPALDO Y GARANTÍAS ──────
-        doc.setFont('helvetica','bold'); doc.setFontSize(7.5); tc(GOLD);
-        doc.text('RESPALDO Y GARANTÍAS', ml, y);
-        dc(GOLD); doc.setLineWidth(1.5); doc.line(ml, y+4, ml+153, y+4);
-        y += 18;
-
-        var gars = [
-          { t: 'Pólizas de seguro',  b: "Builders Risk · General Liability · Workers' Compensation · Builder Warranty" },
-          { t: 'Seguimiento 24/7',   b: 'Plataforma por inversionista · Fotos y documentos por etapa · Cámaras en vivo' },
-          { t: 'Marco legal EE.UU.', b: 'Contrato bajo sistema legal estadounidense · Transparencia total en el flujo' },
-        ];
-        var gw = (cw - 24) / 3;
-        gars.forEach(function(g, i) {
-          var gx = ml + i * (gw + 12);
-          fc(SURF); doc.roundedRect(gx, y, gw, 60, 4, 4, 'F');
-          fc(GOLD); doc.circle(gx + 12, y + 13, 4.5, 'F');
-          doc.setFont('helvetica','bold'); doc.setFontSize(8.5); tc(NAVY);
-          doc.text(g.t, gx + 22, y + 16);
-          doc.setFont('helvetica','normal'); doc.setFontSize(7.5); tc(MID);
-          var bl = doc.splitTextToSize(g.b, gw - 14);
-          doc.text(bl, gx + 8, y + 32);
-        });
-        y += 76;
-
-        // ── SEPARADOR + DISCLAIMER ────────────────
-        dc([210,212,220]); doc.setLineWidth(0.5);
-        doc.line(ml, y, pw - ml, y);
-        y += 11;
-
-        var disc = 'Proyección estimada basada en rendimientos históricos. No constituye garantía de retorno. Toda inversión conlleva riesgo. Cifras sujetas a condiciones al momento de la inversión.'
-          + (isFija ? ' * Tasa final 12–14% anual según condiciones vigentes.' : '');
-        doc.setFont('helvetica','italic'); doc.setFontSize(6.5); tc(MID);
-        doc.text(doc.splitTextToSize(disc, cw), ml, y);
-
-        // ── FOOTER ───────────────────────────────
-        fc(NAVY2); doc.rect(0, 750, pw, 42, 'F');
-        doc.setFont('helvetica','normal'); doc.setFontSize(7.5); tc([150,160,180]);
-        doc.text('© 2025 MANIBE LLC  ·  info@manibehomes.com  ·  +1 (239) 299-6978  ·  manibehomes.com', pw/2, 768, { align:'center' });
-        doc.setFontSize(7); tc(GOLD);
-        doc.text('Construimos tu futuro en Florida', pw/2, 782, { align:'center' });
-
-        // ── DESCARGA ─────────────────────────────
-        var fname = 'Simulacion-Manibe-' + (isFija ? 'Fija' : 'Colectiva') + '-' + s.plazo + 'meses.pdf';
-        doc.save(fname);
-
-      } catch(err) { console.error('[PDF]', err); }
-
-      btn.disabled = false;
-      btn.innerHTML = origHTML;
-    }
-  }
-
-  document.getElementById('v-gen-summary').addEventListener('click', generatePDF);
-
+  <script define:vars={{ defaultModels }}>
   // ─────────────────────────────────
   // LEAD MODAL
   // ─────────────────────────────────
@@ -1893,9 +1280,6 @@ const defaultModels = [
   document.getElementById('lead-modal').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('open');
   });
-  document.getElementById('summary-modal').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
-  });
 
   // ─────────────────────────────────
   // MODEL VIEWER
@@ -1954,71 +1338,7 @@ const defaultModels = [
     });
   });
 
-  // ─────────────────────────────────
-  // MAP
-  // ─────────────────────────────────
-  function loadLeaflet(cb) {
-    if (window.L) { cb(); return; }
-    var css = document.createElement('link'); css.rel = 'stylesheet';
-    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
-    var js = document.createElement('script'); js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    js.onload = cb; document.head.appendChild(js);
-  }
-
-  function goldPin() {
-    return window.L.divIcon({
-      className: '', iconSize: [28, 36], iconAnchor: [14, 36], popupAnchor: [0, -38],
-      html: '<svg viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:36px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6))"><path d="M14 0C6.268 0 0 6.268 0 14c0 7.732 14 22 14 22S28 21.732 28 14C28 6.268 21.732 0 14 0z" fill="#dbc06a"/><circle cx="14" cy="14" r="5" fill="#141d34"/></svg>',
-    });
-  }
-
-  function initMap() {
-    var L = window.L;
-    var map = L.map('v-map', { center: [26.55, -81.85], zoom: 9, scrollWheelZoom: false });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://carto.com/">CARTO</a>', subdomains: 'abcd', maxZoom: 19,
-    }).addTo(map);
-    var refs = mapMarkers.map(function(m) {
-      return L.marker([m.lat, m.lng], { icon: goldPin() })
-        .bindPopup('<p style="margin:0 0 2px;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:700;color:#dbc06a;">' + m.label + '</p><p style="margin:0;font-family:\'DM Sans\',sans-serif;font-size:11px;color:#b8c0d4;">' + m.detail + '</p>', { maxWidth: 160 })
-        .addTo(map);
-    });
-    setTimeout(function() {
-      var bounds = L.latLngBounds(mapMarkers.map(function(m) { return [m.lat, m.lng]; }));
-      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 10 });
-    }, 200);
-    document.querySelectorAll('#v-map-tbody tr').forEach(function(row, i) {
-      row.style.cursor = 'pointer';
-      row.addEventListener('click', function() {
-        var m = mapMarkers[i];
-        map.setView([m.lat, m.lng], 12, { animate: false });
-        refs[i].openPopup(); map.panBy([0, -70], { animate: true, duration: 0.4 });
-      });
-    });
-  }
-
-  var mapEl = document.getElementById('v-map');
-  var obs = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting) { loadLeaflet(initMap); obs.disconnect(); }
-  }, { threshold: 0.1 });
-  if (mapEl) obs.observe(mapEl);
-
-  // ─────────────────────────────────
-  // INIT
-  // ─────────────────────────────────
-  updateSliderTrack();
-  calculate();
   </script>
-
-  <style>
-    #v-map :global(.leaflet-control-zoom a) { background: #141d34; color: #dbc06a; border-color: #2c3a5c; }
-    #v-map :global(.leaflet-control-zoom a:hover) { background: #2c3a5c; }
-    #v-map :global(.leaflet-control-attribution) { background: rgba(12,21,36,0.8); color: #5e6d8c; font-size: 10px; }
-    #v-map :global(.leaflet-popup-content-wrapper) { background: #141d34; border: 1px solid rgba(219,192,106,0.3); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6); padding: 0; }
-    #v-map :global(.leaflet-popup-content) { margin: 0; padding: 10px 14px; }
-    #v-map :global(.leaflet-popup-tip) { background: #141d34; }
-    #v-map :global(.leaflet-popup-close-button) { color: #5e6d8c !important; }
-  </style>
 
 </body>
 </html>
