@@ -1,0 +1,1458 @@
+---
+export const prerender = true;
+
+const defaultModels = [
+  {
+    id: 'albany', name: 'Albany', beds: 4, baths: 3, tag: null,
+    extras: ['Independent bedrooms', 'Double garage', 'Contemporary'],
+    specsTable: [
+      { label: 'Covered area',         value: '2,381 ft² / 221 m²' },
+      { label: 'Air-conditioned area', value: '1,731 ft² / 161 m²' },
+      { label: 'Style',                value: 'Modern contemporary' },
+      { label: 'Garage',               value: 'Double' },
+    ],
+    description: 'Spacious design with the possibility of making two bedrooms independent — ideal for investment with rental income or for families who value privacy. Modern contemporary finishes and double garage in Southwest Florida.',
+    img: '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
+    gallery: [
+      '/Albany/webp/1f69cbf1-bc17-4fb0-a514-33b1d40b38b6.webp',
+      '/Albany/webp/Albany.webp',
+      '/Albany/webp/A7400011.ARW.webp',
+      '/Albany/webp/A7400014.ARW.webp',
+      '/Albany/webp/A7400017.ARW.webp',
+      '/Albany/webp/A7400022.ARW.webp',
+      '/Albany/webp/A7400028.ARW.webp',
+      '/Albany/webp/A7400030.ARW.webp',
+      '/Albany/webp/A7400032.ARW.webp',
+      '/Albany/webp/A7400033.ARW.webp',
+      '/Albany/webp/A7400044.ARW.webp',
+      '/Albany/webp/A7400048.ARW.webp',
+      '/Albany/webp/A7400066.ARW.webp',
+      '/Albany/webp/DJI_20250524150853_0300_D.DNG.webp',
+      '/Albany/webp/DJI_20250524150957_0303_D.DNG.webp',
+      '/Albany/webp/DJI_20250524151337_0313_D.DNG.webp',
+    ],
+  },
+  {
+    id: 'sunset', name: 'Sunset', beds: 3, baths: 3, tag: 'Most requested',
+    extras: ['Office', 'Lanai', 'Double garage'],
+    specsTable: [
+      { label: 'Covered area',         value: '2,372 ft² / 220 m²' },
+      { label: 'Air-conditioned area', value: '1,666 ft² / 155 m²' },
+      { label: 'Style',                value: 'Modern contemporary' },
+      { label: 'Garage',               value: 'Double' },
+    ],
+    description: 'Spacious design with luxury finishes. Three large bedrooms, three full bathrooms, integrated office and lanai. Ideal for those seeking functionality and elegance in a single space.',
+    img: '/Manibe/webp/Manibe.webp',
+    gallery: [
+      '/Manibe/webp/Manibe.webp',
+      '/Manibe/webp/DSC00082_1.webp',
+      '/Manibe/webp/DSC00087.webp',
+      '/Manibe/webp/DSC00097.webp',
+      '/Manibe/webp/DSC00112.webp',
+      '/Manibe/webp/DSC00122.webp',
+      '/Manibe/webp/DSC00127.webp',
+      '/Manibe/webp/DSC00132.webp',
+      '/Manibe/webp/DSC00137.webp',
+      '/Manibe/webp/DSC00142.webp',
+      '/Manibe/webp/DSC00147.webp',
+      '/Manibe/webp/DSC00152.webp',
+      '/Manibe/webp/DSC00157.webp',
+      '/Manibe/webp/DSC00162.webp',
+      '/Manibe/webp/DSC00167.webp',
+      '/Manibe/webp/DSC00172.webp',
+      '/Manibe/webp/DSC00177.webp',
+      '/Manibe/webp/DSC00182.webp',
+      '/Manibe/webp/DSC00187.webp',
+      '/Manibe/webp/DSC00192.webp',
+      '/Manibe/webp/DSC00197.webp',
+      '/Manibe/webp/DSC00202.webp',
+      '/Manibe/webp/DSC00207.webp',
+      '/Manibe/webp/DSC00212.webp',
+      '/Manibe/webp/DSC00217.webp',
+      '/Manibe/webp/DSC00222.webp',
+      '/Manibe/webp/DSC00227.webp',
+      '/Manibe/webp/DSC00232.webp',
+      '/Manibe/webp/DSC00237.webp',
+      '/Manibe/webp/DSC00242.webp',
+      '/Manibe/webp/DSC00247.webp',
+      '/Manibe/webp/DSC00252.webp',
+      '/Manibe/webp/DSC00257.webp',
+      '/Manibe/webp/DSC00262.webp',
+      '/Manibe/webp/DSC00267.webp',
+      '/Manibe/webp/DSC00272.webp',
+      '/Manibe/webp/DSC00277.webp',
+      '/Manibe/webp/DSC00282.webp',
+      '/Manibe/webp/Interior 1721.webp',
+      '/Manibe/webp/Outside 1721 4 - 2.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 06 53 PM.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 07 18 PM.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 07 34 PM_1.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 07 49 PM.webp',
+      '/Manibe/webp/Photo Apr 26 2025, 3 08 05 PM.webp',
+    ],
+  },
+  {
+    id: 'canac', name: 'Canac', beds: 3, baths: 2, tag: null,
+    extras: ['Garage', 'Modern cozy'],
+    specsTable: [
+      { label: 'Covered area',         value: '1,491 ft² / 139 m²' },
+      { label: 'Air-conditioned area', value: '1,207 ft² / 112 m²' },
+      { label: 'Style',                value: 'Modern cozy' },
+      { label: 'Garage',               value: 'Included' },
+    ],
+    description: 'Warm and functional design. Ideal for those seeking a practical home with modern finishes in Southwest Florida. Excellent value for a first investment or permanent residence.',
+    img: '/Canac/Canac.jpeg',
+    gallery: [
+      '/Canac/Canac.jpeg',
+      '/Canac/Exterior 342 1.jpeg',
+      '/Canac/Exterior 342 2.jpeg',
+      '/Canac/Exterior 342 4.jpeg',
+      '/Canac/Exterior 342 5.jpeg',
+      '/Canac/Exterior 342 6.jpeg',
+      '/Canac/Exterior 342 7.jpeg',
+      '/Canac/Exterior 342 8.jpeg',
+      '/Canac/Interior 342 1.jpeg',
+      '/Canac/Interior 342 2.jpeg',
+      '/Canac/Interior 342 3.jpeg',
+      '/Canac/Interior 342 4.jpeg',
+      '/Canac/Interior 342 5.jpeg',
+      '/Canac/Interior 342 6.jpeg',
+      '/Canac/Interior 342 7.jpeg',
+      '/Canac/Interior 342 8.jpeg',
+      '/Canac/Interior 342 9.jpeg',
+      '/Canac/Interior 342 10.jpeg',
+      '/Canac/Interior 342 11.jpeg',
+    ],
+  },
+  {
+    id: 'coraline', name: 'Coraline', beds: 3, baths: 3, tag: null,
+    extras: ['Office', 'Lanai', 'Private pool', 'Double garage'],
+    specsTable: [
+      { label: 'Covered area',         value: '2,772 ft² / 258 m²' },
+      { label: 'Air-conditioned area', value: '1,906 ft² / 177 m²' },
+      { label: 'Style',                value: 'Modern premium' },
+      { label: 'Pool',                 value: 'Private' },
+      { label: 'Garage',               value: 'Double' },
+    ],
+    description: 'The most spacious model in the portfolio. Private pool, office, lanai and premium finishes. Designed for those seeking the ultimate in comfort and value in Southwest Florida.',
+    img: '/Caroline/webp/Caro3.webp',
+    gallery: [
+      '/Caroline/webp/Caro3.webp',
+      '/Caroline/webp/Caro1.webp',
+      '/Caroline/webp/Caro2.webp',
+      '/Caroline/webp/Caroline.webp',
+      '/Caroline/webp/Caro4.webp',
+      '/Caroline/webp/Caro5.webp',
+      '/Caroline/webp/Caro6.webp',
+      '/Caroline/webp/Caro7.webp',
+      '/Caroline/webp/Caro8.webp',
+      '/Caroline/webp/Caro9.webp',
+      '/Caroline/webp/Caro10.webp',
+      '/Caroline/webp/Caro11.webp',
+    ],
+  },
+];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invest in Florida with Manibe — ROI 12–20% in residential construction</title>
+  <meta name="description" content="Residential construction projects in Southwest Florida. Capital with real backing, total transparency and proven returns. Family company with +15 years of experience." />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://manibehomes.com/en/inversion" />
+  <meta property="og:title"       content="Invest in Florida with Manibe — ROI 12–20%" />
+  <meta property="og:description" content="Family residential construction company in Southwest Florida. +15 years of experience, selected projects, total transparency." />
+  <meta property="og:image"       content="https://manibehomes.com/og-inversion.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:    #0c1524;
+      --navy-2:  #141d34;
+      --navy-3:  #1e2a45;
+      --navy-4:  #2c3a5c;
+      --navy-5:  #3d4f72;
+      --navy-6:  #5e6d8c;
+      --navy-7:  #8894b0;
+      --gold:    #dbc06a;
+      --gold-h:  #c4a95a;
+      --surface: #f0f1f5;
+      --white:   #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+    .font-heading { font-family: 'Playfair Display', serif; }
+
+    /* ── HEADER ── */
+    .v-header {
+      background: var(--navy-2);
+      border-bottom: 1px solid var(--navy-4);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky; top: 0; z-index: 500;
+    }
+    .v-header-left {
+      display: flex; flex-direction: column;
+      align-items: flex-start; gap: 0.5rem;
+    }
+    .v-header img { height: 50px; width: auto; display: block; }
+    @media (max-width: 768px) { .v-header img { height: 42px; } }
+    .v-badge {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); background: rgba(219,192,106,0.1); border: 1px solid rgba(219,192,106,0.25);
+      padding: 0.2rem 0.75rem; border-radius: 999px; width: fit-content;
+    }
+    .v-header-nav { display: flex; gap: 1.5rem; align-items: center; }
+    .v-header-nav a {
+      color: var(--navy-7); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .v-header-nav a:hover { color: var(--white); }
+    .v-header-cta {
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem;
+      padding: 0.6rem 1.25rem; border-radius: 0.75rem; border: none; cursor: pointer;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    /* ── LANG SWITCHER ── */
+    .v-lang { position: relative; }
+    .v-lang-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.75rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2); background: transparent;
+      color: rgba(255,255,255,0.8); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .v-lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .v-lang-flag { width: 20px; height: auto; border-radius: 2px; flex-shrink: 0; }
+    .v-lang-chev { transition: transform 0.2s; }
+    .v-lang-panel {
+      display: none; position: absolute; right: 0; top: calc(100% + 0.5rem);
+      width: 9.5rem; background: var(--navy-2); border: 1px solid var(--navy-4);
+      border-radius: 0.75rem; overflow: hidden; z-index: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .v-lang-panel.open { display: block; }
+    .v-lang-opt {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.65rem 0.85rem; font-size: 0.85rem; font-weight: 500;
+      color: rgba(255,255,255,0.75); text-decoration: none; transition: background 0.15s;
+    }
+    .v-lang-opt:hover { background: var(--navy-3); color: #fff; }
+    .v-lang-active { color: var(--gold) !important; background: var(--navy-3); pointer-events: none; }
+    .v-header-cta:hover { background: var(--gold-h); }
+    @media (max-width: 768px) {
+      .v-header-nav { display: none; }
+    }
+
+    /* ── SECTIONS ── */
+    .v-section { padding: 5rem 2rem; }
+    .v-section.light { background: var(--surface); color: var(--navy); }
+    .v-section.dark  { background: var(--navy); }
+    .v-section.mid   { background: var(--navy-2); }
+    .v-inner { max-width: 1100px; margin: 0 auto; }
+    .v-section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .v-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .v-section-title.dark-text { color: var(--navy); }
+    .v-section-sub { font-size: 1.05rem; color: var(--navy-7); max-width: 700px; line-height: 1.7; }
+
+    /* ── HERO ── */
+    .hero-section {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
+    }
+    /* TODO: agregar imagen definitiva al recibir el asset /fondo-inversion.jpg */
+    .hero-bg-img {
+      position: absolute; inset: 0; width: 100%; height: 115%; top: -7.5%;
+      object-fit: cover; z-index: 0; will-change: transform;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 50%, rgba(0,0,0,0.6) 100%);
+    }
+    .hero-overlay-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 8rem; z-index: 1;
+      background: linear-gradient(to top, #0c1524, transparent);
+    }
+    .hero-inner {
+      max-width: 900px; margin: 0 auto; width: 100%; position: relative; z-index: 2;
+      text-align: center; display: flex; flex-direction: column; align-items: center;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 1.5rem;
+      background: rgba(20, 29, 52, 0.5); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.75rem; padding: 1.25rem 1.75rem;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .hero-desc {
+      font-size: 1.15rem; color: rgba(255,255,255,0.72); line-height: 1.8;
+      max-width: 680px; margin-bottom: 3rem; text-align: center;
+      background: rgba(20, 29, 52, 0.5); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.75rem; padding: 1.25rem 1.75rem;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1rem;
+      padding: 1rem 2.25rem; border-radius: 1rem; border: none; cursor: pointer;
+      transition: background 0.2s; text-decoration: none;
+    }
+    .btn-gold:hover { background: var(--gold-h); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 2px solid rgba(219,192,106,0.4); color: var(--gold);
+      padding: 1rem 2.25rem; border-radius: 1rem; text-decoration: none;
+      font-weight: 600; font-size: 1rem; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      max-width: 700px; width: 100%; margin-top: 1rem;
+    }
+    .hero-stats > div {
+      background: rgba(20, 29, 52, 0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.75rem;
+      padding: 1.25rem 1rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .hero-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem; font-weight: 700; color: var(--gold); line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    @media (max-width: 540px) {
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .hero-stats > div:last-child { grid-column: 1 / -1; }
+    }
+
+    /* ── TRAYECTORIA ── */
+    .tray-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+      margin-top: 3rem;
+    }
+    .tray-text p { font-size: 1.05rem; color: var(--navy-5); line-height: 1.8; margin-bottom: 1.25rem; text-align: justify; }
+    .tray-stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    .tray-stat-card {
+      background: var(--navy); border-radius: 1.25rem; padding: 1.75rem 1.5rem; text-align: center;
+      border: 1px solid var(--navy-4);
+    }
+    .tray-stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem; font-weight: 700; color: var(--gold); margin-bottom: 0.35rem;
+    }
+    .tray-stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.45; }
+    @media (max-width: 860px) {
+      .tray-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ── PRODUCTOS ── */
+    .prod-stack { display: flex; flex-direction: column; gap: 2rem; margin-top: 3rem; }
+
+    .prod-block {
+      background: var(--navy-2); border: 1px solid var(--navy-4);
+      border-radius: 1.75rem; overflow: hidden; position: relative;
+    }
+    .prod-block.featured {
+      border-color: rgba(219,192,106,0.45);
+      background: linear-gradient(135deg, rgba(219,192,106,0.04) 0%, var(--navy-2) 50%);
+    }
+
+    .prod-rec-strip {
+      background: var(--gold); color: var(--navy);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 1.5rem; text-align: center;
+    }
+
+    .prod-block-inner {
+      display: grid; grid-template-columns: 320px 1fr;
+      gap: 0; align-items: stretch;
+    }
+    @media (max-width: 900px) { .prod-block-inner { grid-template-columns: 1fr; } }
+
+    .prod-block-left {
+      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.25rem;
+      border-right: 1px solid var(--navy-4);
+    }
+    @media (max-width: 900px) { .prod-block-left { border-right: none; border-bottom: 1px solid var(--navy-4); } }
+
+    .prod-number {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.7;
+    }
+    .prod-name {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+      color: var(--white); line-height: 1.2;
+    }
+    .prod-tagline { font-size: 0.82rem; color: var(--gold); font-style: italic; margin-top: -0.5rem; }
+    .prod-desc { font-size: 0.9rem; color: var(--navy-7); line-height: 1.7; }
+
+    .prod-roi-wrap { padding: 1.25rem 1rem; background: rgba(219,192,106,0.06); border: 1px solid rgba(219,192,106,0.18); border-radius: 1rem; }
+    .prod-roi {
+      font-family: 'Playfair Display', serif; font-size: 2.75rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .prod-roi-label { font-size: 0.75rem; color: var(--navy-7); margin-top: 0.3rem; line-height: 1.45; }
+    .prod-plazo {
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;
+      background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
+      color: var(--gold); font-size: 0.78rem; font-weight: 600;
+      padding: 0.28rem 0.75rem; border-radius: 999px;
+    }
+
+    .btn-gold-full {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.95rem;
+      padding: 0.85rem 1.5rem; border-radius: 0.875rem; border: none; cursor: pointer;
+      transition: background 0.2s; width: 100%; margin-top: auto;
+    }
+    .btn-gold-full:hover { background: var(--gold-h); }
+    .btn-outline-full {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: transparent; color: var(--gold); border: 2px solid rgba(219,192,106,0.4);
+      font-weight: 700; font-size: 0.95rem; padding: 0.85rem 1.5rem; border-radius: 0.875rem;
+      cursor: pointer; transition: all 0.2s; width: 100%; margin-top: auto;
+    }
+    .btn-outline-full:hover { border-color: var(--gold); background: rgba(219,192,106,0.06); }
+    .prod-disclaimer { font-size: 0.68rem; color: var(--navy-6); text-align: center; margin-top: 0.5rem; line-height: 1.5; }
+
+    .prod-block-right { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 2rem; }
+
+    .prod-section-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--navy-6); margin-bottom: 1rem;
+    }
+
+    /* Horizontal step flow */
+    .prod-steps-h {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      gap: 0; align-items: start;
+    }
+    @media (max-width: 640px) {
+      .prod-steps-h { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .prod-step-arrow { display: none; }
+    }
+    .prod-step-h {
+      background: rgba(44,58,92,0.4); border: 1px solid var(--navy-4);
+      border-radius: 0.875rem; padding: 0.875rem 0.75rem;
+      display: flex; flex-direction: column; gap: 0.5rem; height: 100%;
+    }
+    .prod-step-h-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(219,192,106,0.15); border: 1px solid rgba(219,192,106,0.35);
+      color: var(--gold); font-size: 0.65rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .prod-step-h-text { font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.45; }
+    .prod-step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 0.35rem; color: var(--navy-5); font-size: 1rem; padding-top: 0.85rem;
+    }
+
+    /* Benefits 2-col grid */
+    .prod-benefits-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1.5rem;
+    }
+    @media (max-width: 640px) { .prod-benefits-grid { grid-template-columns: 1fr; } }
+    .prod-benefit {
+      display: flex; align-items: flex-start; gap: 0.55rem;
+      font-size: 0.85rem; color: var(--navy-7); line-height: 1.45;
+    }
+    .prod-benefit-icon { color: var(--gold); flex-shrink: 0; font-size: 0.8rem; margin-top: 3px; }
+
+    /* ── MODEL VIEWER ── */
+    .stat-num { font-weight: 700; font-size: 1rem; color: var(--white); }
+    .model-extra-tag {
+      background: rgba(219,192,106,0.08); border: 1px solid rgba(219,192,106,0.2);
+      color: rgba(219,192,106,0.8); font-size: 0.72rem; font-weight: 600;
+      padding: 0.25rem 0.65rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    .model-viewer { margin-top: 2.5rem; }
+
+    .model-tabs { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .model-tab {
+      position: relative; background: rgba(44,58,92,0.3); border: 2px solid var(--navy-4);
+      color: var(--navy-7); font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1rem;
+      padding: 0.75rem 2rem; border-radius: 0.875rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .model-tab:hover:not(.active) { border-color: var(--navy-5); color: var(--white); }
+    .model-tab.active { border-color: var(--gold); background: rgba(219,192,106,0.1); color: var(--white); }
+    .model-tab-badge {
+      position: absolute; top: -9px; right: -6px;
+      background: var(--gold); color: var(--navy);
+      font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.18rem 0.55rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    .model-detail {
+      display: none; background: var(--navy-2); border: 1px solid var(--navy-4);
+      border-radius: 1.5rem; overflow: hidden;
+    }
+    .model-detail.active { display: grid; grid-template-columns: 55% 45%; }
+    @media (max-width: 900px) { .model-detail.active { grid-template-columns: 1fr; } }
+
+    .model-gallery-col { background: var(--navy-3); }
+    .model-main-wrap { position: relative; overflow: hidden; }
+    .model-main-img {
+      width: 100%; height: 420px; object-fit: cover; display: block;
+      transition: opacity 0.25s ease;
+    }
+    @media (max-width: 900px) { .model-main-img { height: 260px; } }
+
+    .mdl-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(12,21,36,0.72); border: 1px solid rgba(219,192,106,0.25);
+      color: var(--white); width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; font-size: 1.25rem; z-index: 2;
+      backdrop-filter: blur(4px); line-height: 1;
+    }
+    .mdl-nav:hover { background: rgba(219,192,106,0.25); border-color: var(--gold); }
+    .mdl-prev { left: 12px; }
+    .mdl-next { right: 12px; }
+    .mdl-counter {
+      position: absolute; bottom: 10px; right: 12px;
+      background: rgba(12,21,36,0.72); backdrop-filter: blur(4px);
+      color: rgba(255,255,255,0.7); font-size: 0.72rem; font-weight: 600;
+      padding: 0.22rem 0.6rem; border-radius: 999px; pointer-events: none;
+    }
+
+    .model-thumbs {
+      display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.6rem;
+      scrollbar-width: thin; scrollbar-color: var(--navy-4) transparent;
+    }
+    .model-thumbs::-webkit-scrollbar { height: 4px; }
+    .model-thumbs::-webkit-scrollbar-thumb { background: var(--navy-4); border-radius: 2px; }
+    .mdl-thumb {
+      width: 68px; height: 50px; object-fit: cover; border-radius: 0.4rem; flex-shrink: 0;
+      border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s, opacity 0.15s; opacity: 0.5;
+    }
+    .mdl-thumb.active { border-color: var(--gold); opacity: 1; }
+    .mdl-thumb:hover:not(.active) { opacity: 0.8; }
+
+    .model-info-col {
+      padding: 2rem 2.25rem; display: flex; flex-direction: column; gap: 1.25rem;
+      border-left: 1px solid var(--navy-4); overflow-y: auto; max-height: 520px;
+    }
+    @media (max-width: 900px) { .model-info-col { border-left: none; border-top: 1px solid var(--navy-4); max-height: none; } }
+
+    .model-info-name {
+      font-family: 'Playfair Display', serif; font-size: 1.85rem; font-weight: 700;
+      color: var(--white); line-height: 1.15; margin-top: 0.25rem;
+    }
+    .model-info-tag {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.2rem;
+    }
+    .model-info-stats { display: flex; gap: 2rem; }
+    .model-info-stat { display: flex; align-items: baseline; gap: 0.4rem; font-size: 0.88rem; color: var(--navy-7); }
+    .model-info-stat .stat-num { font-size: 1.6rem; font-family: 'Playfair Display', serif; }
+
+    .model-specs-table {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem;
+      background: rgba(44,58,92,0.35); border-radius: 0.875rem; padding: 1rem 1.1rem;
+    }
+    .model-spec-row { display: flex; flex-direction: column; gap: 0.15rem; }
+    .model-spec-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy-6); }
+    .model-spec-value { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+
+    .model-info-extras { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .model-info-desc { font-size: 0.9rem; color: var(--navy-7); line-height: 1.75; }
+
+    .btn-model-cta {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.9rem;
+      padding: 0.9rem 1.5rem; border-radius: 0.875rem; border: none; cursor: pointer;
+      transition: background 0.2s; width: 100%; margin-top: auto;
+    }
+    .btn-model-cta:hover { background: var(--gold-h); }
+
+    /* ── GARANTÍAS ── */
+    .gar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 860px) { .gar-grid { grid-template-columns: 1fr; } }
+    .gar-card {
+      background: var(--navy-2); border: 1px solid var(--navy-4); border-radius: 1.5rem;
+      padding: 2rem; display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color 0.25s;
+    }
+    .gar-card:hover { border-color: rgba(219,192,106,0.3); }
+    .gar-icon {
+      width: 48px; height: 48px; border-radius: 1rem;
+      background: rgba(219,192,106,0.1); border: 1px solid rgba(219,192,106,0.2);
+      display: flex; align-items: center; justify-content: center; color: var(--gold);
+    }
+    .gar-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+    .gar-items { display: flex; flex-direction: column; gap: 0.55rem; }
+    .gar-item {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--navy-7); line-height: 1.45;
+    }
+    .gar-item-dot { flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 6px; }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--navy); padding: 6rem 2rem;
+      border-top: 1px solid var(--navy-4);
+    }
+    .cta-final-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .cta-final-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .cta-final-sub { font-size: 1.05rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 2.5rem; }
+    .cta-final-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: #25d366; color: #fff; font-weight: 700; font-size: 0.95rem;
+      padding: 0.9rem 1.75rem; border-radius: 1rem; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-wa:hover { background: #1ebe5d; }
+
+    /* ── FOOTER ── */
+    .v-footer { background: var(--navy-2); border-top: 1px solid var(--navy-4); padding: 1.5rem 2rem; text-align: center; }
+    .v-footer p { font-size: 0.8rem; color: var(--navy-7); }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(12,21,36,0.88); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--navy-2); border: 1px solid var(--navy-4); border-radius: 1.5rem;
+      padding: 2rem; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+    .modal-title { font-family: 'Playfair Display',serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--white); }
+    .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--navy-7); margin-bottom: 0.5rem; }
+    .form-input {
+      width: 100%; background: rgba(44,58,92,0.5); border: 1.5px solid var(--navy-4);
+      color: var(--white); border-radius: 0.75rem; padding: 0.75rem 1rem;
+      font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .form-input:focus { border-color: var(--gold); }
+    .form-input::placeholder { color: var(--navy-6); }
+    select.form-input option { background: var(--navy-2); color: var(--white); }
+    .tag-input-wrap { display: flex; gap: 0.5rem; }
+    .tag-input-wrap .form-input { flex: 1; }
+    .btn-outline {
+      background: transparent; border: 1.5px solid var(--navy-4); color: var(--navy-7);
+      font-weight: 600; font-size: 0.85rem; padding: 0.6rem 1.25rem; border-radius: 0.75rem;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--navy-6); color: var(--white); }
+    .btn-primary-sm {
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem;
+      padding: 0.6rem 1.5rem; border-radius: 0.75rem; border: none; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-primary-sm:hover { background: var(--gold-h); }
+    .tags-preview { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; min-height: 1.5rem; }
+    .tag-chip {
+      background: rgba(219,192,106,0.12); border: 1px solid rgba(219,192,106,0.3);
+      color: var(--gold); font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem;
+      border-radius: 999px; display: flex; align-items: center; gap: 0.3rem; cursor: pointer;
+    }
+    .tag-chip:hover { background: rgba(219,192,106,0.2); }
+
+    /* ── LEAD MODAL ── */
+    .lead-success {
+      text-align: center; padding: 2rem 0; display: none;
+    }
+    .lead-success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(219,192,106,0.12); border: 2px solid rgba(219,192,106,0.35);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem; color: var(--gold); font-size: 1.75rem;
+    }
+    .lead-success h3 { font-family: 'Playfair Display',serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .lead-success p { font-size: 0.95rem; color: var(--navy-7); line-height: 1.6; }
+    .lead-error-msg {
+      display: none; background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25);
+      color: #f87171; border-radius: 0.75rem; padding: 0.75rem 1rem;
+      font-size: 0.85rem; margin-bottom: 1rem;
+    }
+    .lead-ctx-info {
+      background: rgba(219,192,106,0.06); border: 1px solid rgba(219,192,106,0.18);
+      border-radius: 0.75rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+      font-size: 0.82rem; color: var(--navy-7); display: none;
+    }
+    .lead-ctx-info span { color: var(--gold); font-weight: 600; }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="v-header">
+    <div class="v-header-left">
+      <img src="/logo-manibe-blanco.png" alt="MANIBE LLC" />
+      <span class="v-badge">Residential Investment — Florida</span>
+    </div>
+    <nav class="v-header-nav">
+      <a href="#trayectoria">History</a>
+      <a href="#productos">Investment</a>
+      <a href="#modelos">Models</a>
+      <a href="#contacto">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <div class="v-lang" id="v-lang-wrap">
+        <button class="v-lang-btn" id="v-lang-btn" aria-haspopup="true" aria-expanded="false">
+          <img src="https://flagcdn.com/w40/us.png" alt="EN" class="v-lang-flag" />
+          <span>EN</span>
+          <svg class="v-lang-chev" id="v-lang-chev" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="v-lang-panel" id="v-lang-panel">
+          <a href="/inversion" class="v-lang-opt">
+            <img src="https://flagcdn.com/w40/es.png" alt="España" class="v-lang-flag" />
+            <span>Español</span>
+          </a>
+          <a href="/en/inversion" class="v-lang-opt v-lang-active">
+            <img src="https://flagcdn.com/w40/us.png" alt="United States" class="v-lang-flag" />
+            <span>English</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="margin-left:auto"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <button class="v-header-cta" onclick="openLeadModal('')">I want to invest</button>
+    </div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero-section" id="hero">
+    <img src="/fondo-inversion.jpg" class="hero-bg-img" id="hero-inversion-bg" alt="" aria-hidden="true" />
+    <div class="hero-overlay"></div>
+    <div class="hero-overlay-bottom"></div>
+    <div class="hero-inner">
+      <h1 class="hero-title">Connect your capital with <span style="color:var(--gold)">real projects</span><br>in Florida</h1>
+      <p class="hero-desc">
+        We are a boutique residential construction company in Southwest Florida. We develop few projects at a time — not by capacity, but by conviction: each development deserves total attention, not divided attention.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <p class="hero-stat-val">+15</p>
+          <p class="hero-stat-label">years of experience in construction</p>
+        </div>
+        <div>
+          <p class="hero-stat-val">12–20%</p>
+          <p class="hero-stat-label">estimated ROI per investment cycle</p>
+        </div>
+        <div>
+          <p class="hero-stat-val">~6 months</p>
+          <p class="hero-stat-label">average term per cycle</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRAYECTORIA ── -->
+  <section class="v-section light" id="trayectoria">
+    <div class="v-inner">
+      <p class="v-section-label">Our story</p>
+      <h2 class="v-section-title dark-text">+15 years building in <span style="color:var(--gold-h)">Southwest Florida</span></h2>
+      <div class="tray-grid">
+        <div class="tray-text">
+          <p>
+            Juan Carlos Cárdenas, founder and General Manager of Manibe LLC, has over 15 years in the residential
+            construction industry in Southwest Florida. In 2017 he founded Blue Brush LLC, establishing
+            strategic alliances with key suppliers that are today the operational backbone of Manibe.
+          </p>
+          <p>
+            Manibe was born as the natural evolution of that journey: a structured investment vehicle, with a
+            limited number of selected projects, focused on construction efficiency and proven returns for
+            its investors.
+          </p>
+          <p style="font-size:0.9rem; color:var(--navy-6);">
+            As a guarantee of transparency and commitment, Manibe contributes its own capital in no less than 30% of each project. The investor does not enter alone: they will always have a partner with skin in the game.
+          </p>
+        </div>
+        <div class="tray-stats-grid">
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">+15</p>
+            <p class="tray-stat-label">years of experience</p>
+          </div>
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">11</p>
+            <p class="tray-stat-label">projects last year</p>
+          </div>
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">8</p>
+            <p class="tray-stat-label">delivered 100%</p>
+          </div>
+          <div class="tray-stat-card">
+            <p class="tray-stat-val">2017</p>
+            <p class="tray-stat-label">Blue Brush LLC founded</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAPA ── -->
+  <section class="v-section dark">
+    <div class="v-inner">
+      <p class="v-section-label">Operations zone</p>
+      <h2 class="v-section-title" style="margin-bottom:0.75rem;">Where we <span style="color:var(--gold)">build</span></h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:1rem;margin-bottom:2rem;max-width:700px;line-height:1.7;">
+        With an active presence in Southwest Florida, we develop projects that understand the market, climate and lifestyle of the region. In cities such as Cape Coral, Fort Myers, Lehigh Acres, Naples, Port Charlotte, and others.
+      </p>
+      <img src="/Florida 1.png" alt="Map Southwest Florida — Manibe Operations Zone" style="width:100%;border-radius:1.25rem;border:1px solid var(--navy-4);display:block;" />
+    </div>
+  </section>
+
+  <!-- ── PRODUCTOS ── -->
+  <section class="v-section mid" id="productos">
+    <div class="v-inner">
+      <p class="v-section-label">How to invest</p>
+      <h2 class="v-section-title">Choose your <span style="color:var(--gold)">investment model</span></h2>
+      <p class="v-section-sub">Three structures designed for different profiles. All with real backing, total transparency and the Manibe team working with your capital.</p>
+
+      <div class="prod-stack">
+
+        <!-- ── PRODUCTO 01 — Fixed Guaranteed Return ── -->
+        <div class="prod-block">
+          <div class="prod-block-inner">
+
+            <!-- LEFT -->
+            <div class="prod-block-left">
+              <p class="prod-number">Product 01</p>
+              <p class="prod-name">Fixed Guaranteed Return</p>
+              <p class="prod-tagline">For those seeking stability and predictability.</p>
+              <p class="prod-desc">
+                Fixed return scheme backed by multiple projects developing simultaneously,
+                365 days a year. Unlike the Collective Investment, this model does not depend on the
+                completion or sale of a specific project to generate return.
+              </p>
+
+              <div class="prod-roi-wrap">
+                <p class="prod-roi">12% – 14%</p>
+                <p class="prod-roi-label">annual on invested capital *</p>
+                <span class="prod-plazo">📅 12 months · fixed term</span>
+                <p style="font-size:0.68rem;color:var(--navy-6);margin-top:0.4rem;">* Depending on conditions at the time of investment</p>
+              </div>
+
+              <button class="btn-outline-full" onclick="openLeadModal('Fixed Guaranteed Return')">I want fixed returns →</button>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="prod-block-right">
+              <div>
+                <p class="prod-section-label">How it works</p>
+                <div class="prod-steps-h">
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">1</span>
+                    <span class="prod-step-h-text">You define the investment amount and term (12 months)</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">2</span>
+                    <span class="prod-step-h-text">Investment contract signing</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">3</span>
+                    <span class="prod-step-h-text">Manibe operates multiple projects in parallel 365 days</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">4</span>
+                    <span class="prod-step-h-text">At maturity: capital return + fixed return</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="prod-section-label">Why this product</p>
+                <div class="prod-benefits-grid">
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Fixed annual return, ideal for those seeking stability and predictability</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Backed by multiple projects in simultaneous execution throughout the year</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Return does not depend on the sale or completion of a specific project</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Clear and defined 12-month term</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Greater security and clarity in investment flows</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── PRODUCTO 02 — Collective Premium ── -->
+        <div class="prod-block featured">
+          <div class="prod-rec-strip">★ &nbsp; Recommended &nbsp; ★</div>
+          <div class="prod-block-inner">
+
+            <!-- LEFT -->
+            <div class="prod-block-left">
+              <p class="prod-number">Product 02</p>
+              <p class="prod-name">Collective Premium Investment</p>
+              <p class="prod-desc">
+                Combined capital from a small and limited group of investors — including Manibe —
+                to develop a high-value Single Family Home in SWF.
+              </p>
+
+              <div class="prod-roi-wrap">
+                <p class="prod-roi">12% – 20%</p>
+                <p class="prod-roi-label">ROI per cycle on invested capital</p>
+                <span class="prod-plazo">⏱ ~6 months average</span>
+                <p style="font-size:0.68rem;color:var(--navy-6);margin-top:0.4rem;">depending on closing conditions</p>
+              </div>
+
+              <button class="btn-gold-full" onclick="openLeadModal('Collective Premium')">I want to participate →</button>
+              <p class="prod-disclaimer">* Estimated projection — does not constitute a return guarantee. All investment carries risk.</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="prod-block-right">
+              <div>
+                <p class="prod-section-label">Project flow</p>
+                <div class="prod-steps-h">
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">1</span>
+                    <span class="prod-step-h-text">Manibe manages lot and permits</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">2</span>
+                    <span class="prod-step-h-text">Architecture and engineering handled by the team</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">3</span>
+                    <span class="prod-step-h-text">You enter directly into execution</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">4</span>
+                    <span class="prod-step-h-text">Sale by Realtors and return to investors</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="prod-section-label">Why this product</p>
+                <div class="prod-benefits-grid">
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>You enter directly into execution, without waiting for processes</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Small group — Manibe invests alongside you</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Return tied to Manibe's construction efficiency</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Marketing handled by the Realtors team</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── PRODUCTO 03 — Build Your Home ── -->
+        <div class="prod-block">
+          <div class="prod-block-inner">
+
+            <!-- LEFT -->
+            <div class="prod-block-left">
+              <p class="prod-number">Product 03</p>
+              <p class="prod-name">Build Your Home</p>
+              <p class="prod-desc">
+                For a single client who wishes to develop their own property in Florida.
+                Manibe accompanies from lot purchase to key handover.
+              </p>
+
+              <div class="prod-roi-wrap">
+                <p class="prod-roi" style="font-size:2rem;">Customized</p>
+                <p class="prod-roi-label">Based on chosen design, lot, and specifications</p>
+                <span class="prod-plazo">📅 Bespoke term</span>
+              </div>
+
+              <button class="btn-outline-full" onclick="openLeadModal('Build Your Home')">I want to build →</button>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="prod-block-right">
+              <div>
+                <p class="prod-section-label">Project flow</p>
+                <div class="prod-steps-h">
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">1</span>
+                    <span class="prod-step-h-text">Lot selection and purchase with advisory</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">2</span>
+                    <span class="prod-step-h-text">You choose the design from Manibe's portfolio</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">3</span>
+                    <span class="prod-step-h-text">Complete and transparent construction</span>
+                  </div>
+                  <div class="prod-step-arrow">→</div>
+                  <div class="prod-step-h">
+                    <span class="prod-step-h-num">4</span>
+                    <span class="prod-step-h-text">Key handover — to live or invest</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="prod-section-label">What's included</p>
+                <div class="prod-benefits-grid">
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Comprehensive advisory from lot to delivery</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Design chosen from the Manibe model portfolio</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Efficient execution with full project control</span></div>
+                  <div class="prod-benefit"><span class="prod-benefit-icon">✦</span><span>Ideal for living in Florida or as a rental property</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MODELOS ── -->
+  <section class="v-section dark" id="modelos">
+    <div class="v-inner">
+      <p class="v-section-label">Portfolio</p>
+      <h2 class="v-section-title">Our <span style="color:var(--gold)">models</span></h2>
+      <p class="v-section-sub" style="margin-bottom:0;">Select a model to explore the complete gallery, specifications and construction details.</p>
+
+      <div class="model-viewer">
+        <!-- Tab strip -->
+        <div class="model-tabs">
+          {defaultModels.map((m, i) => (
+            <button class:list={['model-tab', i === 0 && 'active']} data-model-idx={i}>
+              {m.tag && <span class="model-tab-badge">{m.tag}</span>}
+              {m.name}
+            </button>
+          ))}
+        </div>
+
+        <!-- Detail panels -->
+        {defaultModels.map((m, i) => (
+          <div class:list={['model-detail', i === 0 && 'active']} data-model-panel={i}>
+
+            <!-- Gallery column -->
+            <div class="model-gallery-col">
+              <div class="model-main-wrap">
+                <img class="model-main-img" src={m.gallery[0]} alt={m.name} loading="eager" />
+                <button class="mdl-nav mdl-prev" aria-label="Previous photo">&#8249;</button>
+                <button class="mdl-nav mdl-next" aria-label="Next photo">&#8250;</button>
+                <span class="mdl-counter">1 / {m.gallery.length}</span>
+              </div>
+              <div class="model-thumbs">
+                {m.gallery.map((img, j) => (
+                  <img
+                    class:list={['mdl-thumb', j === 0 && 'active']}
+                    src={img}
+                    alt={`${m.name} photo ${j + 1}`}
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            </div>
+
+            <!-- Info column -->
+            <div class="model-info-col">
+              <div>
+                {m.tag && <span class="model-info-tag">{m.tag}</span>}
+                <h3 class="model-info-name">{m.name}</h3>
+              </div>
+              <div class="model-info-stats">
+                <div class="model-info-stat"><span class="stat-num">{m.beds}</span>&nbsp;bd.</div>
+                <div class="model-info-stat"><span class="stat-num">{m.baths}</span>&nbsp;ba.</div>
+              </div>
+              <div class="model-specs-table">
+                {m.specsTable.map(row => (
+                  <div class="model-spec-row">
+                    <span class="model-spec-label">{row.label}</span>
+                    <span class="model-spec-value">{row.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="model-info-extras">
+                {m.extras.map(e => <span class="model-extra-tag">{e}</span>)}
+              </div>
+              <p class="model-info-desc">{m.description}</p>
+              <button class="btn-model-cta" onclick="openLeadModal('Build Your Home')">
+                Request information about this model →
+              </button>
+            </div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GARANTÍAS ── -->
+  <section class="v-section mid">
+    <div class="v-inner">
+      <p class="v-section-label">Backing</p>
+      <h2 class="v-section-title">Your investment, <span style="color:var(--gold)">protected</span></h2>
+      <p class="v-section-sub">Each Manibe project operates under a framework of legal, financial and technological protections.</p>
+
+      <div class="gar-grid">
+
+        <div class="gar-card">
+          <div class="gar-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <p class="gar-title">Policies and insurance</p>
+          <p style="font-size:0.85rem;color:var(--navy-7);line-height:1.6;">
+            Each project is covered by a full set of insurance policies throughout the entire construction.
+          </p>
+          <div class="gar-items">
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Builders Risk — physical damage to the project</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>General Liability — third-party claims</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Workers' Compensation — direct and indirect employees</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Builder Warranty — legal obligation to respond to construction defects in Florida</span></div>
+          </div>
+        </div>
+
+        <div class="gar-card">
+          <div class="gar-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <p class="gar-title">Control and monitoring</p>
+          <p style="font-size:0.85rem;color:var(--navy-7);line-height:1.6;">
+            Full visibility of your project from anywhere in the world, in real time.
+          </p>
+          <div class="gar-items">
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Personalized platform with username and password per investor</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>24/7 construction progress tracking</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Photos and documents updated at each stage</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Access to live cameras on the project</span></div>
+          </div>
+        </div>
+
+        <div class="gar-card">
+          <div class="gar-icon">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <p class="gar-title">Legal framework</p>
+          <p style="font-size:0.85rem;color:var(--navy-7);line-height:1.6;">
+            Your investment is backed by the United States legal system, one of the most solid in the world.
+          </p>
+          <div class="gar-items">
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Contract under the United States legal framework</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Legal certainty at every stage of the project</span></div>
+            <div class="gar-item"><span class="gar-item-dot"></span><span>Full transparency in the investment flow</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ── -->
+  <section class="cta-final" id="contacto">
+    <div class="cta-final-inner">
+      <p class="v-section-label" style="text-align:center;justify-content:center;">Ready to start?</p>
+      <h2 class="cta-final-title">
+        Your next investment<br />
+        <span style="color:var(--gold)">starts here</span>
+      </h2>
+      <p class="cta-final-sub">
+        Schedule a conversation with the Manibe team. No commitments.
+        Tell us which product you're interested in and we'll contact you within 24 hours.
+      </p>
+      <div class="cta-final-btns">
+        <button class="btn-gold" onclick="openLeadModal('')">I want to invest</button>
+        <a class="btn-wa" href="https://wa.me/12392996978" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Direct WhatsApp
+        </a>
+      </div>
+      <p style="font-size:0.75rem;color:var(--navy-6);margin-top:1.75rem;">
+        📧 info@manibehomes.com &nbsp;·&nbsp; 📱 +1 (239) 299-6978 &nbsp;·&nbsp; 📍 Fort Myers, Florida USA
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="v-footer">
+    <p>© 2025 MANIBE LLC — Project Management · <a href="/" style="color:var(--navy-6);text-decoration:none;">manibehomes.com</a></p>
+  </footer>
+
+  <!-- ── LEAD MODAL ── -->
+  <div class="modal-overlay" id="lead-modal">
+    <div class="modal-box">
+      <!-- Success state -->
+      <div class="lead-success" id="lead-success">
+        <div class="lead-success-icon">✓</div>
+        <h3>We received your request!</h3>
+        <p style="margin-top:0.5rem;">The Manibe team will contact you within the next 24 hours.</p>
+        <button class="btn-primary-sm" style="margin-top:1.5rem;width:100%;" onclick="document.getElementById('lead-modal').classList.remove('open')">Close</button>
+      </div>
+
+      <!-- Form state -->
+      <div id="lead-form-content">
+        <h3 class="modal-title">Schedule a conversation</h3>
+
+        <!-- Context info (shown when opened from simulator/product) -->
+        <div class="lead-ctx-info" id="lead-ctx-info"></div>
+
+        <!-- Error -->
+        <div class="lead-error-msg" id="lead-error-msg"></div>
+
+        <form id="lead-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="lead-nombre">Full name *</label>
+            <input class="form-input" id="lead-nombre" name="nombre" type="text" placeholder="John Smith" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lead-contacto">Email or WhatsApp *</label>
+            <input class="form-input" id="lead-contacto" name="contacto" type="text" placeholder="email@example.com or +1 (000) 000-0000" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lead-interes">What interests you?</label>
+            <select class="form-input" id="lead-interes" name="interes">
+              <option value="">Select an option</option>
+              <option value="Fixed Guaranteed Return">Fixed Guaranteed Return</option>
+              <option value="Collective Premium">Collective Premium Investment</option>
+              <option value="Build Your Home">Build Your Home</option>
+              <option value="No estoy seguro">Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lead-mensaje">Message (optional)</label>
+            <textarea class="form-input" id="lead-mensaje" name="mensaje" rows="3" placeholder="Tell us briefly what you have in mind..." style="resize:vertical;"></textarea>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button type="button" class="btn-outline" style="flex:1;" onclick="document.getElementById('lead-modal').classList.remove('open')">Cancel</button>
+            <button type="submit" class="btn-primary-sm" id="lead-submit-btn" style="flex:2;">Send request</button>
+          </div>
+          <p style="font-size:0.72rem;color:var(--navy-6);text-align:center;margin-top:0.75rem;line-height:1.5;">
+            By submitting you confirm that Manibe LLC may contact you. We do not share your information with third parties.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ defaultModels }}>
+  // ─────────────────────────────────
+  // LANG SWITCHER
+  // ─────────────────────────────────
+  (function() {
+    var btn = document.getElementById('v-lang-btn');
+    var panel = document.getElementById('v-lang-panel');
+    var chev = document.getElementById('v-lang-chev');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      chev.style.transform = open ? 'rotate(180deg)' : '';
+    });
+    document.addEventListener('click', function() {
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      chev.style.transform = '';
+    });
+  })();
+
+  // ─────────────────────────────────
+  // HERO PARALLAX
+  // ─────────────────────────────────
+  (function() {
+    var bg = document.getElementById('hero-inversion-bg');
+    var hero = document.getElementById('hero');
+    if (!bg || !hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ticking = false;
+    function update() {
+      var scrollY = window.scrollY;
+      if (scrollY <= hero.offsetHeight) bg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function() {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  })();
+
+  // ─────────────────────────────────
+  // LEAD MODAL
+  // ─────────────────────────────────
+  var _leadCtx = { interes: '', monto: null, plazo: null };
+
+  function openLeadModal(interes, monto, plazo) {
+    _leadCtx = { interes: interes || '', monto: monto || null, plazo: plazo || null };
+
+    // Reset form & states
+    document.getElementById('lead-form').reset();
+    document.getElementById('lead-success').style.display = 'none';
+    document.getElementById('lead-form-content').style.display = 'block';
+    document.getElementById('lead-error-msg').style.display = 'none';
+    document.getElementById('lead-error-msg').textContent = '';
+    var btn = document.getElementById('lead-submit-btn');
+    btn.disabled = false; btn.textContent = 'Enviar solicitud';
+
+    // Pre-select interest
+    if (interes) {
+      var sel = document.getElementById('lead-interes');
+      if (sel) sel.value = interes;
+    }
+
+    // Context info block
+    var ctxEl = document.getElementById('lead-ctx-info');
+    if (monto) {
+      ctxEl.style.display = 'block';
+      ctxEl.innerHTML = 'Simulación: <span>' + fmt(monto) + '</span> · <span>' + (plazo || '') + ' meses</span>' + (interes ? ' · <span>' + interes + '</span>' : '');
+    } else {
+      ctxEl.style.display = 'none';
+    }
+
+    document.getElementById('lead-modal').classList.add('open');
+  }
+  window.openLeadModal = openLeadModal;
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  document.getElementById('lead-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var nombre   = document.getElementById('lead-nombre').value.trim();
+    var contacto = document.getElementById('lead-contacto').value.trim();
+    var interes  = document.getElementById('lead-interes').value;
+    var mensaje  = document.getElementById('lead-mensaje').value.trim();
+    var errEl    = document.getElementById('lead-error-msg');
+    var btn      = document.getElementById('lead-submit-btn');
+
+    if (!nombre || !contacto) {
+      errEl.textContent = 'Por favor completa nombre y contacto.';
+      errEl.style.display = 'block'; return;
+    }
+
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    errEl.style.display = 'none';
+
+    try {
+      var res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre, contacto, interes: interes || undefined,
+          monto_simulado: _leadCtx.monto,
+          plazo_simulado: _leadCtx.plazo,
+          mensaje: mensaje || undefined,
+        }),
+      });
+      var data = await res.json();
+      if (res.ok && data.ok) {
+        document.getElementById('lead-form-content').style.display = 'none';
+        document.getElementById('lead-success').style.display = 'block';
+      } else {
+        errEl.textContent = data.error || 'Error al enviar. Intenta de nuevo.';
+        errEl.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Enviar solicitud';
+      }
+    } catch {
+      errEl.textContent = 'Error de conexión. Intenta de nuevo.';
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Enviar solicitud';
+    }
+  });
+
+  // Close modal on overlay click
+  document.getElementById('lead-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+
+  // ─────────────────────────────────
+  // MODEL VIEWER
+  // ─────────────────────────────────
+  var mdlCurrentIdx = {};
+
+  function mdlGoTo(panelIdx, photoIdx) {
+    var panel = document.querySelector('[data-model-panel="' + panelIdx + '"]');
+    if (!panel) return;
+    var thumbs = panel.querySelectorAll('.mdl-thumb');
+    var mainImg = panel.querySelector('.model-main-img');
+    var counter = panel.querySelector('.mdl-counter');
+    var total = thumbs.length;
+    if (!total) return;
+
+    photoIdx = ((photoIdx % total) + total) % total;
+    mdlCurrentIdx[panelIdx] = photoIdx;
+
+    mainImg.style.opacity = '0';
+    var newSrc = thumbs[photoIdx].src;
+    setTimeout(function() {
+      mainImg.src = newSrc;
+      mainImg.style.opacity = '1';
+    }, 180);
+
+    thumbs.forEach(function(th, i) { th.classList.toggle('active', i === photoIdx); });
+    thumbs[photoIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (counter) counter.textContent = (photoIdx + 1) + ' / ' + total;
+  }
+
+  defaultModels.forEach(function(m, i) {
+    mdlCurrentIdx[i] = 0;
+    var panel = document.querySelector('[data-model-panel="' + i + '"]');
+    if (!panel) return;
+
+    panel.querySelector('.mdl-prev').addEventListener('click', function() {
+      mdlGoTo(i, (mdlCurrentIdx[i] || 0) - 1);
+    });
+    panel.querySelector('.mdl-next').addEventListener('click', function() {
+      mdlGoTo(i, (mdlCurrentIdx[i] || 0) + 1);
+    });
+
+    panel.querySelectorAll('.mdl-thumb').forEach(function(th, j) {
+      th.addEventListener('click', function() { mdlGoTo(i, j); });
+    });
+  });
+
+  document.querySelectorAll('.model-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var idx = parseInt(this.dataset.modelIdx);
+      document.querySelectorAll('.model-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelectorAll('.model-detail').forEach(function(p) { p.classList.remove('active'); });
+      var panel = document.querySelector('[data-model-panel="' + idx + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  </script>
+
+</body>
+</html>
