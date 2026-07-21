@@ -223,6 +223,32 @@ const defaultModels = [
       padding: 0.6rem 1.25rem; border-radius: 0.75rem; border: none; cursor: pointer;
       transition: background 0.2s; white-space: nowrap;
     }
+    /* ── LANG SWITCHER ── */
+    .v-lang { position: relative; }
+    .v-lang-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.75rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2); background: transparent;
+      color: rgba(255,255,255,0.8); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .v-lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .v-lang-flag { width: 20px; height: auto; border-radius: 2px; flex-shrink: 0; }
+    .v-lang-chev { transition: transform 0.2s; }
+    .v-lang-panel {
+      display: none; position: absolute; right: 0; top: calc(100% + 0.5rem);
+      width: 9.5rem; background: var(--navy-2); border: 1px solid var(--navy-4);
+      border-radius: 0.75rem; overflow: hidden; z-index: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .v-lang-panel.open { display: block; }
+    .v-lang-opt {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.65rem 0.85rem; font-size: 0.85rem; font-weight: 500;
+      color: rgba(255,255,255,0.75); text-decoration: none; transition: background 0.15s;
+    }
+    .v-lang-opt:hover { background: var(--navy-3); color: #fff; }
+    .v-lang-active { color: var(--gold) !important; background: var(--navy-3); pointer-events: none; }
     .v-header-cta:hover { background: var(--gold-h); }
     @media (max-width: 768px) {
       .v-header-nav { display: none; }
@@ -696,7 +722,29 @@ const defaultModels = [
       <a href="#modelos">Modelos</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <button class="v-header-cta" onclick="openLeadModal('')">Quiero invertir</button>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <div class="v-lang" id="v-lang-wrap">
+        <button class="v-lang-btn" id="v-lang-btn" aria-haspopup="true" aria-expanded="false">
+          <img src="https://flagcdn.com/w40/es.png" alt="ES" class="v-lang-flag" />
+          <span>ES</span>
+          <svg class="v-lang-chev" id="v-lang-chev" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="v-lang-panel" id="v-lang-panel">
+          <a href="/inversion" class="v-lang-opt v-lang-active">
+            <img src="https://flagcdn.com/w40/es.png" alt="España" class="v-lang-flag" />
+            <span>Español</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="margin-left:auto"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </a>
+          <a href="/en/inversion" class="v-lang-opt">
+            <img src="https://flagcdn.com/w40/us.png" alt="United States" class="v-lang-flag" />
+            <span>English</span>
+          </a>
+        </div>
+      </div>
+      <button class="v-header-cta" onclick="openLeadModal('')">Quiero invertir</button>
+    </div>
   </header>
 
   <!-- ── HERO ── -->
@@ -1220,6 +1268,27 @@ const defaultModels = [
   </div>
 
   <script define:vars={{ defaultModels }}>
+  // ─────────────────────────────────
+  // LANG SWITCHER
+  // ─────────────────────────────────
+  (function() {
+    var btn = document.getElementById('v-lang-btn');
+    var panel = document.getElementById('v-lang-panel');
+    var chev = document.getElementById('v-lang-chev');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = panel.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      chev.style.transform = open ? 'rotate(180deg)' : '';
+    });
+    document.addEventListener('click', function() {
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      chev.style.transform = '';
+    });
+  })();
+
   // ─────────────────────────────────
   // HERO PARALLAX
   // ─────────────────────────────────
